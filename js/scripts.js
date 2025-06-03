@@ -23,3 +23,34 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.observe(section);
     });
 });
+
+function showStepDescription(stepId) {
+    // Ocultar todas las descripciones
+    const descriptions = document.querySelectorAll('.step-description');
+    descriptions.forEach(desc => desc.classList.remove('active'));
+
+    // Mostrar la descripción seleccionada
+    document.getElementById(stepId).classList.add('active');
+}
+
+function showMethodologies() {
+    const methodologies = document.getElementById('methodologies');
+    methodologies.classList.remove('hidden');
+    methodologies.classList.add('reveal');
+}
+
+function showTab(tabName) {
+    // Ocultar todos los contenidos
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.remove('active'));
+
+    // Desactivar todos los botones
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // Mostrar el contenido seleccionado
+    document.getElementById(tabName).classList.add('active');
+
+    // Activar el botón correspondiente
+    event.target.classList.add('active');
+}
