@@ -12,7 +12,7 @@
     <div class="container">
         <div class="header">
             <h1>🚀 Introducción a la Programación de Software</h1>
-            <p>Tu puerta de entrada al mundo digital</p>
+            <p>Tu puerta de entrada al mundo digital profesional</p>
         </div>
 
         <div class="section">
@@ -24,17 +24,296 @@
                     de las máquinas
                 </p>
                 <div class="steps">
-                    <div class="step">1<br />Problema</div>
-                    <div class="step">2<br />Análisis</div>
-                    <div class="step">3<br />Solución</div>
-                    <div class="step">4<br />Código</div>
+                    <div class="step" onclick="showStepDescription('step1')">
+                        <div>1</div>
+                        <small>Problema</small>
+                    </div>
+                    <div class="step" onclick="showStepDescription('step2')">
+                        <div>2</div>
+                        <small>Análisis</small>
+                    </div>
+                    <div class="step" onclick="showStepDescription('step3')">
+                        <div>3</div>
+                        <small>Solución</small>
+                    </div>
+                    <div class="step" onclick="showStepDescription('step4')">
+                        <div>4</div>
+                        <small>Código</small>
+                    </div>
+                </div>
+
+                <div id="step1" class="step-description">
+                    <h4>🎯 Paso 1: Identificar el Problema</h4>
+                    <p>
+                        <strong>¿Qué hacemos aquí?</strong> Entendemos exactamente qué
+                        necesita ser resuelto.
+                    </p>
+                    <p>
+                        <strong>Ejemplo:</strong> "Los empleados pierden tiempo calculando
+                        manualmente las horas trabajadas"
+                    </p>
+                    <p>
+                        <strong>Preguntas clave:</strong> ¿Qué funciona mal? ¿Quién se ve
+                        afectado? ¿Cuál es el objetivo final?
+                    </p>
+                </div>
+
+                <div id="step2" class="step-description">
+                    <h4>🔍 Paso 2: Análisis Detallado</h4>
+                    <p>
+                        <strong>¿Qué hacemos aquí?</strong> Descomponemos el problema en
+                        partes más pequeñas y manejables.
+                    </p>
+                    <p>
+                        <strong>Ejemplo:</strong> Necesitamos capturar hora de entrada,
+                        hora de salida, calcular diferencia, considerar descansos...
+                    </p>
+                    <p>
+                        <strong>Herramientas:</strong> Diagramas de flujo, casos de uso,
+                        requerimientos funcionales.
+                    </p>
+                </div>
+
+                <div id="step3" class="step-description">
+                    <h4>💡 Paso 3: Diseñar la Solución</h4>
+                    <p>
+                        <strong>¿Qué hacemos aquí?</strong> Planificamos cómo resolver
+                        cada parte del problema antes de escribir código.
+                    </p>
+                    <p>
+                        <strong>Ejemplo:</strong> "Crearemos una función para calcular
+                        tiempo, otra para validar datos, una interfaz para mostrar
+                        resultados..."
+                    </p>
+                    <p>
+                        <strong>Incluye:</strong> Arquitectura, base de datos, interfaces
+                        de usuario, algoritmos.
+                    </p>
+                </div>
+
+                <div id="step4" class="step-description">
+                    <h4>⌨️ Paso 4: Implementación (Código)</h4>
+                    <p>
+                        <strong>¿Qué hacemos aquí?</strong> Convertimos nuestro diseño en
+                        código que la computadora puede ejecutar.
+                    </p>
+                    <p>
+                        <strong>Ejemplo:</strong> Escribimos las funciones, creamos la
+                        interfaz, conectamos con la base de datos...
+                    </p>
+                    <p>
+                        <strong>Incluye:</strong> Programación, pruebas, debugging,
+                        documentación.
+                    </p>
                 </div>
             </div>
 
             <div class="highlight">
-                <strong>Ejemplo práctico:</strong> Si quisieras que tu celular te
-                recuerde tomar agua cada 2 horas, tendrías que programar esa lógica
-                paso a paso, exactamente como se la explicarías a un niño muy literal.
+                <strong>💡 Ejemplo práctico completo:</strong> Si quisieras crear una
+                app para que tu abuela pida domicilios, tendrías que: <br />
+                1) Entender que necesita algo fácil de usar <br />
+                2) Analizar qué restaurantes, métodos de pago, ubicación, <br />
+                3) Diseñar una interfaz súper simple con botones grandes, <br />
+                4) Programar cada funcionalidad paso a paso.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ Metodologías de Desarrollo de Software</h2>
+            <p>
+                La forma en que organizamos y ejecutamos proyectos de software
+                determina el éxito del producto final.
+            </p>
+
+            <button class="interactive-btn methodology-btn" onclick="showMethodologies()">
+                🔍 Explorar Metodologías
+            </button>
+
+            <div id="methodologies" class="hidden">
+                <div class="methodology-tabs">
+                    <button class="tab-btn active" onclick="showTab('traditional')">
+                        🏛️ Tradicionales
+                    </button>
+                    <button class="tab-btn" onclick="showTab('agile')">
+                        🚀 Ágiles
+                    </button>
+                    <button class="tab-btn" onclick="showTab('comparison')">
+                        ⚖️ Comparación
+                    </button>
+                    <button class="tab-btn" onclick="showTab('types')">
+                        📋 Tipos Específicos
+                    </button>
+                </div>
+
+                <div id="traditional" class="tab-content active">
+                    <h3>🏛️ Metodologías Tradicionales (Waterfall)</h3>
+                    <div class="highlight">
+                        <h4>Concepto:</h4>
+                        <p>
+                            Enfoque secuencial donde cada fase debe completarse antes de
+                            pasar a la siguiente. Como una cascada, no puedes devolverte
+                            fácilmente.
+                        </p>
+                    </div>
+
+                    <div class="examples">
+                        <div class="example">
+                            <h4>📋 Características</h4>
+                            <ul style="text-align: left">
+                                <li>Fases secuenciales</li>
+                                <li>Documentación extensa</li>
+                                <li>Planificación rígida</li>
+                                <li>Cambios costosos</li>
+                            </ul>
+                        </div>
+                        <div class="example">
+                            <h4>✅ Ventajas</h4>
+                            <ul style="text-align: left">
+                                <li>Muy estructurado</li>
+                                <li>Fácil de entender</li>
+                                <li>Documentación completa</li>
+                                <li>Control de calidad</li>
+                            </ul>
+                        </div>
+                        <div class="example">
+                            <h4>❌ Desventajas</h4>
+                            <ul style="text-align: left">
+                                <li>Inflexible a cambios</li>
+                                <li>Cliente ve resultado al final</li>
+                                <li>Puede ser muy lento</li>
+                                <li>Riesgo de obsolescencia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="agile" class="tab-content">
+                    <h3>🚀 Metodologías Ágiles</h3>
+                    <div class="highlight">
+                        <h4>Concepto:</h4>
+                        <p>
+                            Enfoque iterativo e incremental que prioriza la colaboración, la
+                            flexibilidad y la entrega continua de valor al cliente.
+                        </p>
+                    </div>
+
+                    <div class="examples">
+                        <div class="example">
+                            <h4>📋 Características</h4>
+                            <ul style="text-align: left">
+                                <li>Iteraciones cortas (sprints)</li>
+                                <li>Colaboración constante</li>
+                                <li>Adaptación a cambios</li>
+                                <li>Entrega continua</li>
+                            </ul>
+                        </div>
+                        <div class="example">
+                            <h4>✅ Ventajas</h4>
+                            <ul style="text-align: left">
+                                <li>Respuesta rápida a cambios</li>
+                                <li>Cliente involucrado</li>
+                                <li>Entrega temprana de valor</li>
+                                <li>Equipos motivados</li>
+                            </ul>
+                        </div>
+                        <div class="example">
+                            <h4>❌ Desventajas</h4>
+                            <ul style="text-align: left">
+                                <li>Requiere experiencia</li>
+                                <li>Menos documentación</li>
+                                <li>Difícil estimar costos</li>
+                                <li>Necesita compromiso total</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="comparison" class="tab-content">
+                    <h3>⚖️ Tradicional vs Ágil</h3>
+                    <div class="comparison-table">
+                        <div class="traditional-column">
+                            <h4>🏛️ Metodologías Tradicionales</h4>
+                            <ul>
+                                <li>Planificación completa al inicio</li>
+                                <li>Fases secuenciales rígidas</li>
+                                <li>Documentación extensa</li>
+                                <li>Cambios costosos y difíciles</li>
+                                <li>Cliente ve resultado al final</li>
+                                <li>Predicción de costos más precisa</li>
+                                <li>Ideal para proyectos estables</li>
+                            </ul>
+                        </div>
+                        <div class="agile-column">
+                            <h4>🚀 Metodologías Ágiles</h4>
+                            <ul>
+                                <li>Planificación adaptativa</li>
+                                <li>Iteraciones cortas y flexibles</li>
+                                <li>Documentación mínima necesaria</li>
+                                <li>Cambios bienvenidos</li>
+                                <li>Entrega continua de valor</li>
+                                <li>Costos variables pero controlados</li>
+                                <li>Ideal para proyectos innovadores</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="vs-divider">VS</div>
+                    <div class="highlight">
+                        <strong>🎯 ¿Cuándo usar cada una?</strong><br />
+                        <strong>Tradicional:</strong> Proyectos grandes del gobierno,
+                        sistemas críticos (hospitales, aviones)<br />
+                        <strong>Ágil:</strong> Apps móviles, startups, productos
+                        digitales, equipos pequeños
+                    </div>
+                </div>
+
+                <div id="types" class="tab-content">
+                    <h3>📋 Tipos Específicos de Metodologías</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h3>🌊 Scrum (Ágil)</h3>
+                            <p>
+                                La más popular. Sprints de 2-4 semanas, roles definidos
+                                (Product Owner, Scrum Master, Developer), ceremonias
+                                regulares.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>🔄 Kanban (Ágil)</h3>
+                            <p>
+                                Flujo continuo de trabajo. Visualización en tableros, límites
+                                de trabajo en progreso. Ideal para soporte y mantenimiento.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>💎 Extreme Programming (Ágil)</h3>
+                            <p>
+                                Enfoque en prácticas técnicas: programación en parejas,
+                                desarrollo dirigido por pruebas, integración continua.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>📐 Modelo V (Tradicional)</h3>
+                            <p>
+                                Extensión de Waterfall con énfasis en testing. Cada fase de
+                                desarrollo tiene su fase de prueba correspondiente.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>🔄 Modelo Espiral (Híbrido)</h3>
+                            <p>
+                                Combina elementos iterativos con planificación tradicional.
+                                Enfoque en gestión de riesgos.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>🏗️ DevOps (Cultura)</h3>
+                            <p>
+                                Integración entre desarrollo y operaciones. Automatización,
+                                entrega continua, colaboración.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -43,27 +322,37 @@
             <div class="examples">
                 <div class="example">
                     <h4>📱 Tu Celular</h4>
-                    <p>WhatsApp, Instagram, Spotify - todo programado</p>
+                    <p>
+                        WhatsApp, Instagram, Spotify - todo programado con metodologías
+                        ágiles para actualizaciones rápidas
+                    </p>
                 </div>
                 <div class="example">
                     <h4>💳 Cajero Automático</h4>
-                    <p>Verifica tu PIN, consulta saldo, entrega dinero</p>
+                    <p>
+                        Sistema bancario desarrollado con metodologías tradicionales por
+                        su criticidad y seguridad
+                    </p>
                 </div>
                 <div class="example">
                     <h4>🚗 Tu Carro</h4>
-                    <p>Sistema de navegación, control de combustible</p>
+                    <p>
+                        Sistema de navegación (ágil) + sistemas de seguridad (tradicional)
+                    </p>
                 </div>
                 <div class="example">
                     <h4>🏠 Casa Inteligente</h4>
-                    <p>Luces automáticas, termostato, seguridad</p>
+                    <p>
+                        Desarrollado iterativamente, agregando funciones según necesidades
+                    </p>
                 </div>
                 <div class="example">
                     <h4>🛒 Compras Online</h4>
-                    <p>Amazon, MercadoLibre, pagos digitales</p>
+                    <p>Amazon usa DevOps para miles de actualizaciones diarias</p>
                 </div>
                 <div class="example">
                     <h4>🎮 Entretenimiento</h4>
-                    <p>Netflix, videojuegos, redes sociales</p>
+                    <p>Netflix usa metodologías ágiles para personalización continua</p>
                 </div>
             </div>
         </div>
@@ -72,57 +361,59 @@
             <h2>💼 Oportunidades Laborales Reales en Colombia</h2>
             <div class="grid">
                 <div class="card salary-card">
-                    <h3>💰 Salarios Promedio</h3>
+                    <h3>💰 Salarios Promedio 2025</h3>
                     <p><strong>Junior:</strong> $2.5M - $4M COP</p>
                     <p><strong>Semi-Senior:</strong> $4M - $7M COP</p>
                     <p><strong>Senior:</strong> $7M - $15M+ COP</p>
+                    <p><strong>Scrum Master:</strong> $8M - $12M COP</p>
                     <p><em>Trabajo remoto puede duplicar estos valores</em></p>
                 </div>
 
                 <div class="card">
-                    <h3>🏢 Desarrollador Web</h3>
+                    <h3>🏢 Desarrollador Full Stack</h3>
                     <p>
-                        Crea sitios web y aplicaciones online. Empresas como Rappi,
-                        Platzi, PSL necesitan constantemente.
+                        Maneja front-end y back-end. Empresas como Rappi, Platzi buscan
+                        constantemente. Metodologías ágiles.
                     </p>
                 </div>
 
                 <div class="card">
                     <h3>📱 Desarrollador Mobile</h3>
                     <p>
-                        Apps para Android/iOS. Bancos como Bancolombia, Nequi siempre
-                        buscan talento.
+                        Apps Android/iOS. Bancos como Bancolombia, Nequi. Desarrollo
+                        iterativo y actualizaciones frecuentes.
                     </p>
                 </div>
 
                 <div class="card">
                     <h3>🔧 DevOps Engineer</h3>
                     <p>
-                        Mantiene sistemas funcionando. Muy demandado en empresas como
-                        Globant, EAFIT.
+                        Automatización y despliegue continuo. Muy demandado en Globant,
+                        EAFIT. Salarios altos.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Scrum Master</h3>
+                    <p>
+                        Facilitador de metodologías ágiles. Rol en alta demanda. No
+                        requiere programación avanzada.
                     </p>
                 </div>
 
                 <div class="card">
                     <h3>🤖 Desarrollador de IA</h3>
                     <p>
-                        Inteligencia artificial y machine learning. El futuro está aquí.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <h3>🎮 Desarrollador de Juegos</h3>
-                    <p>
-                        Videojuegos y experiencias interactivas. Colombia tiene estudios
-                        crecientes.
+                        Machine Learning y AI. Sector en explosión. Metodologías
+                        experimentales e iterativas.
                     </p>
                 </div>
             </div>
 
             <div class="highlight">
-                <strong>🌟 Ventaja especial:</strong> Colombia es hub tecnológico de
-                Latinoamérica. Empresas como Google, Microsoft, Amazon tienen oficinas
-                aquí. El trabajo remoto te conecta con el mundo entero.
+                <strong>🌟 Dato clave:</strong> El 85% de las empresas tecnológicas en
+                Colombia usan metodologías ágiles. Conocer Scrum te abre muchas
+                puertas, incluso sin ser programador experto.
             </div>
         </div>
 
@@ -135,20 +426,31 @@
             <div id="projects" class="hidden">
                 <div class="examples">
                     <div class="example">
-                        <h4>🌐 Tu propio sitio web</h4>
-                        <p>Portfolio personal, blog, tienda online</p>
+                        <h4>🌐 Sistema web completo</h4>
+                        <p>
+                            E-commerce, portfolio, blog con metodología Scrum. Sprints de 2
+                            semanas.
+                        </p>
                     </div>
                     <div class="example">
-                        <h4>📊 Sistema de inventarios</h4>
-                        <p>Para una tienda, farmacia o restaurante</p>
+                        <h4>📊 Dashboard empresarial</h4>
+                        <p>
+                            Sistema de métricas e indicadores. Desarrollo iterativo con
+                            feedback constante.
+                        </p>
                     </div>
                     <div class="example">
-                        <h4>🤖 Chatbot inteligente</h4>
-                        <p>Asistente virtual para atención al cliente</p>
+                        <h4>🤖 Aplicación con IA</h4>
+                        <p>
+                            Chatbot inteligente o sistema de recomendaciones. Metodología
+                            experimental.
+                        </p>
                     </div>
                     <div class="example">
-                        <h4>📱 App móvil</h4>
-                        <p>Calculadora de propinas, agenda personal, juego simple</p>
+                        <h4>📱 App móvil nativa</h4>
+                        <p>
+                            iOS/Android con funcionalidades avanzadas. Despliegue continuo.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -157,16 +459,20 @@
         <div class="section">
             <h2>🎯 Tu próximo paso</h2>
             <div class="problem-solving">
-                <h3>El viaje de mil millas comienza con un paso</h3>
+                <h3>De cero a desarrollador profesional</h3>
                 <p>
-                    Durante este técnico vas a aprender desde lo más básico hasta
-                    proyectos reales que podrás mostrar a empleadores
+                    Durante este técnico aprenderás tanto la programación como las
+                    metodologías profesionales que usan las empresas reales
                 </p>
                 <div class="code-example">
-                    print("¡Hola mundo!") <br>
-                    # Tu primera línea de código será así de
-                    simple <br>
+                    print("¡Hola mundo!") <br />
+                    # Tu primera línea de código será así de simple <br />
                     # Pero te llevará a crear cosas increíbles
+                </div>
+                <div class="highlight">
+                    <strong>🏆 Al graduarte tendrás:</strong> Conocimientos técnicos +
+                    metodologías profesionales + portfolio de proyectos reales =
+                    Empleabilidad garantizada
                 </div>
             </div>
         </div>
