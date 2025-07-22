@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requisitos de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+        color: #1e293b;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 20px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+      .section-title {
+        color: #dc2626;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #dc2626;
+        padding-bottom: 1rem;
+      }
+      .module-title {
+        color: #ea580c;
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 2.5rem 0 1.5rem 0;
+        border-left: 6px solid #ea580c;
+        padding-left: 1rem;
+      }
+      .subsection-title {
+        color: #f97316;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #f97316;
+        padding-left: 1rem;
+      }
+      .sub-subsection-title {
+        color: #fb923c;
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 1.5rem 0 1rem 0;
+        border-left: 3px solid #fb923c;
+        padding-left: 0.75rem;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #ea580c;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #fed7aa 0%, #fb923c 100%);
+        border-left: 4px solid #ea580c;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 1.5rem 0;
+      }
+      .example-box {
+        background: #fef3c7;
+        border: 1px solid #fbbf24;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .technical-box {
+        background: #f3f4f6;
+        border: 1px solid #d1d5db;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+        font-family: "Courier New", monospace;
+        font-size: 0.95rem;
+      }
+      .back-button {
+        background: #dc2626;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 2rem;
+        transition: background-color 0.3s ease;
+      }
+      .back-button:hover {
+        background: #b91c1c;
+      }
+      .toc {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin: 2rem 0;
+      }
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+      .toc li {
+        margin: 0.5rem 0;
+      }
+      .toc a {
+        color: #ea580c;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.25rem 0;
+        display: block;
+      }
+      .toc a:hover {
+        color: #dc2626;
+        text-decoration: underline;
+      }
+      .properties-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+      .property-card {
+        background: #fef7ed;
+        border: 1px solid #fed7aa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+      }
+      .stakeholder-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .stakeholder-card {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        border-left: 4px solid #dc2626;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="content-section">
+        <a href="../index.html" class="back-button">← Volver al Inicio</a>
+        <h1 class="section-title">Requisitos de Software</h1>
+        <p class="text-2xl text-center text-slate-700 max-w-3xl mx-auto">
+          Técnicas para Identificar, Analizar, Especificar y Validar los
+          Requisitos Funcionales y No Funcionales del Software
+        </p>
+      </div>
+
+      <!-- Índice de Contenidos -->
+      <div class="content-section">
+        <div class="toc">
+          <h2 class="subsection-title">📋 Índice de Contenidos</h2>
+          <ul>
+            <li>
+              <a href="#modulo1"
+                >MÓDULO 1: Fundamentos y Conceptos Esenciales de Requisitos</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#definicion"
+                >1.1 Definición Técnica y Fundamentos Teóricos</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#propiedades"
+                >Propiedades Fundamentales de los Requisitos de Calidad</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#taxonomia">1.2 Taxonomía Técnica de Requisitos</a>
+            </li>
+            <li>
+              <a href="#modulo2"
+                >MÓDULO 2: Ingeniería de Elicitación de Requisitos</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#marco-teorico">2.1 Marco Teórico de la Elicitación</a>
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#analisis-documental"
+                >2.2 Análisis Documental Estructurado</a
+              >
+            </li>
+            <li>
+              <a href="#modulo3"
+                >MÓDULO 3: Técnicas Avanzadas de Recolección de Información</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#observacion"
+                >3.1 Metodologías de Observación Sistemática</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#cuestionarios"
+                >3.2 Diseño y Administración de Cuestionarios Profesionales</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#focus-groups"
+                >3.3 Facilitación de Focus Groups Técnicos</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#encuestas"
+                >3.4 Encuestas Cuantitativas para Validación de Requisitos</a
+              >
+            </li>
+            <li>
+              <a href="#modulo4"
+                >MÓDULO 4: Arquitectura de Roles y Responsabilidades</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#usuarios-actores"
+                >4.1 Taxonomía de Usuarios y Actores del Sistema</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#stakeholders"
+                >4.2 Análisis de Stakeholders y Mapa de Influencia</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#roles-especializados"
+                >4.3 Roles Especializados en Metodologías de Desarrollo</a
+              >
+            </li>
+            <li>
+              <a href="#modulo5"
+                >MÓDULO 5: Especificación Técnica y Estándares Profesionales</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#ers">5.1 Estructura y Componentes de la ERS</a>
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#ieee830"
+                >5.2 Estándar IEEE 830: Framework de Calidad Profesional</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#ejemplo-ieee830"
+                >5.3 Ejemplo Práctico: ERS del Sistema MyMSystem</a
+              >
+            </li>
+            <li style="margin-left: 1rem">
+              <a href="#plantilla-ers">5.4 Plantilla Práctica ERS - IEEE 830</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MÓDULO 1 -->
+      <div id="modulo1" class="content-section">
+        <h2 class="module-title">
+          MÓDULO 1: FUNDAMENTOS Y CONCEPTOS ESENCIALES DE REQUISITOS
+        </h2>
+
+        <div id="definicion">
+          <h3 class="subsection-title">
+            1.1 Definición Técnica y Fundamentos Teóricos
+          </h3>
+
+          <p class="text-lg leading-relaxed mb-4">
+            Un requisito constituye una declaración formal que especifica una
+            condición, capacidad o restricción que debe ser implementada por un
+            sistema de software para satisfacer una necesidad específica del
+            usuario, cliente o stakeholder. Esta definición se fundamenta en el
+            estándar IEEE 610.12-1990, que establece que los requisitos
+            representan condiciones o capacidades necesarias para resolver
+            problemas o alcanzar objetivos específicos.
+          </p>
+
+          <p class="text-lg leading-relaxed mb-6">
+            Los requisitos operan como contratos técnicos entre los
+            desarrolladores y los stakeholders, estableciendo expectativas
+            medibles y verificables sobre el comportamiento del sistema. Desde
+            una perspectiva técnica, los requisitos funcionan como
+            especificaciones de entrada para los procesos de diseño,
+            implementación y verificación del software.
+          </p>
+        </div>
+
+        <div id="propiedades">
+          <h3 class="subsection-title">
+            Propiedades Fundamentales de los Requisitos de Calidad
+          </h3>
+
+          <p class="text-lg leading-relaxed mb-6">
+            La ingeniería de requisitos establece ocho propiedades fundamentales
+            que todo requisito debe poseer para ser considerado de calidad
+            profesional. La necesidad implica que cada requisito debe tener una
+            justificación de negocio clara y documentada, eliminando
+            funcionalidades superfluas que incrementen la complejidad sin
+            agregar valor. La verificabilidad requiere que cada requisito pueda
+            ser probado mediante casos de prueba específicos con criterios de
+            aceptación objetivos y medibles.
+          </p>
+
+          <div class="properties-grid">
+            <div class="property-card">
+              <h4 class="font-bold text-orange-800 mb-2">Factibilidad</h4>
+              <p>
+                Demanda que los requisitos sean técnica, temporal y
+                económicamente realizables dentro de las restricciones del
+                proyecto. Un requisito factible considera las limitaciones
+                tecnológicas actuales, el presupuesto disponible y los plazos
+                establecidos.
+              </p>
+            </div>
+            <div class="property-card">
+              <h4 class="font-bold text-orange-800 mb-2">
+                Claridad y No Ambigüedad
+              </h4>
+              <p>
+                Exigen que cada requisito tenga una sola interpretación posible,
+                utilizando terminología precisa y evitando palabras vagas como
+                "aproximadamente", "usualmente" o "adecuado".
+              </p>
+            </div>
+            <div class="property-card">
+              <h4 class="font-bold text-orange-800 mb-2">Completitud</h4>
+              <p>
+                Establece que los requisitos deben describir totalmente la
+                funcionalidad esperada sin dejar aspectos implícitos o asumidos.
+              </p>
+            </div>
+            <div class="property-card">
+              <h4 class="font-bold text-orange-800 mb-2">Consistencia</h4>
+              <p>
+                Garantiza que los requisitos no se contradigan entre sí ni con
+                las restricciones del sistema.
+              </p>
+            </div>
+            <div class="property-card">
+              <h4 class="font-bold text-orange-800 mb-2">Modificabilidad</h4>
+              <p>
+                Permite que los requisitos puedan evolucionar de manera
+                controlada durante el ciclo de vida del proyecto.
+              </p>
+            </div>
+            <div class="property-card">
+              <h4 class="font-bold text-orange-800 mb-2">Trazabilidad</h4>
+              <p>
+                Asegura que cada requisito pueda ser rastreado desde su origen
+                hasta su implementación y verificación.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="taxonomia">
+          <h3 class="subsection-title">1.2 Taxonomía Técnica de Requisitos</h3>
+
+          <h4 class="sub-subsection-title">
+            Requisitos Funcionales: Especificaciones de Comportamiento
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-4">
+            Los requisitos funcionales definen las funciones específicas que el
+            sistema debe realizar, describiendo las transformaciones que el
+            sistema debe aplicar a las entradas para producir las salidas
+            esperadas. Estos requisitos especifican el comportamiento observable
+            del sistema desde la perspectiva del usuario.
+          </p>
+
+          <div class="example-box">
+            <h5 class="font-bold text-amber-800 mb-2">
+              Ejemplo técnico detallado:
+            </h5>
+            <p>
+              "El sistema de gestión de inventario debe procesar automáticamente
+              las solicitudes de reabastecimiento cuando el stock de un producto
+              descienda por debajo del punto de reorden configurado. El proceso
+              debe incluir la validación de proveedores disponibles, el cálculo
+              de cantidades óptimas basado en el algoritmo EOQ (Economic Order
+              Quantity), la generación de órdenes de compra con numeración
+              secuencial, y el envío automático de notificaciones por correo
+              electrónico a los proveedores seleccionados dentro de un plazo
+              máximo de 15 minutos desde la detección del punto de reorden."
+            </p>
+          </div>
+
+          <h4 class="sub-subsection-title">
+            Requisitos No Funcionales: Atributos de Calidad del Sistema
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-6">
+            Los requisitos no funcionales especifican los atributos de calidad
+            que el sistema debe exhibir durante su operación. Estos requisitos
+            se categorizan en múltiples dimensiones técnicas que determinan la
+            arquitectura y el diseño del sistema.
+          </p>
+
+          <div class="grid-2">
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                Requisitos de Rendimiento y Capacidad
+              </h5>
+              <p class="mb-3">
+                Establecen métricas cuantitativas sobre el comportamiento
+                temporal y la capacidad de procesamiento del sistema.
+              </p>
+              <div class="example-box">
+                <p class="text-sm">
+                  <strong>Ejemplo técnico:</strong> "El sistema de comercio
+                  electrónico debe procesar transacciones de pago con una
+                  latencia máxima de 500 milisegundos para el 95% de las
+                  transacciones bajo condiciones normales de carga (hasta 1000
+                  transacciones simultáneas). El tiempo de respuesta para
+                  consultas de catálogo no debe exceder 200 milisegundos para el
+                  99% de las solicitudes. El sistema debe mantener un throughput
+                  mínimo de 10,000 transacciones por minuto durante picos de
+                  tráfico."
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                Requisitos de Seguridad y Protección
+              </h5>
+              <p class="mb-3">
+                Definen las medidas de protección que el sistema debe
+                implementar para salvaguardar la información y los recursos.
+              </p>
+              <div class="example-box">
+                <p class="text-sm">
+                  <strong>Ejemplo técnico:</strong> "Todas las comunicaciones
+                  entre el cliente y el servidor deben utilizar el protocolo TLS
+                  1.3 o superior. Las contraseñas de usuario deben ser hasheadas
+                  utilizando el algoritmo bcrypt con un factor de costo mínimo
+                  de 12. El sistema debe implementar autenticación multifactor
+                  (MFA) obligatoria para usuarios con privilegios
+                  administrativos. Los intentos de acceso fallidos deben ser
+                  registrados y después de 5 intentos consecutivos la cuenta
+                  debe ser bloqueada temporalmente por 30 minutos."
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Requisitos de Usabilidad y Experiencia de Usuario
+            </h5>
+            <p class="mb-3">
+              Especifican criterios medibles sobre la facilidad de uso y la
+              eficiencia de la interacción usuario-sistema.
+            </p>
+            <div class="example-box">
+              <p class="text-sm">
+                <strong>Ejemplo técnico:</strong> "Los usuarios novatos deben
+                poder completar el proceso de registro y realizar su primera
+                compra en menos de 5 minutos sin asistencia externa. La interfaz
+                debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA.
+                El sistema debe proporcionar mensajes de error descriptivos con
+                sugerencias de corrección específicas y debe mantener el estado
+                del formulario cuando ocurran errores de validación."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓDULO 2 -->
+      <div id="modulo2" class="content-section">
+        <h2 class="module-title">
+          MÓDULO 2: INGENIERÍA DE ELICITACIÓN DE REQUISITOS
+        </h2>
+
+        <div id="marco-teorico">
+          <h3 class="subsection-title">2.1 Marco Teórico de la Elicitación</h3>
+
+          <p class="text-lg leading-relaxed mb-6">
+            La elicitación de requisitos constituye un proceso sistemático de
+            descubrimiento, análisis y documentación de las necesidades de los
+            stakeholders. Este proceso trasciende la simple recolección de
+            información, involucrando técnicas de investigación social, análisis
+            cognitivo y modelado de dominios para extraer conocimiento tácito y
+            explícito sobre el problema que el software debe resolver.
+          </p>
+
+          <h4 class="sub-subsection-title">
+            Desafíos Cognitivos y Organizacionales
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-4">
+            Los principales obstáculos en la elicitación incluyen el problema
+            del conocimiento tácito, donde los usuarios poseen conocimiento
+            inconsciente sobre sus procesos de trabajo que no pueden articular
+            fácilmente. El sesgo de confirmación lleva a los stakeholders a
+            enfocarse en soluciones preconcebidas en lugar de explicitar
+            completamente el problema. La variabilidad stakeholder genera
+            perspectivas conflictivas sobre las prioridades y funcionalidades
+            necesarias.
+          </p>
+
+          <div class="example-box">
+            <h5 class="font-bold text-amber-800 mb-2">Ejemplo práctico:</h5>
+            <p>
+              En el desarrollo de un sistema hospitalario, los médicos pueden
+              asumir que el sistema "obviamente" debe permitir acceso rápido al
+              historial del paciente, pero no especifican que necesitan ver
+              específicamente los últimos signos vitales, alergias conocidas y
+              medicamentos actuales en una sola pantalla accesible en menos de 3
+              segundos, información crítica que solo emerge mediante observación
+              directa de su trabajo.
+            </p>
+          </div>
+        </div>
+
+        <div id="analisis-documental">
+          <h3 class="subsection-title">2.2 Análisis Documental Estructurado</h3>
+
+          <p class="text-lg leading-relaxed mb-6">
+            El análisis documental representa la fase inicial sistemática de la
+            elicitación, donde se examina la documentación existente para
+            comprender el contexto organizacional, los procesos actuales y las
+            restricciones del dominio.
+          </p>
+
+          <h4 class="sub-subsection-title">
+            Metodología de Análisis Documental
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-4">
+            El proceso inicia con la identificación y catalogación de fuentes
+            documentales relevantes, incluyendo manuales de procedimientos
+            operativos, especificaciones de sistemas legacy, documentación de
+            arquitectura empresarial, contratos y acuerdos de nivel de servicio,
+            regulaciones de la industria, y reportes de auditoría. La evaluación
+            de autoridad y vigencia determina la confiabilidad y actualidad de
+            cada fuente, considerando la fecha de creación, la autoridad del
+            emisor y la frecuencia de actualización.
+          </p>
+
+          <div class="example-box">
+            <h5 class="font-bold text-amber-800 mb-2">
+              Ejemplo técnico detallado:
+            </h5>
+            <p>
+              En un proyecto de modernización bancaria, el análisis documental
+              debe examinar el manual de políticas de crédito actual (que
+              especifica los algoritmos de scoring), los reportes de
+              cumplimiento regulatorio de los últimos 24 meses (que revelan
+              requisitos implícitos de trazabilidad), la documentación técnica
+              del sistema core banking existente (que define las interfaces y
+              formatos de datos), y los contratos con proveedores de servicios
+              de información crediticia (que establecen restricciones de tiempo
+              de respuesta y disponibilidad).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓDULO 3 -->
+      <div id="modulo3" class="content-section">
+        <h2 class="module-title">
+          MÓDULO 3: TÉCNICAS AVANZADAS DE RECOLECCIÓN DE INFORMACIÓN
+        </h2>
+
+        <div id="observacion">
+          <h3 class="subsection-title">
+            3.1 Metodologías de Observación Sistemática
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Observación Etnográfica en Contexto
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-4">
+            La observación etnográfica adapta técnicas antropológicas para
+            comprender cómo los usuarios realmente interactúan con los sistemas
+            y procesos existentes en su entorno natural de trabajo. Esta técnica
+            revela discrepancias significativas entre los procedimientos
+            formales documentados y las prácticas reales de trabajo.
+          </p>
+
+          <div class="highlight-box">
+            <h5 class="font-bold mb-2">
+              Protocolo de observación estructurada:
+            </h5>
+            <p>
+              La sesión de observación debe durar mínimo 4 horas para capturar
+              variaciones en los patrones de trabajo. El observador debe
+              documentar secuencias de acciones, interrupciones del flujo de
+              trabajo, workarounds (soluciones improvisadas), frecuencia de
+              consultas a colegas, y momentos de frustración o confusión. La
+              documentación incluye timestamps precisos, contexto de cada
+              acción, y hipótesis sobre motivaciones subyacentes.
+            </p>
+          </div>
+
+          <div class="example-box">
+            <h5 class="font-bold text-amber-800 mb-2">Ejemplo aplicado:</h5>
+            <p>
+              Durante la observación de radiologos en un hospital, se descubre
+              que aunque el sistema oficial requiere que las imágenes sean
+              revisadas en orden cronológico, los médicos desarrollaron una
+              práctica informal de priorizar casos según indicadores visuales
+              sutiles en las miniaturas de las imágenes. Esta observación reveló
+              la necesidad de implementar un sistema de clasificación automática
+              por urgencia basado en características visuales, requisito que
+              nunca habría emergido mediante entrevistas tradicionales.
+            </p>
+          </div>
+
+          <h4 class="sub-subsection-title">
+            Análisis de Shadowing y Job Shadowing
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-6">
+            El job shadowing implica acompañar a usuarios clave durante períodos
+            extendidos para comprender completamente sus flujos de trabajo,
+            incluyendo tareas intermitentes e infrecuentes que podrían omitirse
+            en entrevistas. Esta técnica es particularmente valiosa para
+            identificar requisitos relacionados con manejo de excepciones y
+            casos edge.
+          </p>
+        </div>
+
+        <div id="cuestionarios">
+          <h3 class="subsection-title">
+            3.2 Diseño y Administración de Cuestionarios Profesionales
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Principios de Construcción Psicométrica
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-4">
+            Los cuestionarios efectivos para elicitación de requisitos deben
+            seguir principios psicométricos para maximizar la validez y
+            confiabilidad de las respuestas. El diseño debe considerar el orden
+            de preguntas para evitar efectos de priming, la estructura de
+            respuestas para facilitar análisis cuantitativo, y la validación de
+            constructo para asegurar que las preguntas miden efectivamente los
+            conceptos objetivo.
+          </p>
+
+          <div class="highlight-box">
+            <h5 class="font-bold mb-3">
+              Tipos de preguntas especializadas para requisitos:
+            </h5>
+
+            <div class="mb-4">
+              <strong>Preguntas de escenario hipotético:</strong>
+              <p class="text-sm mt-1">
+                "Si el sistema le notificara sobre una discrepancia en el
+                inventario durante un proceso de auditoría, ¿qué información
+                específica necesitaría ver inmediatamente para tomar una
+                decisión informada?" Esta estructura revela requisitos
+                contextuales que los usuarios no considerarían en preguntas
+                abstractas.
+              </p>
+            </div>
+
+            <div class="mb-4">
+              <strong>Preguntas de priorización forzada:</strong>
+              <p class="text-sm mt-1">
+                "Distribuyendo 100 puntos entre las siguientes funcionalidades
+                según su importancia para su trabajo diario: generación de
+                reportes (__ puntos), búsqueda avanzada (__ puntos),
+                notificaciones automáticas (__ puntos), integración con sistemas
+                externos (__ puntos)." Este formato cuantifica prioridades
+                relativas.
+              </p>
+            </div>
+
+            <div>
+              <strong>Preguntas de frecuencia y volumen:</strong>
+              <p class="text-sm mt-1">
+                "¿Cuántas transacciones de este tipo procesa típicamente en: una
+                hora durante períodos normales, una hora durante picos de
+                actividad, un día completo, un mes completo?" Estas métricas
+                informan requisitos de rendimiento y capacidad.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="focus-groups">
+          <h3 class="subsection-title">
+            3.3 Facilitación de Focus Groups Técnicos
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Metodología de Facilitación Estructurada
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-4">
+            Los focus groups para requisitos de software requieren facilitación
+            especializada que balancee la exploración creativa con la
+            documentación rigurosa de necesidades técnicas. La composición del
+            grupo debe incluir representantes de diferentes roles de usuario,
+            niveles de experiencia técnica, y departamentos afectados por el
+            sistema.
+          </p>
+
+          <div class="highlight-box">
+            <h5 class="font-bold mb-2">Estructura de sesión profesional:</h5>
+            <p>
+              La sesión inicia con una fase de contextualización (15 minutos)
+              donde se presenta el objetivo del proyecto y se establecen
+              expectativas sobre el proceso. La fase de divergencia (45 minutos)
+              utiliza técnicas como brainstorming estructurado y mapeo de
+              procesos colaborativo para generar ideas. La fase de convergencia
+              (30 minutos) emplea técnicas de priorización grupal como dot
+              voting y matriz de impacto-esfuerzo para consolidar hallazgos.
+            </p>
+          </div>
+
+          <div class="example-box">
+            <h5 class="font-bold text-amber-800 mb-2">
+              Ejemplo de dinámicas especializadas:
+            </h5>
+            <p>
+              La técnica "Day in the Life" solicita a los participantes mapear
+              colaborativamente un día típico de trabajo, identificando todos
+              los momentos donde interactúan con sistemas de información.
+              Posteriormente, se facilita la discusión sobre qué funcionaría
+              diferente con el nuevo sistema, revelando requisitos implícitos
+              sobre integración de workflows y continuidad de procesos.
+            </p>
+          </div>
+        </div>
+
+        <div id="encuestas">
+          <h3 class="subsection-title">
+            3.4 Encuestas Cuantitativas para Validación de Requisitos
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Diseño de Instrumentos de Medición
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-4">
+            Las encuestas en ingeniería de requisitos deben producir datos
+            cuantitativos que informen decisiones de diseño y priorización. El
+            diseño estadístico debe considerar el tamaño de muestra necesario
+            para detectar diferencias significativas entre grupos de usuarios,
+            la estratificación de la población según roles relevantes, y los
+            métodos de análisis que se aplicarán a los datos recolectados.
+          </p>
+
+          <div class="highlight-box">
+            <h5 class="font-bold mb-2">Validación de escalas de medición:</h5>
+            <p>
+              Las preguntas sobre importancia de características deben utilizar
+              escalas Likert de 7 puntos con anchors semánticos específicos: "1
+              = Completamente innecesario para mi trabajo", "4 = Moderadamente
+              útil", "7 = Absolutamente crítico para mi productividad". La
+              consistencia interna se valida mediante coeficiente Alpha de
+              Cronbach superior a 0.7.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓDULO 4 -->
+      <div id="modulo4" class="content-section">
+        <h2 class="module-title">
+          MÓDULO 4: ARQUITECTURA DE ROLES Y RESPONSABILIDADES
+        </h2>
+
+        <div id="usuarios-actores">
+          <h3 class="subsection-title">
+            4.1 Taxonomía de Usuarios y Actores del Sistema
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Diferenciación Conceptual Entre Usuarios y Actores
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-6">
+            Los usuarios representan personas físicas que interactúan
+            directamente con el sistema para realizar tareas específicas dentro
+            de sus roles organizacionales. Los actores, concepto más amplio
+            derivado de UML, incluyen cualquier entidad externa (personas, otros
+            sistemas, dispositivos, organizaciones) que intercambia información
+            con el sistema bajo desarrollo.
+          </p>
+
+          <div class="grid-3">
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">Usuarios Primarios</h5>
+              <p class="mb-2">
+                Individuos que utilizan el sistema como herramienta principal
+                para realizar sus responsabilidades laborales.
+              </p>
+              <div class="example-box">
+                <p class="text-sm">
+                  <strong>Ejemplo detallado:</strong> En un sistema de gestión
+                  hospitalaria, las enfermeras constituyen usuarios primarios
+                  porque utilizan el sistema continuamente para documentar
+                  signos vitales, administrar medicamentos, y coordinar cuidados
+                  del paciente. Sus requisitos incluyen acceso móvil para
+                  documentación en tiempo real, interfaces optimizadas para
+                  entrada rápida de datos, y alertas automáticas sobre
+                  medicamentos críticos.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                Usuarios Secundarios
+              </h5>
+              <p class="mb-2">
+                Personas que interactúan con el sistema ocasionalmente o para
+                tareas de soporte.
+              </p>
+              <div class="example-box">
+                <p class="text-sm">
+                  <strong>Ejemplo:</strong> Los técnicos de mantenimiento
+                  biomédico en el hospital acceden al sistema principalmente
+                  para consultar historiales de equipos y programar
+                  mantenimientos preventivos. Sus requisitos se enfocan en
+                  interfaces simples, reportes especializados sobre equipos, y
+                  integración con sistemas de gestión de activos.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                Usuarios Indirectos
+              </h5>
+              <p class="mb-2">
+                Individuos que no interactúan directamente con el sistema pero
+                cuyo trabajo se ve afectado por su operación.
+              </p>
+              <div class="example-box">
+                <p class="text-sm">
+                  <strong>Ejemplo:</strong> Los pacientes del hospital no
+                  utilizan directamente el sistema de gestión hospitalaria, pero
+                  su experiencia mejora cuando el sistema permite coordinación
+                  eficiente entre departamentos, reduciendo tiempos de espera y
+                  errores en tratamientos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="stakeholders">
+          <h3 class="subsection-title">
+            4.2 Análisis de Stakeholders y Mapa de Influencia
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Metodología de Identificación de Stakeholders
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-6">
+            La identificación sistemática de stakeholders utiliza técnicas de
+            análisis organizacional para mapear todos los individuos y grupos
+            que influyen o son influenciados por el proyecto de software. Esta
+            identificación debe ser exhaustiva porque stakeholders omitidos
+            frecuentemente generan requisitos tardíos que impactan
+            significativamente el cronograma y presupuesto.
+          </p>
+
+          <div class="stakeholder-grid">
+            <div class="stakeholder-card">
+              <h5 class="font-bold text-red-800 mb-3">
+                Stakeholders Primarios - Influencia Directa Alta
+              </h5>
+              <p class="mb-3">
+                Los stakeholders primarios poseen autoridad directa sobre el
+                proyecto y sus decisiones impactan inmediatamente el alcance,
+                presupuesto o cronograma. El patrocinador ejecutivo establece la
+                visión estratégica, aprueba inversiones mayores, y resuelve
+                conflictos de alto nivel entre departamentos. Los usuarios clave
+                representan los principales beneficiarios del sistema y
+                proporcionan conocimiento detallado sobre procesos de negocio.
+              </p>
+              <div class="example-box">
+                <p class="text-sm">
+                  <strong>Ejemplo de análisis stakeholder:</strong> En un
+                  proyecto de ERP para manufactura, el Director de Operaciones
+                  (stakeholder primario) prioriza requisitos relacionados con
+                  optimización de la cadena de suministro y visibilidad en
+                  tiempo real del estado de producción. El Gerente de IT
+                  (stakeholder primario técnico) enfatiza requisitos de
+                  integración con sistemas existentes, seguridad de datos, y
+                  facilidad de mantenimiento. La tensión entre estos
+                  stakeholders puede requerir soluciones arquitectónicas que
+                  balanceen funcionalidad avanzada con simplicidad técnica.
+                </p>
+              </div>
+            </div>
+
+            <div class="stakeholder-card">
+              <h5 class="font-bold text-red-800 mb-3">
+                Stakeholders Secundarios - Influencia Indirecta Significativa
+              </h5>
+              <p>
+                Los stakeholders secundarios no controlan directamente el
+                proyecto pero pueden influir su éxito a través de su apoyo u
+                oposición. Los auditores internos requieren que el sistema
+                mantenga trazabilidad completa de transacciones para
+                cumplimiento regulatorio. Los representantes del sindicato
+                pueden influir requisitos relacionados con condiciones laborales
+                y automatización de procesos.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="roles-especializados">
+          <h3 class="subsection-title">
+            4.3 Roles Especializados en Metodologías de Desarrollo
+          </h3>
+
+          <div class="grid-2">
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                Product Owner - Metodologías Ágiles
+              </h5>
+              <p class="mb-3">
+                El Product Owner funciona como proxy del cliente, manteniendo la
+                visión del producto y priorizando continuamente el backlog según
+                el valor de negocio. Este rol requiere conocimiento profundo del
+                dominio, habilidades de comunicación excepcionales, y capacidad
+                de toma de decisiones rápidas bajo incertidumbre.
+              </p>
+              <div class="highlight-box">
+                <h6 class="font-bold mb-2">
+                  Responsabilidades técnicas específicas:
+                </h6>
+                <p class="text-sm">
+                  El Product Owner debe mantener criterios de aceptación
+                  detallados para cada historia de usuario, utilizando formatos
+                  como Given-When-Then para especificar comportamientos
+                  esperados. Debe participar activamente en sesiones de
+                  refinamiento del backlog, descomponiendo épicas en historias
+                  implementables y estimables. Durante las demostraciones de
+                  sprint, debe evaluar si las funcionalidades implementadas
+                  cumplen los criterios de aceptación y decidir sobre su
+                  aceptación o rechazo.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                Analista de Requisitos - Rol de Facilitación Técnica
+              </h5>
+              <p class="mb-3">
+                El analista de requisitos actúa como traductor entre el lenguaje
+                de negocio de los stakeholders y el lenguaje técnico del equipo
+                de desarrollo. Este profesional debe poseer habilidades híbridas
+                que combinen comprensión de procesos de negocio, conocimiento
+                técnico sobre desarrollo de software, y competencias de
+                comunicación y facilitación.
+              </p>
+              <div class="highlight-box">
+                <h6 class="font-bold mb-2">
+                  Competencias técnicas requeridas:
+                </h6>
+                <p class="text-sm">
+                  El analista debe dominar técnicas de modelado como UML, BPMN
+                  (Business Process Model and Notation), y diagramas de flujo de
+                  datos. Debe comprender patrones arquitectónicos comunes para
+                  evaluar la factibilidad técnica de los requisitos. Debe ser
+                  capaz de escribir casos de prueba de alto nivel que validen el
+                  cumplimiento de requisitos funcionales y no funcionales.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓDULO 5 -->
+      <div id="modulo5" class="content-section">
+        <h2 class="module-title">
+          MÓDULO 5: ESPECIFICACIÓN TÉCNICA Y ESTÁNDARES PROFESIONALES
+        </h2>
+
+        <div id="ers">
+          <h3 class="subsection-title">
+            5.1 Estructura y Componentes de la ERS (Especificación de Requisitos
+            del Software)
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Arquitectura Documental de la ERS
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-6">
+            La Especificación de Requisitos del Software constituye el artefacto
+            central que formaliza el contrato entre stakeholders y
+            desarrolladores. Su estructura debe facilitar tanto la comunicación
+            efectiva con audiencias no técnicas como la trazabilidad rigurosa
+            durante el desarrollo.
+          </p>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Sección 1: Introducción y Contextualización
+            </h5>
+            <p class="mb-3">
+              La introducción establece el marco conceptual del documento y
+              define el alcance del sistema. El propósito del documento debe
+              especificar explícitamente qué decisiones serán informadas por la
+              ERS, incluyendo decisiones de diseño arquitectónico, planificación
+              de pruebas, y criterios de aceptación del cliente. El propósito
+              del sistema describe el problema de negocio que el software
+              resolverá, utilizando métricas cuantificables cuando sea posible.
+            </p>
+            <div class="example-box">
+              <p class="text-sm">
+                <strong>Ejemplo técnico:</strong> "El sistema de gestión de
+                inventario automatizado tiene como propósito reducir el tiempo
+                promedio de procesamiento de órdenes de reabastecimiento de 48
+                horas a 6 horas, disminuir el error humano en conteos de
+                inventario del 15% actual al 2%, y proporcionar visibilidad en
+                tiempo real del estado de stock con actualizaciones cada 15
+                minutos a través de integración con sistemas de punto de venta y
+                recepción de mercancías."
+              </p>
+            </div>
+            <p class="mt-3">
+              <strong>Definiciones, Acrónimos y Abreviaciones:</strong> Esta
+              subsección debe incluir no solo términos técnicos sino también
+              conceptos específicos del dominio de negocio que podrían ser
+              malinterpretados. Cada definición debe ser precisa y no circular,
+              utilizando terminología estándar de la industria cuando exista.
+            </p>
+          </div>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Sección 2: Descripción General del Sistema
+            </h5>
+            <ul class="list-disc list-inside space-y-2 mb-3">
+              <li>
+                <strong>Perspectiva del Producto:</strong> Especifica la
+                relación del sistema con otros sistemas existentes o
+                planificados en el ecosistema tecnológico de la organización.
+                Debe incluir diagramas de contexto que muestren interfaces
+                externas, flujos de datos principales, y dependencias críticas.
+              </li>
+              <li>
+                <strong>Funciones del Producto:</strong> Proporciona un resumen
+                de alto nivel de las capacidades del sistema, organizadas por
+                área funcional. Esta sección debe balancear completitud con
+                legibilidad, proporcionando suficiente detalle para comprender
+                el alcance sin perderse en especificidades técnicas.
+              </li>
+              <li>
+                <strong>Características de Usuarios:</strong> Describe los
+                diferentes tipos de usuarios del sistema, sus niveles de
+                experiencia técnica, frecuencia de uso esperada, y contexto
+                operacional. Esta información informa decisiones de diseño de
+                interfaz y estrategias de capacitación.
+              </li>
+              <li>
+                <strong>Restricciones Generales:</strong> Documenta limitaciones
+                impuestas por regulaciones, estándares de la industria,
+                compatibilidad con sistemas existentes, limitaciones de
+                hardware, y políticas organizacionales. Estas restricciones con
+                frecuencia impulsan decisiones arquitectónicas significativas.
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Sección 3: Requisitos Específicos Detallados
+            </h5>
+            <p class="mb-3">
+              Esta sección constituye el núcleo técnico de la ERS, donde cada
+              requisito se especifica con precisión suficiente para guiar
+              implementación y verificación.
+            </p>
+            <p class="mb-3">
+              <strong>Estructura de requisitos funcionales:</strong> Cada
+              requisito funcional debe incluir un identificador único trazable,
+              una declaración clara de la funcionalidad, condiciones previas
+              necesarias, flujo de eventos normal, flujos alternativos para
+              manejo de excepciones, condiciones posteriores del sistema, y
+              criterios de aceptación medibles.
+            </p>
+
+            <div class="technical-box">
+              <h6 class="font-bold mb-2">
+                Ejemplo de requisito funcional completo:
+              </h6>
+              <p class="mb-2">
+                <strong
+                  >RF-105: Procesamiento de Devoluciones de Mercancía</strong
+                >
+              </p>
+              <p class="mb-2">
+                <strong>Descripción:</strong> El sistema debe procesar
+                solicitudes de devolución de mercancía iniciadas por clientes,
+                validando elegibilidad según políticas de la empresa y
+                actualizando automáticamente inventario y cuentas por cobrar.
+              </p>
+              <p class="mb-2">
+                <strong>Condiciones Previas:</strong> El usuario debe estar
+                autenticado con rol de Representante de Servicio al Cliente o
+                superior. La orden original debe existir en el sistema y haber
+                sido enviada dentro de los últimos 30 días.
+              </p>
+
+              <p class="mb-2"><strong>Flujo Principal:</strong></p>
+              <ol class="list-decimal list-inside text-sm space-y-1 mb-3 ml-4">
+                <li>
+                  El sistema presenta interfaz de búsqueda de órdenes con
+                  campos: número de orden, email del cliente, rango de fechas
+                </li>
+                <li>
+                  El usuario ingresa criterios de búsqueda y selecciona 'Buscar'
+                </li>
+                <li>
+                  El sistema valida formato de entrada y ejecuta búsqueda en
+                  base de datos de órdenes
+                </li>
+                <li>
+                  El sistema presenta lista de órdenes coincidentes con
+                  información: número, fecha, cliente, total, estado
+                </li>
+                <li>El usuario selecciona orden específica</li>
+                <li>
+                  El sistema presenta detalle de orden con lista de productos,
+                  cantidades, precios
+                </li>
+                <li>
+                  El usuario selecciona productos para devolución e ingresa
+                  cantidades
+                </li>
+                <li>
+                  El sistema valida que cantidades no excedan cantidades
+                  originales menos devoluciones previas
+                </li>
+                <li>
+                  El sistema calcula monto de reembolso aplicando políticas de
+                  descuentos proporcionales
+                </li>
+                <li>El usuario confirma procesamiento de devolución</li>
+                <li>El sistema actualiza inventario disponible</li>
+                <li>
+                  El sistema genera nota de crédito y la envía por email al
+                  cliente
+                </li>
+                <li>
+                  El sistema registra transacción en auditoría con timestamp y
+                  usuario
+                </li>
+              </ol>
+
+              <p class="mb-2"><strong>Flujos Alternativos:</strong></p>
+              <ul class="list-disc list-inside text-sm space-y-1 mb-3 ml-4">
+                <li>
+                  <strong>FA-105.1:</strong> Si la búsqueda no retorna
+                  resultados, el sistema muestra mensaje 'No se encontraron
+                  órdenes que coincidan con los criterios especificados' y
+                  permite modificar búsqueda
+                </li>
+                <li>
+                  <strong>FA-105.2:</strong> Si la orden está fuera del período
+                  de devolución, el sistema muestra mensaje de advertencia y
+                  requiere autorización de supervisor
+                </li>
+                <li>
+                  <strong>FA-105.3:</strong> Si productos solicitados para
+                  devolución ya no están en condiciones vendibles, el sistema
+                  aplica política de descuento por restock del 15%
+                </li>
+              </ul>
+
+              <p class="mb-2">
+                <strong>Condiciones Posteriores:</strong> Inventario
+                actualizado, nota de crédito generada, registro de auditoría
+                creado, notificación enviada al cliente
+              </p>
+
+              <p class="mb-2"><strong>Criterios de Aceptación:</strong></p>
+              <ul class="list-disc list-inside text-sm space-y-1 ml-4">
+                <li>Tiempo de respuesta máximo de 3 segundos para búsquedas</li>
+                <li>
+                  Cálculos de reembolso precisos con redondeo a centavo más
+                  cercano
+                </li>
+                <li>Todas las transacciones registradas en log de auditoría</li>
+                <li>Emails de confirmación enviados dentro de 5 minutos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div id="ieee830">
+          <h3 class="subsection-title">
+            5.2 Estándar IEEE 830: Framework de Calidad Profesional
+          </h3>
+
+          <h4 class="sub-subsection-title">
+            Principios Fundamentales del IEEE 830
+          </h4>
+
+          <p class="text-lg leading-relaxed mb-6">
+            El estándar IEEE 830-1998 establece prácticas recomendadas para la
+            creación de Especificaciones de Requisitos de Software que faciliten
+            el desarrollo exitoso de sistemas. Este estándar enfatiza ocho
+            características de calidad que toda ERS debe exhibir para maximizar
+            su utilidad durante el ciclo de vida del desarrollo.
+          </p>
+
+          <div class="properties-grid">
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">Corrección</h5>
+              <p>
+                Todos los requisitos documentados deben reflejar fielmente las
+                necesidades reales de los stakeholders. La corrección se valida
+                mediante revisiones formales con stakeholders clave y técnicas
+                de walkthrough donde se simula el uso del sistema descrito.
+              </p>
+            </div>
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">No Ambigüedad</h5>
+              <p>
+                Cada requisito debe admitir una sola interpretación posible. El
+                estándar recomienda evitar palabras como "adecuado", "flexible",
+                "robusto", "user-friendly" que tienen significados subjetivos.
+                En su lugar, se deben usar términos específicos y medibles:
+                "tiempo de respuesta menor a 2 segundos", "disponible 99.5% del
+                tiempo mensual", "interfaz compatible con lectores de pantalla
+                JAWS 2021".
+              </p>
+            </div>
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">Completitud</h5>
+              <p>
+                La ERS debe incluir todos los requisitos significativos
+                relacionados con funcionalidad, rendimiento, restricciones de
+                diseño, atributos y interfaces externas. La completitud se
+                evalúa mediante checklists específicos del dominio y revisiones
+                cruzadas entre múltiples stakeholders.
+              </p>
+            </div>
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">Consistencia</h5>
+              <p>
+                Los requisitos no deben contradecirse mutuamente ni con las
+                restricciones declaradas del sistema. La consistencia se
+                mantiene mediante herramientas de gestión de requisitos que
+                detectan conflictos automáticamente y procesos de revisión que
+                evalúan implicaciones de cambios propuestos.
+              </p>
+            </div>
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">
+                Clasificación por Importancia
+              </h5>
+              <p>
+                El IEEE 830 requiere que los requisitos se clasifiquen según su
+                importancia para el éxito del sistema. Las categorías
+                recomendadas son: Esencial (el sistema es inaceptable sin esta
+                funcionalidad), Condicional (mejora el sistema pero su ausencia
+                no lo hace inaceptable), Opcional (puede posponerse sin impacto
+                significativo).
+              </p>
+            </div>
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">Verificabilidad</h5>
+              <p>
+                Cada requisito debe ser testeable mediante métodos objetivos.
+                Los requisitos verificables incluyen criterios específicos de
+                aceptación que pueden validarse mediante inspección, análisis,
+                demostración o pruebas. Ejemplo: "El sistema debe encriptar
+                todas las contraseñas utilizando bcrypt con factor de costo 12"
+                es verificable mediante inspección del código y pruebas
+                automatizadas.
+              </p>
+            </div>
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">Modificabilidad</h5>
+              <p>
+                La estructura y organización de la ERS debe facilitar cambios
+                futuros minimizando el impacto en otras secciones del documento.
+                Esto se logra mediante identificadores únicos para cada
+                requisito, referencias cruzadas explícitas, y organización
+                modular del contenido.
+              </p>
+            </div>
+            <div class="property-card">
+              <h5 class="font-bold text-orange-800 mb-2">Trazabilidad</h5>
+              <p>
+                Cada requisito debe ser rastreable hacia atrás hasta su fuente
+                original (necesidad de stakeholder, regulación, restricción
+                técnica) y hacia adelante hasta los elementos de diseño, código
+                e implementación que lo satisfacen.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="ejemplo-ieee830">
+          <h3 class="subsection-title">
+            5.3 Ejemplo Práctico: ERS del Sistema MyMSystem
+          </h3>
+
+          <p class="text-lg leading-relaxed mb-6">
+            Para ilustrar la aplicación práctica del estándar IEEE 830,
+            analizaremos la
+            <a
+              href="https://docs.google.com/document/u/0/d/1VmuKwSvXPf8XEbwatLhP9eWdyCis2xPo4PWQgCwayH0/pub"
+              class="text-orange-600 underline hover:text-orange-800"
+              target="_blank"
+              rel="noopener"
+              >Especificación de Requisitos de Software del proyecto
+              MyMSystem</a
+            >, un sistema de información para la gestión de finanzas en una
+            miscelánea. Este documento real demuestra cómo se estructura una ERS
+            profesional siguiendo las mejores prácticas del estándar.
+          </p>
+
+          <h4 class="sub-subsection-title">
+            Estructura Documental del Ejemplo
+          </h4>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Información del Proyecto
+            </h5>
+            <div class="technical-box">
+              <p>
+                <strong>Proyecto:</strong> MyMSystem - Sistema de Gestión para
+                Miscelánea
+              </p>
+              <p><strong>Revisión:</strong> 1.0</p>
+              <p><strong>Fecha:</strong> Septiembre 2010</p>
+              <p><strong>Autor:</strong> Ilian Patricia Bocanegra Alfaro</p>
+              <p>
+                <strong>Cliente:</strong> Ing. Ricardo de Jesús Bustamante
+                González
+              </p>
+              <p>
+                <strong>Validación:</strong> Documento validado por las partes
+                el 04/09/2010
+              </p>
+            </div>
+          </div>
+
+          <h4 class="sub-subsection-title">
+            Análisis de la Estructura IEEE 830 Implementada
+          </h4>
+
+          <div class="grid-2">
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                1. Sección de Introducción
+              </h5>
+              <div class="example-box">
+                <h6 class="font-bold text-amber-800 mb-2">
+                  Propósito (Ejemplo textual):
+                </h6>
+                <p class="text-sm">
+                  "El propósito general de este documento es darle a conocer al
+                  usuario la forma correcta de trabajar en el sistema MyMSystem.
+                  Te mostramos como se ha desarrollado cada una de las áreas
+                  importantes en el desarrollo de nuestro sistema."
+                </p>
+              </div>
+              <div class="example-box">
+                <h6 class="font-bold text-amber-800 mb-2">
+                  Alcance (Ejemplo textual):
+                </h6>
+                <p class="text-sm">
+                  "Por el momento este sistema de información se implementará en
+                  la miscelánea MyM. Sin embargo, con pequeñas modificaciones,
+                  pudiera implementarse en más misceláneas, puesto que el
+                  funcionamiento es muy similar en todas ellas."
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">
+                2. Personal Involucrado
+              </h5>
+              <div class="technical-box">
+                <p class="text-sm mb-2"><strong>Jefe de Desarrollo:</strong></p>
+                <p class="text-sm">• Nombre: Ilian Patricia Bocanegra Alfaro</p>
+                <p class="text-sm">• Categoría: Licenciado en Informática</p>
+                <p class="text-sm">
+                  • Responsabilidades: Organizar, dirigir y controlar el equipo
+                  desarrollador
+                </p>
+                <p class="text-sm mb-2 mt-3"><strong>Programador:</strong></p>
+                <p class="text-sm">• Nombre: Luz Elena Arizpe Delgado</p>
+                <p class="text-sm">
+                  • Responsabilidades: Elegir el código para cumplir con los
+                  requerimientos funcionales del sistema
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="sub-subsection-title">
+            Requisitos Funcionales del Ejemplo
+          </h4>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Ejemplos de Requisitos Funcionales Documentados
+            </h5>
+
+            <div class="technical-box mb-4">
+              <h6 class="font-bold mb-2">RF-1: Autenticación</h6>
+              <p class="text-sm">
+                El usuario deberá proporcionar un usuario y contraseña válidos
+                para poder tener acceso al sistema.
+              </p>
+            </div>
+
+            <div class="technical-box mb-4">
+              <h6 class="font-bold mb-2">RF-2: Ventas</h6>
+              <p class="text-sm">
+                El sistema calculará el monto de la venta a partir de los
+                identificadores de los productos que se venderán, buscando con
+                ellos el precio de cada producto.
+              </p>
+            </div>
+
+            <div class="technical-box mb-4">
+              <h6 class="font-bold mb-2">RF-3: Impresión de ticket</h6>
+              <p class="text-sm">
+                Para poder imprimir un ticket de venta al cliente primero deberá
+                registrarse dicha venta (sin importar su naturaleza) en la base
+                de datos.
+              </p>
+            </div>
+
+            <div class="technical-box">
+              <h6 class="font-bold mb-2">
+                RF-4: Impresión de lista de compras
+              </h6>
+              <p class="text-sm">
+                Para poder imprimir la lista de compras primero deberán
+                confirmarse los datos por medio de una casilla de verificación.
+              </p>
+            </div>
+          </div>
+
+          <h4 class="sub-subsection-title">
+            Requisitos No Funcionales del Ejemplo
+          </h4>
+
+          <div class="grid-2">
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">Rendimiento</h5>
+              <div class="example-box">
+                <p class="text-sm">
+                  <strong>Requisito de respuesta:</strong> El sistema ofrecerá
+                  respuesta al usuario en tiempo real.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">Seguridad</h5>
+              <div class="technical-box">
+                <p class="text-sm mb-1">
+                  <strong>Autenticación:</strong> El sistema requerirá de un
+                  usuario y contraseña válidos para poder permitir el acceso.
+                </p>
+                <p class="text-sm mb-1">
+                  <strong>División de módulos:</strong> El sistema tendrá
+                  separados los módulos a los que puede acceder un usuario
+                  convencional de los módulos a los que puede acceder el usuario
+                  administrador.
+                </p>
+                <p class="text-sm mb-1">
+                  <strong>Conexión:</strong> El sistema sólo tendrá abierta la
+                  conexión a la base de datos mientras se ejecuta la
+                  transacción.
+                </p>
+                <p class="text-sm">
+                  <strong>Copia de seguridad:</strong> El sistema realizará una
+                  copia de seguridad periódicamente siempre y cuando encuentre
+                  la conexión cerrada.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">Disponibilidad</h5>
+              <div class="example-box">
+                <p class="text-sm">
+                  En funcionamiento normal el sistema estará disponible el 85%
+                  del tiempo.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h5 class="font-bold text-orange-800 mb-3">Portabilidad</h5>
+              <div class="technical-box">
+                <p class="text-sm mb-1">
+                  <strong>SW:</strong> MyMSystem será portable siempre y cuando
+                  el equipo en que se quiera instalar cuente con un SO igual o
+                  de versión posterior al primer equipo donde se instaló.
+                </p>
+                <p class="text-sm">
+                  <strong>HW:</strong> MyMSystem será portable siempre y cuando
+                  el equipo en el que se instale tenga especificaciones de HW
+                  iguales o superiores al primer equipo donde se instaló.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="sub-subsection-title">Interfaces del Sistema</h4>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Especificaciones de Interfaces Documentadas
+            </h5>
+
+            <div class="grid-2">
+              <div class="example-box">
+                <h6 class="font-bold text-amber-800 mb-2">
+                  Interfaces de Usuario:
+                </h6>
+                <p class="text-sm">
+                  • La interfaz en uso deberá mostrar a los usuarios solamente
+                  la información necesaria para realizar cualquier operación.
+                </p>
+                <p class="text-sm">
+                  • La interfaz deberá mostrarle al usuario administrador sólo
+                  la información necesaria para realizar una modificación.
+                </p>
+              </div>
+
+              <div class="example-box">
+                <h6 class="font-bold text-amber-800 mb-2">
+                  Interfaces de Hardware:
+                </h6>
+                <p class="text-sm">
+                  • <strong>Monitor:</strong> Deberá contar con una resolución
+                  de 1024 x 768 pixeles.
+                </p>
+                <p class="text-sm">
+                  • <strong>Ratón:</strong> El sistema requerirá del ratón para
+                  que el usuario pueda realizar selecciones y oprimir botones.
+                </p>
+                <p class="text-sm">
+                  • <strong>Impresora de tickets:</strong> El sistema arrojará
+                  el desglose de la compra a través un ticket para el cliente.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="sub-subsection-title">
+            Metodología de Elicitación Empleada
+          </h4>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              Apéndice: Entrevista de Requerimientos
+            </h5>
+            <p class="mb-3">
+              El documento incluye la transcripción completa de la entrevista
+              realizada para recopilar los requerimientos del sistema,
+              demostrando trazabilidad desde la fuente hasta la especificación.
+            </p>
+
+            <div class="example-box">
+              <h6 class="font-bold text-amber-800 mb-2">
+                Ejemplos de Preguntas de la Entrevista:
+              </h6>
+              <div class="technical-box">
+                <p class="text-sm mb-2">
+                  <strong>P:</strong> ¿Qué módulos desea se encuentren en el
+                  sistema?
+                </p>
+                <p class="text-sm mb-3">
+                  <strong>R:</strong> Ventas de contado, Ventas a crédito,
+                  Inventario, Compras
+                </p>
+
+                <p class="text-sm mb-2">
+                  <strong>P:</strong> ¿Necesita que tenga diferentes sesiones, o
+                  sólo será una?
+                </p>
+                <p class="text-sm mb-3">
+                  <strong>R:</strong> Diferentes. Como la del dueño y la de los
+                  trabajadores.
+                </p>
+
+                <p class="text-sm mb-2">
+                  <strong>P:</strong> ¿Necesita que se ponga alguna restricción
+                  de límite de crédito?
+                </p>
+                <p class="text-sm"><strong>R:</strong> Sí. $1000.</p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="sub-subsection-title">Lecciones Aprendidas del Ejemplo</h4>
+
+          <div class="highlight-box">
+            <h5 class="font-bold mb-3">
+              Análisis Crítico del Ejemplo MyMSystem
+            </h5>
+
+            <div class="grid-2">
+              <div>
+                <h6 class="font-bold text-green-800 mb-2">
+                  ✅ Fortalezas Identificadas:
+                </h6>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li>Estructura clara siguiendo IEEE 830</li>
+                  <li>Historial de revisiones documentado</li>
+                  <li>Validación formal por ambas partes</li>
+                  <li>Personal involucrado claramente definido</li>
+                  <li>Trazabilidad mediante entrevistas en apéndices</li>
+                  <li>
+                    Separación clara entre requisitos funcionales y no
+                    funcionales
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h6 class="font-bold text-red-800 mb-2">⚠️ Áreas de Mejora:</h6>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li>Requisitos podrían ser más específicos y medibles</li>
+                  <li>Falta numeración sistemática de requisitos</li>
+                  <li>
+                    Criterios de aceptación no están explícitamente definidos
+                  </li>
+                  <li>
+                    Algunos requisitos no funcionales son vagos ("tiempo real",
+                    "85% del tiempo")
+                  </li>
+                  <li>Falta análisis de riesgos y dependencias</li>
+                  <li>No incluye casos de uso detallados</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <p class="text-sm">
+                <strong>Conclusión:</strong> El ejemplo MyMSystem proporciona
+                una base sólida para comprender la aplicación del estándar IEEE
+                830, aunque puede mejorarse aplicando técnicas más avanzadas de
+                especificación de requisitos y criterios de aceptación más
+                precisos. Es un excelente punto de partida para estudiantes que
+                aprenden a estructurar documentos ERS profesionales.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="plantilla-ers">
+          <h3 class="subsection-title">
+            5.4 Plantilla Práctica ERS - IEEE 830
+          </h3>
+
+          <p class="text-lg leading-relaxed mb-6">
+            Para facilitar la aplicación práctica de los conceptos aprendidos,
+            hemos preparado una
+            <a
+              href="https://docs.google.com/document/d/1a94u7RsgkJ9cxd6C6mTOufb7s1ksEEQE/edit?usp=sharing&ouid=102925367303725397251&rtpof=true&sd=true"
+              class="text-orange-600 underline hover:text-orange-800"
+              target="_blank"
+              rel="noopener"
+              >Plantilla de Especificación de Requisitos de Software (ERS)
+              basada en IEEE 830</a
+            >. Esta plantilla sigue fielmente la estructura y recomendaciones
+            del estándar profesional, proporcionando un marco de trabajo
+            estructurado para desarrollar documentos ERS de calidad.
+          </p>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              📋 Características de la Plantilla
+            </h5>
+
+            <div class="grid-2">
+              <div class="highlight-box">
+                <h6 class="font-bold mb-2">✨ Estructura Profesional</h6>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li>Secciones predefinidas según IEEE 830</li>
+                  <li>Numeración automática de requisitos</li>
+                  <li>Plantillas para casos de uso</li>
+                  <li>Formato de criterios de aceptación</li>
+                  <li>Tablas para trazabilidad</li>
+                </ul>
+              </div>
+
+              <div class="highlight-box">
+                <h6 class="font-bold mb-2">🎯 Guías Integradas</h6>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li>Instrucciones paso a paso</li>
+                  <li>Ejemplos de redacción profesional</li>
+                  <li>Checklist de calidad</li>
+                  <li>Plantillas de revisión</li>
+                  <li>Formatos de validación</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              🚀 Cómo Utilizar la Plantilla
+            </h5>
+
+            <div class="example-box">
+              <h6 class="font-bold text-amber-800 mb-2">Pasos Recomendados:</h6>
+              <ol class="list-decimal list-inside text-sm space-y-2">
+                <li>
+                  <strong>Hacer una copia:</strong> Crea tu propia copia del
+                  documento en Google Docs para editarlo libremente
+                </li>
+                <li>
+                  <strong>Personalizar encabezados:</strong> Completa la
+                  información del proyecto, cliente y equipo de desarrollo
+                </li>
+                <li>
+                  <strong>Seguir las guías:</strong> Utiliza las instrucciones
+                  en azul como referencia y bórralas al completar cada sección
+                </li>
+                <li>
+                  <strong>Aplicar ejemplos:</strong> Adapta los ejemplos
+                  proporcionados a tu proyecto específico
+                </li>
+                <li>
+                  <strong>Revisar calidad:</strong> Utiliza el checklist
+                  incluido para validar completitud y consistencia
+                </li>
+                <li>
+                  <strong>Validar con stakeholders:</strong> Comparte el
+                  documento para revisión y aprobación formal
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="card">
+            <h5 class="font-bold text-orange-800 mb-3">
+              📚 Integración con el Contenido del Curso
+            </h5>
+
+            <div class="grid-3">
+              <div class="example-box">
+                <h6 class="font-bold text-amber-800 mb-2">Módulo 1-2</h6>
+                <p class="text-sm">
+                  Utiliza los conceptos de
+                  <strong>fundamentos y elicitación</strong> para completar las
+                  secciones de introducción y descripción general del sistema.
+                </p>
+              </div>
+
+              <div class="example-box">
+                <h6 class="font-bold text-amber-800 mb-2">Módulo 3</h6>
+                <p class="text-sm">
+                  Aplica las <strong>técnicas de recolección</strong> para
+                  documentar la metodología utilizada en los apéndices del
+                  documento.
+                </p>
+              </div>
+
+              <div class="example-box">
+                <h6 class="font-bold text-amber-800 mb-2">Módulo 4-5</h6>
+                <p class="text-sm">
+                  Implementa el <strong>análisis de stakeholders</strong> y
+                  estructura de
+                  <strong>requisitos específicos</strong> siguiendo el estándar
+                  IEEE 830.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <h5 class="font-bold mb-3">💡 Consejos para el Éxito</h5>
+
+            <div class="grid-2">
+              <div>
+                <h6 class="font-bold text-green-800 mb-2">
+                  ✅ Mejores Prácticas:
+                </h6>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li>Completa todas las secciones obligatorias</li>
+                  <li>Utiliza lenguaje preciso y no ambiguo</li>
+                  <li>Incluye criterios de aceptación medibles</li>
+                  <li>Mantén trazabilidad entre requisitos</li>
+                  <li>Documenta todas las decisiones importantes</li>
+                </ul>
+              </div>
+
+              <div>
+                <h6 class="font-bold text-orange-800 mb-2">
+                  ⚠️ Errores Comunes a Evitar:
+                </h6>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li>Requisitos vagos o subjetivos</li>
+                  <li>Falta de numeración sistemática</li>
+                  <li>Omitir validación de stakeholders</li>
+                  <li>No documentar restricciones técnicas</li>
+                  <li>Ignorar requisitos no funcionales</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="technical-box">
+            <h6 class="font-bold mb-2">🔗 Acceso a la Plantilla:</h6>
+            <p class="text-sm mb-2">
+              <strong>Enlace directo:</strong>
+              <a
+                href="https://docs.google.com/document/d/1a94u7RsgkJ9cxd6C6mTOufb7s1ksEEQE/edit?usp=sharing&ouid=102925367303725397251&rtpof=true&sd=true"
+                class="text-orange-600 underline hover:text-orange-800"
+                target="_blank"
+                rel="noopener"
+                >Plantilla ERS - IEEE 830</a
+              >
+            </p>
+            <p class="text-sm">
+              <strong>Recomendación:</strong> Guarda una copia en tu Google
+              Drive para uso personal y futuras referencias. Esta plantilla será
+              tu herramienta principal para desarrollar especificaciones de
+              requisitos profesionales en proyectos reales.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Regreso -->
+      <div class="content-section">
+        <div class="text-center">
+          <a href="../index.html" class="back-button">← Volver al Inicio</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add some hover effects and animations
+      const cards = document.querySelectorAll(".card");
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)";
+        });
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>
