@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Metodologías Ágiles de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #1e293b;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 20px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+      .section-title {
+        color: #047857;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #047857;
+        padding-bottom: 1rem;
+      }
+      .subsection-title {
+        color: #059669;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #059669;
+        padding-left: 1rem;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #10b981;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #d1fae5 0%, #34d399 100%);
+        border-left: 4px solid #10b981;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 1.5rem 0;
+      }
+      .pros-cons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .pros {
+        background: linear-gradient(135deg, #d1fae5 0%, #34d399 100%);
+        border-left: 4px solid #10b981;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+      }
+      .cons {
+        background: linear-gradient(135deg, #fee2e2 0%, #f87171 100%);
+        border-left: 4px solid #ef4444;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+      }
+      .value-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #10b981;
+        text-align: center;
+      }
+      .methodology-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #10b981;
+      }
+      .back-button {
+        background: #047857;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 2rem;
+        transition: background-color 0.3s ease;
+      }
+      .back-button:hover {
+        background: #065f46;
+      }
+      .activity-box {
+        background: linear-gradient(135deg, #d1fae5 0%, #10b981 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        margin: 2rem 0;
+      }
+      .toc {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin: 2rem 0;
+      }
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+      .toc li {
+        margin: 0.5rem 0;
+      }
+      .toc a {
+        color: #059669;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.25rem 0;
+        display: block;
+      }
+      .toc a:hover {
+        color: #047857;
+        text-decoration: underline;
+      }
+      .manifesto-value {
+        background: #f0f9ff;
+        border: 1px solid #7dd3fc;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .principle-list {
+        background: #f8fafc;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        border-left: 4px solid #10b981;
+      }
+      .scrum-roles {
+        background: #f0f9ff;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1rem 0;
+      }
+      .flow-step {
+        background: #d1fae5;
+        border: 1px solid #86efac;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="content-section">
+        <a href="../index.html" class="back-button">← Volver al Inicio</a>
+        <h1 class="section-title">Metodologías Ágiles</h1>
+        <p class="text-2xl text-center text-slate-700 max-w-3xl mx-auto">
+          Un Enfoque Integral para el Desarrollo de Software Moderno
+        </p>
+      </div>
+
+      <!-- Índice de Contenidos -->
+      <div class="content-section">
+        <div class="toc">
+          <h2 class="subsection-title">📋 Índice de Contenidos</h2>
+          <ul>
+            <li>
+              <a href="#fundamentos"
+                >1. Fundamentos de las Metodologías Ágiles</a
+              >
+            </li>
+            <li><a href="#valores">2. El Manifiesto Ágil: Valores Clave</a></li>
+            <li>
+              <a href="#principios">3. El Manifiesto Ágil: Principios Clave</a>
+            </li>
+            <li>
+              <a href="#caracteristicas"
+                >4. Características Generales de la Agilidad</a
+              >
+            </li>
+            <li>
+              <a href="#tipos">5. Tipos Principales de Metodologías Ágiles</a>
+            </li>
+            <li><a href="#scrum">6. Scrum: Roles, Eventos y Artefactos</a></li>
+            <li>
+              <a href="#kanban"
+                >7. Kanban: Visualización y Gestión del Flujo de Trabajo</a
+              >
+            </li>
+            <li>
+              <a href="#xp"
+                >8. Programación Extrema (XP): Calidad y Adaptabilidad</a
+              >
+            </li>
+            <li>
+              <a href="#lean"
+                >9. Lean Software Development: Eliminación de Desperdicios</a
+              >
+            </li>
+            <li>
+              <a href="#otras">10. Otras Metodologías Ágiles Relevantes</a>
+            </li>
+            <li>
+              <a href="#ventajas-desventajas"
+                >11. Ventajas y Desventajas Generales</a
+              >
+            </li>
+            <li>
+              <a href="#proyectos">12. Tipos de Proyectos donde Agile Brilla</a>
+            </li>
+            <li>
+              <a href="#industrias">13. Industrias que Adoptan la Agilidad</a>
+            </li>
+            <li><a href="#actividad">14. Actividad Didáctica</a></li>
+            <li><a href="#conclusion">15. Conclusión</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Fundamentos -->
+      <div id="fundamentos" class="content-section">
+        <h2 class="section-title">Fundamentos de las Metodologías Ágiles</h2>
+
+        <h3 class="subsection-title">Concepto, Origen y Propósito</h3>
+
+        <p class="text-lg leading-relaxed mb-4">
+          Las metodologías ágiles son métodos de desarrollo iterativo e
+          incremental que se adaptan continuamente a la necesidad y complejidad
+          del producto. Son un marco esencial para estructurar, planificar y
+          controlar el desarrollo de sistemas de información.
+        </p>
+
+        <p class="text-lg leading-relaxed mb-6">
+          Surgieron para abordar retos comunicativos y la urgencia de modernizar
+          productos sin requerir meses de desarrollo, siendo una respuesta
+          directa a las deficiencias de los enfoques tradicionales (rigidez,
+          poca flexibilidad, retroalimentación tardía).
+        </p>
+
+        <div class="highlight-box">
+          <p class="font-semibold text-lg mb-2">📚 Contexto Histórico:</p>
+          <p>
+            La ingeniería de software emergió en los 80, enfrentando la
+            <strong>"crisis del software"</strong> (costos, retrasos, defectos
+            catastróficos). Esto impulsó la búsqueda de procesos que permitieran
+            software rentable y funcional.
+          </p>
+
+          <div class="mt-4 p-4 bg-white bg-opacity-50 rounded-lg">
+            <h4 class="font-bold text-lg mb-2">La "Crisis del Software"</h4>
+            <p>Período en las décadas de 1960 y 1970 caracterizado por:</p>
+            <ul class="list-disc list-inside mt-2 space-y-1">
+              <li>
+                <strong>Desbordamiento masivo de costos:</strong> Proyectos que
+                superaban enormemente sus presupuestos.
+              </li>
+              <li>
+                <strong>Retrasos constantes:</strong> Fechas de finalización
+                impredecibles y prolongadas.
+              </li>
+              <li>
+                <strong>Fallos críticos:</strong> Defectos de software que
+                causaban daños a la propiedad o, en casos trágicos como el
+                incidente de Therac-25, pérdidas de vidas.
+              </li>
+            </ul>
+            <p class="mt-2">
+              Esto llevó a la urgencia de establecer procesos definidos y
+              metodologías rigurosas para profesionalizar el desarrollo de
+              software.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- El Manifiesto Ágil: Valores -->
+      <div id="valores" class="content-section">
+        <h2 class="section-title">El Manifiesto Ágil: Valores Clave</h2>
+
+        <p class="text-lg leading-relaxed mb-6">
+          Surgido en 2001, el Manifiesto Ágil establece cuatro valores
+          fundamentales que priorizan ciertos aspectos sobre otros.
+        </p>
+
+        <div class="grid-2">
+          <div class="manifesto-value">
+            <h3 class="text-xl font-bold mb-2">Individuos e interacciones</h3>
+            <p class="text-slate-700">
+              sobre procesos y herramientas. Prioriza la colaboración y el
+              conocimiento de las personas sobre la rigidez de los procesos.
+            </p>
+          </div>
+          <div class="manifesto-value">
+            <h3 class="text-xl font-bold mb-2">Software que funciona</h3>
+            <p class="text-slate-700">
+              sobre documentación exhaustiva. Valora la entrega de software
+              funcional y tangible por encima de la documentación excesiva.
+            </p>
+          </div>
+          <div class="manifesto-value">
+            <h3 class="text-xl font-bold mb-2">Colaboración con el cliente</h3>
+            <p class="text-slate-700">
+              sobre negociación contractual. Fomenta una relación estrecha y
+              continua con el cliente, integrándolo activamente.
+            </p>
+          </div>
+          <div class="manifesto-value">
+            <h3 class="text-xl font-bold mb-2">Respuesta ante el cambio</h3>
+            <p class="text-slate-700">
+              sobre seguir un plan. La capacidad de adaptarse y responder al
+              cambio es más valiosa que adherirse rígidamente a un plan
+              preestablecido.
+            </p>
+          </div>
+        </div>
+
+        <p class="text-center text-slate-600 mt-6 font-medium">
+          Estos valores impulsan una transformación cultural profunda,
+          descentralizando decisiones y empoderando equipos.
+        </p>
+      </div>
+
+      <!-- El Manifiesto Ágil: Principios -->
+      <div id="principios" class="content-section">
+        <h2 class="section-title">El Manifiesto Ágil: Principios Clave</h2>
+
+        <p class="text-lg leading-relaxed mb-6">
+          Los cuatro valores se respaldan con doce principios que abogan por:
+        </p>
+
+        <div class="grid-2">
+          <div class="principle-list">
+            <ul class="list-disc list-inside space-y-2 text-slate-700">
+              <li>Satisfacer al cliente con entregas tempranas y continuas.</li>
+              <li>Aceptar cambios en requisitos, incluso tardíos.</li>
+              <li>
+                Entregar software funcional frecuentemente (2 semanas a 2
+                meses).
+              </li>
+              <li>
+                Fomentar trabajo conjunto diario entre negocio y
+                desarrolladores.
+              </li>
+              <li>Desarrollar proyectos en torno a individuos motivados.</li>
+              <li>Priorizar la conversación cara a cara.</li>
+            </ul>
+          </div>
+          <div class="principle-list">
+            <ul class="list-disc list-inside space-y-2 text-slate-700">
+              <li>
+                Considerar el software funcionando como medida principal de
+                progreso.
+              </li>
+              <li>Promover el desarrollo sostenible.</li>
+              <li>
+                Prestar atención continua a la excelencia técnica y buen diseño.
+              </li>
+              <li>Valorar la simplicidad.</li>
+              <li>
+                Reconocer que las mejores arquitecturas emergen de equipos
+                auto-organizados.
+              </li>
+              <li>
+                Establecer intervalos regulares para reflexionar y ajustar el
+                comportamiento.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <p class="font-semibold text-lg mb-2">🎯 Impacto:</p>
+          <p>
+            La combinación de entrega funcional frecuente, retroalimentación
+            constante y adaptabilidad al cambio crea un mecanismo de aprendizaje
+            y corrección inherente, minimizando el riesgo de productos
+            obsoletos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Características Generales -->
+      <div id="caracteristicas" class="content-section">
+        <h2 class="section-title">Características Generales de la Agilidad</h2>
+
+        <div class="grid-3">
+          <div class="card text-center">
+            <h3 class="text-xl font-bold mb-2">
+              Enfoque Iterativo e Incremental
+            </h3>
+            <p class="text-slate-700 text-sm">
+              El trabajo se segmenta en períodos cortos ("sprints") con entregas
+              frecuentes de software funcional.
+            </p>
+          </div>
+          <div class="card text-center">
+            <h3 class="text-xl font-bold mb-2">
+              Colaboración y Auto-organización
+            </h3>
+            <p class="text-slate-700 text-sm">
+              Equipos multidisciplinarios y auto-organizados con autonomía para
+              tomar decisiones a corto plazo.
+            </p>
+          </div>
+          <div class="card text-center">
+            <h3 class="text-xl font-bold mb-2">Adaptabilidad al Cambio</h3>
+            <p class="text-slate-700 text-sm">
+              Capacidad de respuesta rápida a los cambios, incluso en etapas
+              tardías del desarrollo.
+            </p>
+          </div>
+          <div class="card text-center">
+            <h3 class="text-xl font-bold mb-2">Entrega Continua de Valor</h3>
+            <p class="text-slate-700 text-sm">
+              Prioridad en la entrega frecuente de software funcional, buscando
+              el período de tiempo más corto posible.
+            </p>
+          </div>
+          <div class="card text-center">
+            <h3 class="text-xl font-bold mb-2">Comunicación Cara a Cara</h3>
+            <p class="text-slate-700 text-sm">
+              Las interacciones directas se valoran por encima de la
+              documentación exhaustiva.
+            </p>
+          </div>
+          <div class="card text-center">
+            <h3 class="text-xl font-bold mb-2">Mejora Continua</h3>
+            <p class="text-slate-700 text-sm">
+              Inspecciones periódicas del proceso para realizar ajustes y
+              optimizaciones constantes.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tipos Principales -->
+      <div id="tipos" class="content-section">
+        <h2 class="section-title">Tipos Principales de Metodologías Ágiles</h2>
+
+        <p class="text-lg leading-relaxed mb-6">
+          El paradigma ágil abarca una diversidad de metodologías, cada una con
+          sus propias prácticas, roles y contextos.
+        </p>
+
+        <div class="grid-2">
+          <div class="methodology-card">
+            <h3 class="text-xl font-semibold mb-2">🌊 Scrum</h3>
+            <p class="text-lg mb-3">
+              Popular y ampliamente adoptada, divide el trabajo en "sprints" con
+              entregas frecuentes.
+            </p>
+            <a
+              href="#scrum"
+              class="text-emerald-700 font-semibold hover:underline"
+              >Explorar Scrum ▼</a
+            >
+          </div>
+          <div class="methodology-card">
+            <h3 class="text-xl font-semibold mb-2">📋 Kanban</h3>
+            <p class="text-lg mb-3">
+              Método de gestión visual que enfatiza la entrega continua y la
+              optimización del flujo de trabajo.
+            </p>
+            <a
+              href="#kanban"
+              class="text-emerald-700 font-semibold hover:underline"
+              >Explorar Kanban ▼</a
+            >
+          </div>
+          <div class="methodology-card">
+            <h3 class="text-xl font-semibold mb-2">
+              💎 Programación Extrema (XP)
+            </h3>
+            <p class="text-lg mb-3">
+              Fuerte enfoque en la calidad del producto y la satisfacción del
+              cliente a través de prácticas específicas.
+            </p>
+            <a href="#xp" class="text-emerald-700 font-semibold hover:underline"
+              >Explorar XP ▼</a
+            >
+          </div>
+          <div class="methodology-card">
+            <h3 class="text-xl font-semibold mb-2">
+              🔄 Lean Software Development
+            </h3>
+            <p class="text-lg mb-3">
+              Inspirada en Toyota, busca eliminar desperdicios y optimizar el
+              flujo de valor.
+            </p>
+            <a
+              href="#lean"
+              class="text-emerald-700 font-semibold hover:underline"
+              >Explorar Lean ▼</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrum -->
+      <div id="scrum" class="content-section">
+        <h2 class="section-title">Scrum: Roles, Eventos y Artefactos</h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Roles Definidos</h3>
+            <div class="scrum-roles">
+              <ul
+                class="list-disc list-inside space-y-2 text-lg text-slate-700"
+              >
+                <li>
+                  <strong>Scrum Master:</strong> Facilita el proceso, elimina
+                  obstáculos, asegura la adherencia a Scrum.
+                </li>
+                <li>
+                  <strong>Product Owner:</strong> Representa stakeholders,
+                  define y prioriza el Product Backlog.
+                </li>
+                <li>
+                  <strong>Equipo de Desarrollo:</strong> Grupo auto-organizado y
+                  multidisciplinario que entrega el incremento de producto.
+                </li>
+              </ul>
+            </div>
+
+            <h3 class="subsection-title">Artefactos</h3>
+            <div class="scrum-roles">
+              <ul
+                class="list-disc list-inside space-y-2 text-lg text-slate-700"
+              >
+                <li>
+                  <strong>Product Backlog:</strong> Lista priorizada de
+                  funcionalidades deseadas.
+                </li>
+                <li>
+                  <strong>Sprint Backlog:</strong> Subconjunto de Product
+                  Backlog para un sprint.
+                </li>
+                <li>
+                  <strong>Incremento:</strong> Producto funcional resultante de
+                  un sprint.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Eventos Clave</h3>
+            <div class="space-y-1">
+              <div class="flow-step">
+                <strong>Sprint Planning:</strong> Planificación del trabajo del
+                sprint.
+              </div>
+              <div class="flow-step">
+                <strong>Daily Scrum:</strong> Reunión diaria breve para
+                sincronizar y planificar el día.
+              </div>
+              <div class="flow-step">
+                <strong>Sprint Review:</strong> Presentación del incremento a
+                stakeholders para retroalimentación.
+              </div>
+              <div class="flow-step">
+                <strong>Sprint Retrospective:</strong> Reflexión del equipo para
+                mejorar el proceso.
+              </div>
+            </div>
+            <p class="text-sm text-slate-600 mt-4">
+              Scrum proporciona una estructura rigurosa que canaliza la libertad
+              y la independencia, permitiendo la autogestión sin caer en el
+              caos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanban -->
+      <div id="kanban" class="content-section">
+        <h2 class="section-title">
+          Kanban: Visualización y Gestión del Flujo de Trabajo
+        </h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Concepto y Enfoque</h3>
+            <p class="text-lg mb-4">
+              Método de gestión visual ("tarjeta visual") que enfatiza la
+              entrega continua y la colaboración. Ayuda a identificar y limitar
+              el trabajo en curso (WIP) y a optimizar el flujo.
+            </p>
+
+            <h3 class="subsection-title">Prácticas Clave</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
+              <li>
+                <strong>Visualizar el flujo de trabajo:</strong> Uso de tablero
+                Kanban con tarjetas para ver el progreso en tiempo real.
+              </li>
+              <li>
+                <strong>Limitar el trabajo en curso (WIP):</strong> Previene la
+                sobrecarga, fomenta la finalización de tareas.
+              </li>
+              <li>
+                <strong>Gestionar el flujo:</strong> Enfoque en la eficiencia y
+                fluidez del trabajo, identificando cuellos de botella.
+              </li>
+              <li>
+                <strong>Hacer explícitas las políticas de los procesos:</strong>
+                Reglas claras y visibles para todos.
+              </li>
+              <li>
+                <strong>Reconocer y proponer oportunidades de mejora:</strong>
+                Cultura de optimización continua.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Aplicación y Beneficios</h3>
+            <div class="pros">
+              <h4 class="font-bold text-emerald-800 mb-3">✅ Adecuado para:</h4>
+              <ul class="list-disc list-inside text-emerald-700 space-y-1">
+                <li>
+                  Proyectos con alcance cambiante o demandas impredecibles.
+                </li>
+                <li>
+                  Equipos que buscan mejorar el flujo de trabajo y la
+                  eficiencia.
+                </li>
+                <li>
+                  Controlar flujos de trabajo y maximizar eficiencia en
+                  proyectos con flujo constante.
+                </li>
+              </ul>
+            </div>
+            <p class="text-sm text-slate-600 mt-4">
+              El énfasis de Kanban en limitar el WIP y visualizar el flujo
+              optimiza la eficiencia, abordando problemas comunes de sobrecarga
+              y estancamiento.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Programación Extrema (XP) -->
+      <div id="xp" class="content-section">
+        <h2 class="section-title">
+          Programación Extrema (XP): Calidad y Adaptabilidad
+        </h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Concepto y Enfoque</h3>
+            <p class="text-lg mb-4">
+              Metodología ágil creada por Kent Beck, con un fuerte enfoque en la
+              calidad del producto y la satisfacción del cliente. Se distingue
+              por su adaptabilidad en tiempo real a los cambios del proyecto.
+            </p>
+
+            <h3 class="subsection-title">Prácticas Clave</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
+              <li>
+                <strong>Retroalimentación constante:</strong> Comunicación
+                continua con el cliente en ciclos cortos.
+              </li>
+              <li>
+                <strong>Simplicidad:</strong> Refactorización constante del
+                código para mantenerlo simple y comprensible.
+              </li>
+              <li>
+                <strong>Comunicación:</strong> Efectiva y simple dentro del
+                equipo.
+              </li>
+              <li>
+                <strong>Valentía:</strong> Disposición a hacer lo necesario en
+                el momento preciso.
+              </li>
+              <li>
+                <strong>Respeto:</strong> Integridad del sistema, no dañar
+                pruebas existentes.
+              </li>
+              <li>
+                <strong>Pruebas unitarias continuas:</strong> Integradas desde
+                el principio para detección temprana de errores.
+              </li>
+              <li>
+                <strong>Programación en parejas:</strong> Dos programadores en
+                el mismo código, mejora calidad y transferencia de conocimiento.
+              </li>
+              <li>
+                <strong>Refactorización:</strong> Mejora continua del diseño
+                interno del código sin alterar comportamiento externo.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Aplicación y Beneficios</h3>
+            <div class="pros">
+              <h4 class="font-bold text-emerald-800 mb-3">✅ Adecuado para:</h4>
+              <ul class="list-disc list-inside text-emerald-700 space-y-1">
+                <li>
+                  Proyectos donde la retroalimentación del cliente es esencial.
+                </li>
+                <li>Proyectos con alcance propenso a cambios.</li>
+                <li>Equipos que buscan mejorar la calidad de su código.</li>
+              </ul>
+            </div>
+            <p class="text-sm text-slate-600 mt-4">
+              XP integra la calidad intrínsecamente en el proceso, permitiendo
+              detectar y corregir errores tempranamente, a diferencia de los
+              modelos tradicionales con fases de prueba tardías.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lean Software Development -->
+      <div id="lean" class="content-section">
+        <h2 class="section-title">
+          Lean Software Development: Eliminación de Desperdicios
+        </h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Concepto y Enfoque</h3>
+            <p class="text-lg mb-4">
+              Metodología ágil inspirada en el Sistema de Producción de Toyota.
+              Su objetivo es eliminar el trabajo innecesario que no añade valor
+              al resultado final, optimizando así el flujo de trabajo en el
+              desarrollo de software.
+            </p>
+
+            <h3 class="subsection-title">Aspectos Clave</h3>
+            <ul class="list-disc list-inside space-y-2 text-lg text-slate-700">
+              <li>Implementar una metodología de aprendizaje continuo.</li>
+              <li>
+                Tomar decisiones lo más tarde posible (requisitos pueden
+                cambiar).
+              </li>
+              <li>
+                Entregar lo antes posible, incluyendo solo lo estrictamente
+                necesario.
+              </li>
+              <li>Potenciar al equipo e involucrarlos activamente.</li>
+              <li>Sistema de pruebas automatizado e integrado.</li>
+              <li>
+                Enfoque en eliminación de desperdicios, sistema "pull" y
+                adaptación constante.
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Aplicación y Beneficios</h3>
+            <div class="pros">
+              <h4 class="font-bold text-emerald-800 mb-3">✅ Adecuado para:</h4>
+              <ul class="list-disc list-inside text-emerald-700 space-y-1">
+                <li>
+                  Proyectos donde se necesita minimizar el desperdicio y
+                  optimizar el valor.
+                </li>
+                <li>Reducción de costos de desarrollo.</li>
+                <li>Colaboración estrecha con el cliente.</li>
+                <li>
+                  Entornos donde la entrega continua y la optimización de la
+                  eficiencia son prioridades.
+                </li>
+              </ul>
+            </div>
+            <p class="text-sm text-slate-600 mt-4">
+              Lean incorpora principios de eficiencia de otras industrias,
+              optimizando recursos y tiempo al eliminar actividades que no
+              agregan valor.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Otras Metodologías Ágiles -->
+      <div id="otras" class="content-section">
+        <h2 class="section-title">Otras Metodologías Ágiles Relevantes</h2>
+
+        <p class="text-lg leading-relaxed mb-6">
+          El ecosistema ágil es diverso, permitiendo a las organizaciones
+          seleccionar la metodología más adecuada según sus necesidades.
+        </p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">Crystal</h3>
+            <p class="text-sm">
+              Conjunto de metodologías (Yellow, Clear, Red, Orange) donde los
+              equipos eligen la que mejor se adapta a sus necesidades y entorno.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">
+              Dynamic Systems Development Method (DSDM)
+            </h3>
+            <p class="text-sm">
+              Marco robusto para desarrollo ágil, con principios de colaboración
+              activa, entrega incremental y enfoque en el usuario.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">
+              Feature-Driven Development (FDD)
+            </h3>
+            <p class="text-sm">
+              Enfoque iterativo e incremental centrado en la entrega de
+              características del producto en ciclos cortos.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">
+              Scaled Agile Framework (SAFe)
+            </h3>
+            <p class="text-sm">
+              Marco para escalar los principios ágiles a lo largo de toda la
+              organización, facilitando la agilidad a nivel empresarial.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">Lean Startup</h3>
+            <p class="text-sm">
+              Aplica principios ágiles para el diseño de productos o servicios,
+              enfocándose en la validación rápida de hipótesis de negocio.
+            </p>
+          </div>
+        </div>
+
+        <p class="text-center text-slate-600 mt-6 font-medium">
+          La diversidad de metodologías ágiles demuestra la madurez y
+          versatilidad del paradigma, permitiendo personalizar el enfoque para
+          maximizar beneficios.
+        </p>
+      </div>
+
+      <!-- Ventajas y Desventajas -->
+      <div id="ventajas-desventajas" class="content-section">
+        <h2 class="section-title">Ventajas y Desventajas Generales</h2>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h3 class="text-2xl font-bold text-emerald-800 mb-4">
+              ✅ Beneficios Clave
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Mayor Flexibilidad y Adaptación al Cambio:</strong>
+                  Responde rápido a cambios de requisitos, alcance,
+                  presupuesto.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong
+                    >Mayor Entrega de Valor y Satisfacción del Cliente:</strong
+                  >
+                  Entrega frecuente de software funcional.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Mayor Colaboración y Transparencia:</strong> Fomenta
+                  la comunicación entre equipo y cliente.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Mayor Calidad y Mejora Continua:</strong> Pruebas
+                  integradas, identificación temprana de errores.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Ciclos de Desarrollo Más Cortos:</strong> Entrega más
+                  rápida del producto o sus incrementos.</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h3 class="text-2xl font-bold text-rose-800 mb-4">
+              ❌ Desafíos y Consideraciones
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Menor Flexibilidad ante Errores (Potencial):</strong>
+                  Detección tardía si no hay calidad continua.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong
+                    >Menor Involucramiento del Cliente (Potencial):</strong
+                  >
+                  Riesgo de desvío sin visión clara o cliente activo.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Falta de Documentación (Percepción):</strong> Énfasis
+                  en software funcional, no ausencia total.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Fuerte Dependencia de Líderes y Disciplina:</strong>
+                  Autogestión requiere alta responsabilidad.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Dificultad en Presupuestos Cerrados:</strong>
+                  Complicado definir costos/tiempos exactos al inicio.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Riesgo de "Scope Creep":</strong> Tendencia a añadir
+                  características por apertura al cambio.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>No es Adecuado para Todos los Proyectos:</strong>
+                  Menos apropiado para requisitos estables o alta
+                  regulación.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tipos de Proyectos -->
+      <div id="proyectos" class="content-section">
+        <h2 class="section-title">Tipos de Proyectos donde Agile Brilla</h2>
+
+        <p class="text-lg leading-relaxed mb-6 max-w-3xl mx-auto text-center">
+          Las metodologías ágiles son especialmente eficaces en proyectos con
+          las siguientes características:
+        </p>
+
+        <div class="card">
+          <ul class="list-disc list-inside space-y-3 text-lg">
+            <li>
+              <strong>Requisitos Cambiantes o Poco Definidos:</strong> Ideales
+              para entornos donde las demandas del cliente pueden cambiar
+              rápidamente.
+            </li>
+            <li>
+              <strong>Que Requieren Entregas Rápidas y Frecuentes:</strong>
+              Cuando se desea que las liberaciones de software sean continuas y
+              rápidas.
+            </li>
+            <li>
+              <strong>Complejos y de Alto Riesgo:</strong> Adecuadas para
+              proyectos que requieren estrecha colaboración y gestión iterativa
+              de riesgos.
+            </li>
+            <li>
+              <strong
+                >Que Requieren Alta Colaboración y Retroalimentación del
+                Cliente:</strong
+              >
+              Escenarios donde el feedback del cliente es esencial y el alcance
+              es propenso a cambios.
+            </li>
+            <li>
+              <strong>De Innovación y Desarrollo de Productos:</strong>
+              Facilitan la creación de prototipos y la adición sistemática de
+              características, crucial para startups.
+            </li>
+          </ul>
+        </div>
+
+        <p class="text-center text-slate-600 mt-6 font-medium">
+          Agile es un facilitador clave de la innovación, permitiendo a las
+          organizaciones experimentar, aprender y pivotar rápidamente.
+        </p>
+      </div>
+
+      <!-- Industrias que Adoptan la Agilidad -->
+      <div id="industrias" class="content-section">
+        <h2 class="section-title">Industrias que Adoptan la Agilidad</h2>
+
+        <p class="text-lg leading-relaxed mb-6 max-w-3xl mx-auto text-center">
+          Aunque originarias del software, el éxito y la adaptabilidad de las
+          metodologías ágiles han llevado a su expansión a otros sectores.
+        </p>
+
+        <div class="card">
+          <ul class="list-disc list-inside space-y-3 text-lg">
+            <li>
+              <strong>Desarrollo de Software:</strong> 71% de las empresas de
+              ingeniería de software las utilizan.
+            </li>
+            <li>
+              <strong>Industria Farmacéutica:</strong> Incremento de producción
+              e investigación y desarrollo.
+            </li>
+            <li>
+              <strong>Industria Aeroespacial:</strong> Ahorro de costos y
+              aceleración de procesos.
+            </li>
+            <li>
+              <strong>Ingeniería (General):</strong> Adaptación al crecimiento
+              del mercado y lanzamientos de productos.
+            </li>
+            <li>
+              <strong>Marketing y Publicidad:</strong> Alta capacidad de
+              respuesta a tendencias cambiantes.
+            </li>
+            <li>
+              <strong>Industria Financiera:</strong> Gestión de complejidad y
+              velocidad de cambios regulatorios.
+            </li>
+            <li>
+              <strong>Agencias Gubernamentales:</strong> Mejora de eficiencia y
+              capacidad de respuesta en proyectos públicos.
+            </li>
+            <li>
+              <strong>Startups:</strong> Fundamental para innovación y
+              crecimiento.
+            </li>
+          </ul>
+        </div>
+
+        <p class="text-center text-slate-600 mt-6 font-medium">
+          La adopción generalizada demuestra la universalidad de sus principios
+          para gestionar la complejidad e incertidumbre en la economía moderna.
+        </p>
+      </div>
+
+      <!-- Actividad Didáctica -->
+      <div id="actividad" class="content-section">
+        <h2 class="section-title">Actividad Didáctica Sugerida</h2>
+
+        <div class="activity-box">
+          <h3 class="text-2xl font-semibold mb-4 text-center">
+            "Simulación de Sprint Ágil: ¡Construye tu App!"
+          </h3>
+          <p class="text-lg leading-relaxed mb-6 text-center">
+            Experimenta los principios ágiles (Scrum) aplicando iteraciones,
+            colaboración y adaptación al cambio en un proyecto simulado.
+          </p>
+
+          <div class="bg-white bg-opacity-20 p-6 rounded-lg">
+            <h4 class="font-bold text-xl mb-3">
+              Escenario: Desarrollo de una "App de Gestión de Tareas Simple"
+            </h4>
+            <ul class="list-disc list-inside text-lg mb-4 space-y-1">
+              <li>
+                <strong>Objetivo:</strong> Crear una aplicación web/móvil para
+                gestionar tareas personales.
+              </li>
+              <li>
+                <strong>Requisitos Iniciales:</strong> Muy básicos y abiertos a
+                cambios.
+              </li>
+              <li><strong>Equipo:</strong> Grupos de 3-4 estudiantes.</li>
+            </ul>
+
+            <h4 class="font-bold text-xl mb-3">
+              Instrucciones para la Simulación (2 Sprints de 15-20 minutos cada
+              uno):
+            </h4>
+            <ol class="list-decimal list-inside text-lg space-y-2">
+              <li>
+                <strong>Sprint 1 - Planificación (5 min):</strong>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                  <li>
+                    Cada grupo define un "Product Backlog" inicial con 3-5
+                    características (Ej: "Crear tarea", "Marcar como
+                    completada", "Ver lista de tareas").
+                  </li>
+                  <li>Seleccionan 1-2 características para el "Sprint 1".</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Sprint 1 - Desarrollo (10 min):</strong>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                  <li>
+                    "Desarrollen" la característica. Pueden usar papel, dibujos,
+                    descripciones verbales, o herramientas simples. El objetivo
+                    es simular el "software funcionando".
+                  </li>
+                  <li>
+                    Realicen un "Daily Stand-up" rápido (1 min) a la mitad del
+                    tiempo: ¿Qué hice ayer? ¿Qué haré hoy? ¿Obstáculos?
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <strong
+                  >Sprint 1 - Revisión y Retroalimentación (5 min):</strong
+                >
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                  <li>
+                    Cada grupo "presenta" su "incremento" (lo que lograron) al
+                    resto de la clase/profesor.
+                  </li>
+                  <li>
+                    Reciben "feedback" (nuevas ideas, cambios, problemas).
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <strong>Sprint 2 - Planificación (5 min):</strong>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                  <li>
+                    Incorporan el feedback del Sprint 1 al Product Backlog.
+                  </li>
+                  <li>
+                    Seleccionan nuevas características (o mejoras a las
+                    existentes) para el "Sprint 2".
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <strong>Sprint 2 - Desarrollo (10 min):</strong> (Repetir
+                proceso de desarrollo y Daily Stand-up)
+              </li>
+              <li>
+                <strong>Sprint 2 - Revisión y Retrospectiva (10 min):</strong>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                  <li>Presentan el nuevo incremento.</li>
+                  <li>
+                    Realizan una "Retrospectiva" de grupo: ¿Qué funcionó bien en
+                    los sprints? ¿Qué podríamos mejorar en nuestro proceso?
+                  </li>
+                </ul>
+              </li>
+            </ol>
+            <p class="text-sm mt-4">
+              Esta actividad busca resaltar la importancia de la colaboración,
+              la adaptación a los cambios y la entrega incremental de valor.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conclusión -->
+      <div id="conclusion" class="content-section">
+        <h2 class="section-title">
+          Conclusión: Impacto y Futuro de las Metodologías Ágiles
+        </h2>
+
+        <div class="card">
+          <ul class="list-disc list-inside space-y-3 text-lg">
+            <li>
+              Han revolucionado el desarrollo de software y la gestión de
+              proyectos, ofreciendo capacidad para responder a cambios y
+              entregar valor.
+            </li>
+            <li>
+              Surgieron como respuesta a las limitaciones de enfoques
+              tradicionales frente a la complejidad del software moderno.
+            </li>
+            <li>
+              Representan un cambio de mentalidad que promueve mejora continua,
+              transparencia y adaptabilidad.
+            </li>
+            <li>
+              La estructura puede coexistir con la flexibilidad, la calidad se
+              integra y la eficiencia se optimiza.
+            </li>
+            <li>
+              Su expansión a diversas industrias subraya la robustez de sus
+              principios fundamentales.
+            </li>
+            <li>
+              Superar sus desafíos requiere un cambio en la mentalidad de
+              gestión de riesgos y expectativas.
+            </li>
+            <li>
+              Se espera que continúen su evolución y creciente integración,
+              consolidando su posición como enfoque fundamental.
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-center mt-6">
+          <a href="../index.html" class="back-button">← Volver al Inicio</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add some hover effects and animations
+      const cards = document.querySelectorAll(".card");
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)";
+        });
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>
