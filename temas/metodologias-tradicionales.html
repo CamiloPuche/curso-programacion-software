@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Metodologías Tradicionales de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #1e293b;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 20px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+      .section-title {
+        color: #0c4a6e;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #0c4a6e;
+        padding-bottom: 1rem;
+      }
+      .subsection-title {
+        color: #0369a1;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #0ea5e9;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+        border-left: 4px solid #f59e0b;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 1.5rem 0;
+      }
+      .pros-cons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .pros {
+        background: linear-gradient(135deg, #d1fae5 0%, #34d399 100%);
+        border-left: 4px solid #10b981;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+      }
+      .cons {
+        background: linear-gradient(135deg, #fee2e2 0%, #f87171 100%);
+        border-left: 4px solid #ef4444;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+      }
+      .process-step {
+        background: #e0f2fe;
+        border: 1px solid #bae6fd;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      .process-arrow {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #64748b;
+        margin: 0.25rem 0;
+      }
+      .v-model-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+      .v-left,
+      .v-right {
+        flex: 1;
+      }
+      .v-model-box {
+        border: 2px solid;
+        text-align: center;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .v-development {
+        border-color: #0ea5e9;
+        background: #e0f2fe;
+      }
+      .v-testing {
+        border-color: #10b981;
+        background: #d1fae5;
+      }
+      .v-center {
+        background: #fef2f2;
+        border: 2px solid #ef4444;
+        color: #7f1d1d;
+        font-weight: bold;
+        padding: 1rem;
+        text-align: center;
+        border-radius: 0.5rem;
+      }
+      .spiral-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .spiral-phase {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+      }
+      .phase-planning {
+        background: #dbeafe;
+        border: 1px solid #93c5fd;
+      }
+      .phase-risk {
+        background: #fee2e2;
+        border: 1px solid #fca5a5;
+      }
+      .phase-engineering {
+        background: #d1fae5;
+        border: 1px solid #86efac;
+      }
+      .phase-evaluation {
+        background: #fef3c7;
+        border: 1px solid #fcd34d;
+      }
+      .back-button {
+        background: #0c4a6e;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 2rem;
+        transition: background-color 0.3s ease;
+      }
+      .back-button:hover {
+        background: #075985;
+      }
+      .activity-box {
+        background: linear-gradient(135deg, #e0f2fe 0%, #0ea5e9 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        margin: 2rem 0;
+      }
+      .toc {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin: 2rem 0;
+      }
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+      .toc li {
+        margin: 0.5rem 0;
+      }
+      .toc a {
+        color: #0369a1;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.25rem 0;
+        display: block;
+      }
+      .toc a:hover {
+        color: #0c4a6e;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="content-section">
+        <a href="../index.html" class="back-button">← Volver al Inicio</a>
+        <h1 class="section-title">El Mundo Estructurado</h1>
+        <p class="text-2xl text-center text-slate-700 max-w-3xl mx-auto">
+          Un Viaje por las Metodologías Tradicionales de Desarrollo de Software
+        </p>
+      </div>
+
+      <!-- Índice de Contenidos -->
+      <div class="content-section">
+        <div class="toc">
+          <h2 class="subsection-title">📋 Índice de Contenidos</h2>
+          <ul>
+            <li>
+              <a href="#introduccion"
+                >1. Introducción: ¿Qué son y Por Qué Son Cruciales?</a
+              >
+            </li>
+            <li><a href="#proposito">2. Propósito Fundamental</a></li>
+            <li><a href="#caracteristicas">3. Características Generales</a></li>
+            <li><a href="#tipos">4. Tipos Principales</a></li>
+            <li><a href="#cascada">5. Modelo en Cascada</a></li>
+            <li><a href="#modelo-v">6. Modelo en V</a></li>
+            <li><a href="#prototipos">7. Modelo de Prototipos</a></li>
+            <li><a href="#espiral">8. Modelo Espiral</a></li>
+            <li>
+              <a href="#ventajas-desventajas"
+                >9. Ventajas y Desventajas Generales</a
+              >
+            </li>
+            <li><a href="#contextos">10. Contextos de Aplicación</a></li>
+            <li><a href="#actividad">11. Actividad Didáctica</a></li>
+            <li><a href="#conclusiones">12. Conclusiones</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Introducción -->
+      <div id="introduccion" class="content-section">
+        <h2 class="section-title">
+          Introducción: ¿Qué son y Por Qué Son Cruciales?
+        </h2>
+
+        <p class="text-lg leading-relaxed mb-4">
+          Las metodologías de desarrollo de software son un conjunto
+          estructurado de técnicas y métodos organizativos para la creación de
+          soluciones informáticas. Su propósito es orquestar equipos, asegurar
+          la eficiencia y productividad, y culminar en software de alta calidad.
+        </p>
+
+        <p class="text-lg leading-relaxed mb-6">
+          Definen "qué hacer, cómo y cuándo" en cada etapa del ciclo de vida de
+          un proyecto, desde la concepción hasta el mantenimiento.
+        </p>
+
+        <div class="highlight-box">
+          <p class="font-semibold text-lg mb-2">📚 Contexto Histórico:</p>
+          <p>
+            Surgieron como respuesta a la
+            <strong>"crisis del software"</strong> en los años 60 y 70,
+            caracterizada por desbordamiento de costos, retrasos y fallos
+            críticos. Buscaron introducir disciplina y previsibilidad.
+          </p>
+
+          <div class="mt-4 p-4 bg-white bg-opacity-50 rounded-lg">
+            <h4 class="font-bold text-lg mb-2">La "Crisis del Software"</h4>
+            <p>Período en las décadas de 1960 y 1970 caracterizado por:</p>
+            <ul class="list-disc list-inside mt-2 space-y-1">
+              <li>
+                <strong>Desbordamiento masivo de costos:</strong> Proyectos que
+                superaban enormemente sus presupuestos.
+              </li>
+              <li>
+                <strong>Retrasos constantes:</strong> Fechas de finalización
+                impredecibles y prolongadas.
+              </li>
+              <li>
+                <strong>Fallos críticos:</strong> Defectos de software que
+                causaban daños a la propiedad o, en casos trágicos como el
+                incidente de Therac-25, pérdidas de vidas.
+              </li>
+            </ul>
+            <p class="mt-2">
+              Esto llevó a la urgencia de establecer procesos definidos y
+              metodologías rigurosas para profesionalizar el desarrollo de
+              software.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Propósito Fundamental -->
+      <div id="proposito" class="content-section">
+        <h2 class="section-title">
+          Propósito Fundamental de las Metodologías Tradicionales
+        </h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-3">🎯 Objetivo Principal</h3>
+            <p class="text-lg">
+              Construir un producto de software de alta calidad de manera
+              oportuna, formalizando y optimizando el proceso de desarrollo.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-3">
+              📅 Énfasis en la Planificación
+            </h3>
+            <p class="text-lg">
+              Planificación total y exhaustiva de todo el trabajo desde el
+              inicio. Todos los detalles se definen antes de comenzar el
+              desarrollo.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-3">🔒 Control Riguroso</h3>
+            <p class="text-lg">
+              Control estricto a lo largo del proyecto mediante extensa
+              documentación escrita, revisiones y aprobaciones formales en cada
+              fase.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-3">
+              ⚡ Minimización de Riesgos
+            </h3>
+            <p class="text-lg">
+              Busca minimizar el riesgo a través de la previsión y el control
+              estricto, respondiendo a la imprevisibilidad de enfoques
+              anteriores.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Características Generales -->
+      <div id="caracteristicas" class="content-section">
+        <h2 class="section-title">
+          Características Generales de las Metodologías Tradicionales
+        </h2>
+
+        <div class="grid-4">
+          <div class="card text-center">
+            <div class="text-4xl mb-3">➡️</div>
+            <h3 class="text-xl font-bold mb-2">Enfoque Secuencial y Lineal</h3>
+            <p class="text-sm text-slate-700 mt-2">
+              Fases organizadas de arriba hacia abajo, una tras otra. Cada etapa
+              debe completarse y aprobarse antes de avanzar.
+            </p>
+          </div>
+          <div class="card text-center">
+            <div class="text-4xl mb-3">📄</div>
+            <h3 class="text-xl font-bold mb-2">Documentación Exhaustiva</h3>
+            <p class="text-sm text-slate-700 mt-2">
+              Producción de documentación detallada en cada fase (requisitos,
+              diseño, implementación), sirviendo como hoja de ruta completa.
+            </p>
+          </div>
+          <div class="card text-center">
+            <div class="text-4xl mb-3">📅</div>
+            <h3 class="text-xl font-bold mb-2">
+              Planificación Detallada y Rígida
+            </h3>
+            <p class="text-sm text-slate-700 mt-2">
+              Requisitos y especificaciones definidos exhaustivamente al inicio,
+              con la premisa de que no cambiarán significativamente.
+            </p>
+          </div>
+          <div class="card text-center">
+            <div class="text-4xl mb-3">👤</div>
+            <h3 class="text-xl font-bold mb-2">
+              Participación del Cliente Limitada
+            </h3>
+            <p class="text-sm text-slate-700 mt-2">
+              Interacción concentrada en fases finales (pruebas, entrega), lo
+              que puede llevar a retroalimentación tardía y costosas
+              reelaboraciones.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tipos Principales -->
+      <div id="tipos" class="content-section">
+        <h2 class="section-title">
+          Tipos Principales de Metodologías Tradicionales
+        </h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">
+              🌊 Modelo en Cascada (Waterfall)
+            </h3>
+            <p class="text-lg mb-3">
+              El arquetipo lineal y secuencial, donde cada fase se completa
+              antes de pasar a la siguiente.
+            </p>
+            <a
+              href="#cascada"
+              class="text-sky-700 font-semibold hover:underline"
+              >Explorar Cascada ▼</a
+            >
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">📐 Modelo en V (V-Model)</h3>
+            <p class="text-lg mb-3">
+              Evolución de Cascada, conecta fases de desarrollo con fases de
+              prueba correspondientes, enfatizando verificación y validación.
+            </p>
+            <a
+              href="#modelo-v"
+              class="text-sky-700 font-semibold hover:underline"
+              >Explorar Modelo en V ▼</a
+            >
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">🛠️ Modelo de Prototipos</h3>
+            <p class="text-lg mb-3">
+              Construcción rápida de un prototipo para obtener retroalimentación
+              temprana del usuario y refinar requisitos.
+            </p>
+            <a
+              href="#prototipos"
+              class="text-sky-700 font-semibold hover:underline"
+              >Explorar Prototipos ▼</a
+            >
+          </div>
+          <div class="card">
+            <h3 class="text-xl font-semibold mb-2">🌀 Modelo Espiral</h3>
+            <p class="text-lg mb-3">
+              Combina Cascada e iteraciones, añadiendo un énfasis explícito en
+              el análisis y gestión de riesgos en cada ciclo.
+            </p>
+            <a
+              href="#espiral"
+              class="text-sky-700 font-semibold hover:underline"
+              >Explorar Espiral ▼</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Modelo en Cascada -->
+      <div id="cascada" class="content-section">
+        <h2 class="section-title">Modelo en Cascada (Waterfall)</h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Concepto y Fases</h3>
+            <p class="text-lg mb-4">
+              Proceso lineal y secuencial donde cada fase se ejecuta una única
+              vez y sus resultados son la base para la siguiente.
+            </p>
+
+            <div class="space-y-1">
+              <div class="process-step">
+                <strong>1. Análisis de Requisitos:</strong> Definición detallada
+                de lo que el sistema debe hacer, incluyendo funciones y
+                restricciones.
+              </div>
+              <div class="process-arrow">▼</div>
+              <div class="process-step">
+                <strong>2. Diseño:</strong> Creación de la arquitectura del
+                software, componentes, interfaces y plan técnico.
+              </div>
+              <div class="process-arrow">▼</div>
+              <div class="process-step">
+                <strong>3. Implementación (Codificación):</strong> Escritura del
+                código fuente y desarrollo de los componentes individuales.
+              </div>
+              <div class="process-arrow">▼</div>
+              <div class="process-step">
+                <strong>4. Pruebas (Verificación):</strong> Identificación y
+                corrección de errores, validando el software contra los
+                requisitos.
+              </div>
+              <div class="process-arrow">▼</div>
+              <div class="process-step">
+                <strong>5. Mantenimiento:</strong> Actividades post-despliegue
+                como corrección de errores, mejoras y actualizaciones.
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Ventajas y Desventajas</h3>
+
+            <div class="pros-cons">
+              <div class="pros">
+                <h4 class="font-bold text-emerald-800 mb-3">✅ Ventajas:</h4>
+                <ul class="list-disc list-inside text-emerald-700 space-y-1">
+                  <li>Estructura Sencilla y Clara</li>
+                  <li>Buena Documentación</li>
+                  <li>Estimación Precisa</li>
+                  <li>Adecuado para Requisitos Estables</li>
+                </ul>
+              </div>
+              <div class="cons">
+                <h4 class="font-bold text-rose-800 mb-3">❌ Desventajas:</h4>
+                <ul class="list-disc list-inside text-rose-700 space-y-1">
+                  <li>Poca Flexibilidad</li>
+                  <li>Detección Tardía de Errores</li>
+                  <li>Poca Participación del Cliente</li>
+                  <li>Ciclos de Desarrollo Prolongados</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 class="subsection-title">Contextos de Aplicación</h3>
+            <p class="text-lg">
+              Proyectos de gran envergadura con requisitos exhaustivamente
+              definidos y estables. Ideal para industrias reguladas
+              (farmacéutica, defensa) donde la auditabilidad y el cumplimiento
+              son críticos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modelo en V -->
+      <div id="modelo-v" class="content-section">
+        <h2 class="section-title">Modelo en V (V-Model)</h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Concepto y Fases</h3>
+            <p class="text-lg mb-4">
+              Evolución de Cascada. Conecta cada fase de desarrollo con una fase
+              de prueba correspondiente, formando una 'V'.
+            </p>
+
+            <div class="v-model-container">
+              <div class="v-left">
+                <div class="v-model-box v-development">
+                  <strong>Análisis de Necesidades:</strong> Recopilación y
+                  especificación de requisitos del cliente.
+                </div>
+                <div class="v-model-box v-development">
+                  <strong>Diseño de Arquitectura:</strong> Definición de la
+                  estructura global del sistema y sus módulos.
+                </div>
+                <div class="v-model-box v-development">
+                  <strong>Diseño Detallado:</strong> Especificación técnica
+                  precisa de cada componente.
+                </div>
+              </div>
+              <div class="v-right">
+                <div class="v-model-box v-testing">
+                  <strong>Pruebas de Aceptación:</strong> Validación del sistema
+                  por el cliente en entorno real.
+                </div>
+                <div class="v-model-box v-testing">
+                  <strong>Pruebas de Sistema:</strong> Verificación del sistema
+                  completo contra requisitos funcionales y no funcionales.
+                </div>
+                <div class="v-model-box v-testing">
+                  <strong>Pruebas de Integración:</strong> Evaluación de la
+                  interacción entre componentes integrados.
+                </div>
+              </div>
+            </div>
+
+            <div class="v-center">
+              <strong>Codificación y Pruebas Unitarias:</strong> Implementación
+              del código y prueba de cada unidad individual.
+            </div>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Ventajas y Desventajas</h3>
+
+            <div class="pros-cons">
+              <div class="pros">
+                <h4 class="font-bold text-emerald-800 mb-3">✅ Ventajas:</h4>
+                <ul class="list-disc list-inside text-emerald-700 space-y-1">
+                  <li>Trazabilidad Mejorada</li>
+                  <li>Garantía de Calidad Mejorada</li>
+                  <li>Detección Precoz de Defectos</li>
+                  <li>Ideal para Sistemas Críticos</li>
+                </ul>
+              </div>
+              <div class="cons">
+                <h4 class="font-bold text-rose-800 mb-3">❌ Desventajas:</h4>
+                <ul class="list-disc list-inside text-rose-700 space-y-1">
+                  <li>Rigidez</li>
+                  <li>Largos Plazos</li>
+                  <li>Falta de Flexibilidad</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 class="subsection-title">Contextos de Aplicación</h3>
+            <p class="text-lg">
+              Proyectos con requisitos estables y alta necesidad de
+              confiabilidad y trazabilidad (aeronáutica, sistemas embebidos,
+              software de misión crítica).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modelo de Prototipos -->
+      <div id="prototipos" class="content-section">
+        <h2 class="section-title">Modelo de Prototipos</h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Concepto y Fases</h3>
+            <p class="text-lg mb-4">
+              Construcción rápida de una versión preliminar (prototipo) para que
+              los usuarios la prueben y den retroalimentación. Es iterativo y
+              evolutivo.
+            </p>
+
+            <div class="space-y-1">
+              <div class="process-step">
+                <strong>1. Investigación Preliminar / Requisitos:</strong>
+                Análisis inicial y definición de los requisitos básicos del
+                programa.
+              </div>
+              <div class="process-arrow">▼</div>
+              <div class="process-step">
+                <strong>2. Diseño y Desarrollo del Prototipo:</strong>
+                Construcción rápida de una versión funcional preliminar del
+                software.
+              </div>
+              <div class="process-arrow">▼</div>
+              <div class="process-step">
+                <strong>3. Evaluación por el Usuario:</strong> Revisión del
+                prototipo por parte de los usuarios para obtener feedback.
+              </div>
+              <div class="process-arrow text-blue-500">
+                ⤴️ Modificación/Refinamiento
+              </div>
+              <div class="process-arrow">▼</div>
+              <div class="process-step bg-emerald-100 font-bold">
+                <strong>Producto Final Aprobado:</strong> La versión final del
+                software, lista para su despliegue y uso.
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Ventajas y Desventajas</h3>
+
+            <div class="pros-cons">
+              <div class="pros">
+                <h4 class="font-bold text-emerald-800 mb-3">✅ Ventajas:</h4>
+                <ul class="list-disc list-inside text-emerald-700 space-y-1">
+                  <li>Retroalimentación Temprana del Usuario</li>
+                  <li>Clarificación de Requisitos</li>
+                  <li>Reducción de Riesgos</li>
+                  <li>Mejora de la Satisfacción del Usuario</li>
+                </ul>
+              </div>
+              <div class="cons">
+                <h4 class="font-bold text-rose-800 mb-3">❌ Desventajas:</h4>
+                <ul class="list-disc list-inside text-rose-700 space-y-1">
+                  <li>Potencial de "Scope Creep"</li>
+                  <li>Riesgo de Arquitectura Deficiente</li>
+                  <li>Expectativas del Cliente poco realistas</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 class="subsection-title">Contextos de Aplicación</h3>
+            <p class="text-lg">
+              Proyectos con requisitos poco claros o cambiantes, y aplicaciones
+              con fuerte interacción de usuario (interfaces, experiencia de
+              usuario).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modelo Espiral -->
+      <div id="espiral" class="content-section">
+        <h2 class="section-title">Modelo Espiral</h2>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="subsection-title">Concepto y Fases</h3>
+            <p class="text-lg mb-4">
+              Combina Cascada e iteraciones, con un énfasis central en el
+              análisis y gestión de riesgos en cada ciclo (espiral).
+            </p>
+
+            <div class="spiral-grid">
+              <div class="spiral-phase phase-planning">
+                <h4 class="font-bold">1. Planificación</h4>
+                <p class="text-sm">
+                  Estimación de costos, calendario, recursos, comprensión de
+                  requisitos.
+                </p>
+              </div>
+              <div class="spiral-phase phase-risk">
+                <h4 class="font-bold">2. Análisis del Riesgo</h4>
+                <p class="text-sm">
+                  Identificación y mitigación de riesgos potenciales.
+                </p>
+              </div>
+              <div class="spiral-phase phase-engineering">
+                <h4 class="font-bold">3. Ingeniería</h4>
+                <p class="text-sm">
+                  Codificación, pruebas y despliegue del software de la
+                  iteración.
+                </p>
+              </div>
+              <div class="spiral-phase phase-evaluation">
+                <h4 class="font-bold">4. Evaluación</h4>
+                <p class="text-sm">
+                  Evaluación del software por el cliente y seguimiento de
+                  riesgos.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="subsection-title">Ventajas y Desventajas</h3>
+
+            <div class="pros-cons">
+              <div class="pros">
+                <h4 class="font-bold text-emerald-800 mb-3">✅ Ventajas:</h4>
+                <ul class="list-disc list-inside text-emerald-700 space-y-1">
+                  <li>Flexibilidad para Cambios</li>
+                  <li>Gestión de Riesgos Continua</li>
+                  <li>Estimación de Costos Facilitada</li>
+                  <li>Ideal para Proyectos Grandes</li>
+                </ul>
+              </div>
+              <div class="cons">
+                <h4 class="font-bold text-rose-800 mb-3">❌ Desventajas:</h4>
+                <ul class="list-disc list-inside text-rose-700 space-y-1">
+                  <li>Complejidad</li>
+                  <li>No Rentable para Proyectos Pequeños</li>
+                  <li>Requiere Adherencia Estricta al Protocolo</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 class="subsection-title">Contextos de Aplicación</h3>
+            <p class="text-lg">
+              Proyectos de gran tamaño, riesgo medio-alto/alto, requisitos
+              complejos o poco claros, y alta probabilidad de cambios.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ventajas y Desventajas Generales -->
+      <div id="ventajas-desventajas" class="content-section">
+        <h2 class="section-title">Ventajas y Desventajas Generales</h2>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h3 class="text-2xl font-bold text-emerald-800 mb-4">
+              ✅ Ventajas Generales
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Estructura y Previsibilidad:</strong> Fases claras,
+                  fácil planificación y control.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Documentación Exhaustiva:</strong> Hoja de ruta
+                  completa, facilita mantenimiento y cumplimiento.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Estimación Precisa:</strong> Costos y tiempos
+                  predecibles al inicio.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Fácil Medición del Progreso:</strong> Hitos claros
+                  para seguimiento.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-emerald-600 mr-3 text-xl">✔</span
+                ><span
+                  ><strong>Adecuadas para Proyectos Grandes:</strong> Útiles en
+                  proyectos complejos y bien definidos.</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h3 class="text-2xl font-bold text-rose-800 mb-4">
+              ❌ Desventajas Generales
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Poca Flexibilidad y Rigidez:</strong> Cambios
+                  difíciles y costosos en fases avanzadas.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Detección Tardía de Errores:</strong> Fallos
+                  descubiertos al final, incrementando costos de
+                  corrección.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Limitada Participación del Cliente:</strong> Riesgo
+                  de producto no alineado con necesidades cambiantes.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Ciclos de Desarrollo Prolongados:</strong> Retraso en
+                  la entrega del producto final.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-rose-600 mr-3 text-xl">✖</span
+                ><span
+                  ><strong>Mayor Riesgo de No Cumplir Expectativas:</strong>
+                  Dependencia de requisitos iniciales inalterados.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contextos de Aplicación -->
+      <div id="contextos" class="content-section">
+        <h2 class="section-title">Contextos de Aplicación General</h2>
+
+        <p class="text-lg leading-relaxed mb-6 max-w-3xl mx-auto text-center">
+          Las metodologías tradicionales son ideales cuando la estabilidad, la
+          predictibilidad y la formalidad son más importantes que la
+          flexibilidad y la adaptación rápida.
+        </p>
+
+        <div class="card">
+          <ul class="list-disc list-inside space-y-3 text-lg">
+            <li>
+              <strong>Requisitos estables y bien definidos:</strong> No se
+              esperan cambios significativos.
+            </li>
+            <li>
+              <strong>Proyectos grandes y complejos:</strong> Donde la claridad
+              del plan y el control son primordiales.
+            </li>
+            <li>
+              <strong>Industrias reguladas o de alta criticidad:</strong>
+              Farmacéutica, financiera, defensa, aeroespacial, donde la
+              documentación, trazabilidad y auditabilidad son esenciales.
+            </li>
+            <li>
+              <strong
+                >Necesidad de documentación extensa y registros de
+                auditoría:</strong
+              >
+              Imprescindible para el cumplimiento legal y la rendición de
+              cuentas.
+            </li>
+            <li>
+              <strong>Poca disponibilidad del cliente:</strong> Para
+              involucrarse continuamente en etapas tempranas.
+            </li>
+            <li>
+              <strong>Cultura organizacional jerárquica y burocrática:</strong>
+              Se alinea mejor con estos métodos.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Actividad Didáctica -->
+      <div id="actividad" class="content-section">
+        <h2 class="section-title">Actividad Didáctica Sugerida</h2>
+
+        <div class="activity-box">
+          <h3 class="text-2xl font-semibold mb-4 text-center">
+            "Diseñando un Sistema Crítico con Cascada: El Caso del SGEH"
+          </h3>
+          <p class="text-lg leading-relaxed mb-6 text-center">
+            Aplicación práctica del Modelo en Cascada para comprender sus fases,
+            la importancia de la documentación y las implicaciones de su rigidez
+            en un proyecto real.
+          </p>
+
+          <div class="bg-white bg-opacity-20 p-6 rounded-lg">
+            <h4 class="font-bold text-xl mb-3">
+              Escenario: Sistema de Gestión de Emergencias Hospitalarias (SGEH)
+            </h4>
+            <ul class="list-disc list-inside text-lg mb-4 space-y-2">
+              <li>Sistema extremadamente fiable y seguro.</li>
+              <li>Cumple estrictas regulaciones sanitarias y de privacidad.</li>
+              <li>Requisitos iniciales estables y bien definidos.</li>
+              <li>
+                Gestión de registro de pacientes, asignación de recursos,
+                seguimiento en tiempo real, informes e integración con
+                historiales clínicos.
+              </li>
+            </ul>
+
+            <h4 class="font-bold text-xl mb-3">
+              Instrucciones (Trabajo en Grupos de 3-4):
+            </h4>
+            <ol class="list-decimal list-inside text-lg space-y-2">
+              <li>
+                <strong>Análisis de Requisitos:</strong> Elaborar un documento
+                de requisitos de alto nivel (5 funcionales, 3 no funcionales).
+              </li>
+              <li>
+                <strong>Diseño Conceptual:</strong> Proponer una arquitectura
+                conceptual (módulos, funciones).
+              </li>
+              <li>
+                <strong>Planificación de Implementación y Pruebas:</strong>
+                Describir pasos de implementación y estrategias de prueba.
+              </li>
+              <li>
+                <strong>Identificación de Riesgos y Desafíos:</strong> Anotar 3
+                desafíos/riesgos al aplicar Cascada, justificando
+                ventajas/desventajas.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conclusiones -->
+      <div id="conclusiones" class="content-section">
+        <h2 class="section-title">Conclusiones</h2>
+
+        <div class="card">
+          <ul class="list-disc list-inside space-y-3 text-lg">
+            <li>
+              Las metodologías tradicionales surgieron de la "crisis del
+              software" para introducir control y previsibilidad.
+            </li>
+            <li>
+              Se caracterizan por su enfoque lineal, documentación exhaustiva y
+              planificación rígida.
+            </li>
+            <li>Modelos clave: Cascada, V, Prototipos y Espiral.</li>
+            <li>
+              Fortalezas: Estructura clara, documentación, estimación precisa,
+              adecuadas para proyectos grandes y regulados.
+            </li>
+            <li>
+              Limitaciones: Poca flexibilidad, detección tardía de errores,
+              limitada participación del cliente.
+            </li>
+            <li>
+              Su comprensión es fundamental para entender la evolución de la
+              disciplina y elegir el enfoque adecuado para cada proyecto.
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-center mt-6">
+          <a href="../index.html" class="back-button">← Volver al Inicio</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add some hover effects and animations
+      const cards = document.querySelectorAll(".card");
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)";
+        });
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>
