@@ -1148,20 +1148,16 @@
                   <br>• Al documentar restricciones no obvias
                   <br>• Para agregar contexto histórico o empresarial
                   
-                  <div class="diagram-example">
-                    <strong>Ejemplo de Notas en Diagrama:</strong>
-                    <br><br>
-                    <code>
-                    📝 Nota: "Esta clase implementa el patrón<br>
-                    Singleton para garantizar una única<br>
-                    instancia de configuración del sistema"<br>
-                    ↳ 📦 ConfiguracionSistema<br><br>
+                  <div class="diagram-example mermaid">
+                    classDiagram
+
+                    class ConfiguracionSistema
+                    class ServicioBusqueda
                     
-                    📝 Nota: "El tiempo de respuesta debe<br>
-                    ser menor a 200ms para cumplir<br>
-                    con los SLA acordados"<br>
-                    ↳ 🔍 ServicioBusqueda
-                    </code>
+                    note for ConfiguracionSistema "📝 Esta clase implementa el patrón Singleton para garantizar una única instancia de configuración del sistema"
+                    note for ServicioBusqueda "📝 El tiempo de respuesta debe ser menor a 200ms para cumplir con los SLA acordados"
+                    
+                    
                   </div>
                   <p><strong>💡 Ejemplo del mundo real:</strong> <em>Las notas son como los post-it que pegas en documentos importantes para recordar algo específico o explicar por qué tomaste una decisión particular.</em></p>
                 </div>
@@ -1181,22 +1177,33 @@
                   <br>• Al definir pre y postcondiciones
                   <br>• Para validar integridad de datos
                   
-                  <div class="diagram-example">
-                    <strong>Ejemplos de Restricciones:</strong>
-                    <br><br>
-                    <code>
-                    📦 CuentaBancaria<br>
-                    {saldo >= limiteCredito}<br>
-                    {numeroMovimientos <= 50 por mes}<br><br>
+                  <div class="diagram-example mermaid">
+                    classDiagram
+
+                    class CuentaBancaria {
+                        saldo
+                        limiteCredito
+                        numeroMovimientos
+                    }
                     
-                    📦 Empleado<br>
-                    {edad >= 18 AND edad <= 65}<br>
-                    {fechaIngreso <= fechaActual}<br><br>
+                    note for CuentaBancaria " {saldo >= limiteCredito}, {numeroMovimientos <= 50 por mes} "
                     
-                    📦 Pedido<br>
-                    {fechaEntrega > fechaPedido}<br>
-                    {total = sum(item.precio * item.cantidad)}
-                    </code>
+                    class Empleado {
+                        edad
+                        fechaIngreso
+                        fechaActual
+                    }
+                    
+                    note for Empleado " {edad >= 18 AND edad <= 65}, {fechaIngreso <= fechaActual} "
+                    
+                    class Pedido {
+                        fechaEntrega
+                        fechaPedido
+                        total
+                    }
+                    
+                    note for Pedido " {fechaEntrega > fechaPedido}, {total = sum(item.precio * item.cantidad)} "
+                    
                   </div>
                   <p><strong>💡 Ejemplo del mundo real:</strong> <em>Las restricciones son como las reglas de un juego. Definen qué está permitido y qué no, como "no puedes retirar más dinero del que tienes en tu cuenta".</em></p>
                 </div>
