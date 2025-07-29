@@ -436,147 +436,274 @@
               <div class="slide-content">
                           <div class="concept-grid">
             <div class="concept-card">
-              <div class="concept-title">🔄 Dependencia</div>
+              <div class="concept-title">🔄 Dependencia (Uses)</div>
               <div class="concept-description">
-                Una clase usa otra temporalmente (línea discontinua con flecha):
-                <br><br><strong>Ejemplo Visual:</strong>
+                <strong>📋 Definición:</strong> Una clase usa otra temporalmente para realizar una operación específica. La clase dependiente conoce a la otra solo durante la ejecución de un método.
+                <br><br><strong>🎯 Características:</strong>
+                <br>• Relación temporal y débil
+                <br>• Se representa con línea discontinua y flecha (- - ->)
+                <br>• La clase usada se crea dentro del método o se pasa como parámetro
+                <br>• No existe una referencia permanente
+                <br><br><strong>📍 Cuándo usarla:</strong>
+                <br>• Para servicios utilities (email, logging, validación)
+                <br>• Cuando necesitas usar una clase solo ocasionalmente
+                <br>• Para evitar acoplamientos fuertes
+                
                 <div class="diagram-example mermaid">
                 classDiagram
                     class Cliente {
                         +notificar()
+                        +validarDatos()
                     }
                     class ServicioEmail {
                         +enviar(mensaje)
                     }
+                    class ValidadorDatos {
+                        +validarEmail()
+                    }
                     Cliente ..> ServicioEmail : usa temporalmente
+                    Cliente ..> ValidadorDatos : usa temporalmente
                 </div>
-                <p><em>El cliente crea y usa el servicio solo cuando lo necesita</em></p>
+                <p><strong>💡 Ejemplo del mundo real:</strong> <em>Cuando llamas a un taxi, usas el servicio temporalmente pero no "tienes" el taxi como parte de ti.</em></p>
+                <p><strong>⚠️ Error común:</strong> <em>Confundir con asociación. En dependencia NO guardas una referencia permanente.</em></p>
               </div>
             </div>
+            
             <div class="concept-card">
-              <div class="concept-title">🔗 Asociación</div>
+              <div class="concept-title">🔗 Asociación (Has/Knows)</div>
               <div class="concept-description">
-                Relación estructural entre clases (línea sólida):
-                <br><br><strong>Ejemplo Visual:</strong>
+                <strong>📋 Definición:</strong> Relación estructural permanente entre clases donde una clase mantiene una referencia a otra. Ambas clases pueden existir independientemente.
+                <br><br><strong>🎯 Características:</strong>
+                <br>• Relación persistente y bidireccional (por defecto)
+                <br>• Se representa con línea sólida (—)
+                <br>• Incluye multiplicidad (1, *, 0..1, 1..*)
+                <br>• Puede tener roles y navegabilidad
+                <br><br><strong>📍 Cuándo usarla:</strong>
+                <br>• Relaciones de negocio duraderas
+                <br>• Cuando una clase necesita conocer a otra frecuentemente
+                <br>• Para modelar relaciones del mundo real
+                
                 <div class="diagram-example mermaid">
                 classDiagram
                     class Cliente {
                         -nombre: String
+                        -email: String
                         +agregarPedido()
+                        +consultarPedidos()
                     }
                     class Pedido {
                         -fecha: Date
                         -total: double
+                        -estado: String
+                        +calcularTotal()
                     }
-                    Cliente "1" -- "0..*" Pedido : realiza
+                    Cliente "1" -- "0..*" Pedido : realiza >
                 </div>
-                <p><em>Un cliente puede tener múltiples pedidos a lo largo del tiempo</em></p>
+                <p><strong>💡 Ejemplo del mundo real:</strong> <em>Un cliente de un banco puede tener múltiples cuentas. El cliente "conoce" sus cuentas y las cuentas "saben" quién es su dueño.</em></p>
+                <p><strong>⚠️ Error común:</strong> <em>No especificar multiplicidad o direccionalidad cuando es importante para el diseño.</em></p>
               </div>
             </div>
+            
             <div class="concept-card">
-              <div class="concept-title">◇ Agregación</div>
+              <div class="concept-title">◇ Agregación (Has-A Débil)</div>
               <div class="concept-description">
-                Relación "tiene-un" débil (rombo vacío):
-                <br><br><strong>Ejemplo Visual:</strong>
+                <strong>📋 Definición:</strong> Relación "todo-parte" donde las partes pueden existir independientemente del todo. Es una asociación especial que representa una relación de pertenencia débil.
+                <br><br><strong>🎯 Características:</strong>
+                <br>• Relación "tiene-un" donde las partes son independientes
+                <br>• Se representa con rombo vacío (◇—)
+                <br>• Las partes pueden pertenecer a múltiples "todos"
+                <br>• El ciclo de vida de las partes es independiente del todo
+                <br><br><strong>📍 Cuándo usarla:</strong>
+                <br>• Relaciones de contenido flexible
+                <br>• Cuando las partes pueden reutilizarse
+                <br>• Para modelar colecciones compartidas
+                
                 <div class="diagram-example mermaid">
                 classDiagram
                     class Universidad {
                         -nombre: String
+                        -ciudad: String
                         +inscribirEstudiante()
+                        +graduarEstudiante()
                     }
                     class Estudiante {
                         -carnet: String
                         -nombre: String
+                        -carrera: String
+                        +estudiar()
+                        +transferir()
+                    }
+                    class Profesor {
+                        -id: String
+                        -especialidad: String
+                        +enseñar()
                     }
                     Universidad "1" o-- "*" Estudiante : tiene
+                    Universidad "1" o-- "*" Profesor : emplea
                 </div>
-                <p><em>Los estudiantes pueden existir independientemente de la universidad</em></p>
+                <p><strong>💡 Ejemplo del mundo real:</strong> <em>Una empresa tiene empleados, pero si la empresa cierra, los empleados siguen existiendo y pueden trabajar en otra empresa.</em></p>
+                <p><strong>⚠️ Error común:</strong> <em>Usar agregación cuando realmente es composición (las partes no pueden existir sin el todo).</em></p>
               </div>
             </div>
+            
             <div class="concept-card">
-              <div class="concept-title">◆ Composición</div>
+              <div class="concept-title">◆ Composición (Part-Of Fuerte)</div>
               <div class="concept-description">
-                Relación "parte-de" fuerte (rombo lleno):
-                <br><br><strong>Ejemplo Visual:</strong>
+                <strong>📋 Definición:</strong> Relación "todo-parte" donde las partes NO pueden existir independientemente del todo. Es la forma más fuerte de asociación, implica propiedad y control total.
+                <br><br><strong>🎯 Características:</strong>
+                <br>• Relación "parte-de" donde las partes son dependientes
+                <br>• Se representa con rombo lleno (◆—)
+                <br>• Las partes se crean y destruyen con el todo
+                <br>• Control total del ciclo de vida
+                <br>• Una parte solo puede pertenecer a un todo
+                <br><br><strong>📍 Cuándo usarla:</strong>
+                <br>• Cuando las partes no tienen sentido sin el todo
+                <br>• Para modelar estructuras físicas
+                <br>• Relaciones padre-hijo fuertes
+                
                 <div class="diagram-example mermaid">
                 classDiagram
                     class Casa {
                         -direccion: String
+                        -metrosCuadrados: double
                         +construir()
+                        +demoler()
                     }
                     class Habitacion {
                         -tamaño: double
                         -tipo: String
+                        -ventanas: int
+                        +pintar()
+                    }
+                    class Puerta {
+                        -material: String
+                        -color: String
+                        +abrir()
+                        +cerrar()
                     }
                     Casa "1" *-- "1..*" Habitacion : contiene
+                    Habitacion "1" *-- "1..*" Puerta : tiene
                 </div>
-                <p><em>Las habitaciones no pueden existir sin la casa</em></p>
+                <p><strong>💡 Ejemplo del mundo real:</strong> <em>Una casa tiene habitaciones. Si demolemos la casa, las habitaciones dejan de existir. No puedes trasladar una habitación a otra casa manteniendo su identidad.</em></p>
+                <p><strong>⚠️ Error común:</strong> <em>Usar composición cuando las partes podrían reutilizarse o existir independientemente.</em></p>
               </div>
             </div>
           </div>
       
                           <div class="practical-example">
-            <h4>🐕 Ejemplo Completo: Herencia y Realización</h4>
+            <h4>🐕 Relaciones de Especialización: Herencia y Realización</h4>
             <div class="concept-grid">
               <div class="concept-card" style="border-left-color: #27ae60">
-                <div class="concept-title">△ Herencia (Generalización)</div>
+                <div class="concept-title">△ Herencia (Generalización - IS-A)</div>
                 <div class="concept-description">
-                  Relación "es-un-tipo-de" (flecha triangular):
-                  <br><br><strong>Ejemplo Visual:</strong>
+                  <strong>📋 Definición:</strong> Relación "es-un-tipo-de" donde una clase hija hereda atributos, métodos y comportamientos de una clase padre, permitiendo especialización y reutilización de código.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Relación "IS-A" (es un tipo de)
+                  <br>• Se representa con flecha triangular sólida (—△)
+                  <br>• La clase hija hereda TODO de la clase padre
+                  <br>• Permite polimorfismo y sobrescritura de métodos
+                  <br>• Establece jerarquía de clases
+                  <br><br><strong>📍 Cuándo usarla:</strong>
+                  <br>• Cuando existe una relación natural de especialización
+                  <br>• Para evitar duplicación de código común
+                  <br>• Para implementar polimorfismo
+                  <br>• Cuando las clases comparten características fundamentales
+                  
                   <div class="diagram-example mermaid">
                     classDiagram
                     class Animal {
-                        # nombre
+                        # nombre: String
+                        # edad: int
                         + dormir()
-                        + hacerSonido()
+                        + comer()
+                        + hacerSonido()*
                     }
                     class Perro {
+                        - raza: String
                         + hacerSonido()
                         + ladrar()
+                        + buscarPelota()
                     }
                     class Gato {
+                        - colorPelaje: String
                         + hacerSonido()
                         + maullar()
+                        + cazarRaton()
                     }
                 
                     Animal <|-- Perro
                     Animal <|-- Gato
                 
                   </div>
-                  <p><em>Perro y Gato heredan características comunes de Animal</em></p>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Un "Perro" ES UN "Animal". Hereda características como dormir y comer, pero especializa comportamientos como hacerSonido() con ladridos específicos.</em></p>
+                  <p><strong>⚠️ Error común:</strong> <em>Usar herencia para reutilizar código cuando no hay una relación "es-un-tipo-de" real. Esto viola el principio de sustitución de Liskov.</em></p>
+                  <p><strong>✅ Principio clave:</strong> <em>Una instancia de la clase hija debe poder usarse en cualquier lugar donde se espere la clase padre.</em></p>
                 </div>
               </div>
+              
               <div class="concept-card" style="border-left-color: #8e44ad">
-                <div class="concept-title">△ Realización (Implementación)</div>
+                <div class="concept-title">△ Realización (Implementación - CAN-DO)</div>
                 <div class="concept-description">
-                  Una clase implementa una interfaz (línea discontinua con flecha triangular):
-                  <br><br><strong>Ejemplo Visual:</strong>
+                  <strong>📋 Definición:</strong> Relación donde una clase se compromete a implementar todos los métodos definidos en una interfaz, estableciendo un contrato de comportamiento sin herencia de implementación.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Relación "CAN-DO" (puede hacer)
+                  <br>• Se representa con flecha triangular discontinua (┉△)
+                  <br>• La clase DEBE implementar todos los métodos de la interfaz
+                  <br>• No hereda implementación, solo especificación
+                  <br>• Permite múltiple implementación
+                  <br><br><strong>📍 Cuándo usarla:</strong>
+                  <br>• Para definir contratos de comportamiento
+                  <br>• Cuando clases no relacionadas comparten capacidades
+                  <br>• Para lograr acoplamiento débil
+                  <br>• Para implementar múltiples capacidades
+                  
                   <div class="diagram-example mermaid">
                     classDiagram
+
+                    %% Interfaces
                     class Volador {
                         + volar()
                         + aterrizar()
+                        + obtenerAltitudMaxima()
                     }
-                
+                    
+                    class Nadador {
+                        + nadar()
+                        + sumergir()
+                        + obtenerProfundidadMaxima()
+                    }
+                    
+                    %% Clase Avion
                     class Avion {
                         - combustible
+                        - altitud
                         + volar()
                         + aterrizar()
+                        + obtenerAltitudMaxima()
                         + despegar()
                     }
-                
-                    class Pajaro {
+                    
+                    %% Clase Pato
+                    class Pato {
                         - energia
                         + volar()
                         + aterrizar()
-                        + anidar()
+                        + obtenerAltitudMaxima()
+                        + nadar()
+                        + sumergir()
+                        + obtenerProfundidadMaxima()
                     }
-                
+                    
+                    %% Relaciones de implementación
                     Volador ..|> Avion
-                    Volador ..|> Pajaro
+                    Volador ..|> Pato
+                    Nadador ..|> Pato
+                    
                 
                   </div>
-                  <p><em>Avion y Pajaro implementan la interfaz Volador de manera diferente</em></p>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Un "Avión" y un "Pato" PUEDEN VOLAR, pero no están relacionados por herencia. Cada uno implementa "volar()" de manera completamente diferente.</em></p>
+                  <p><strong>⚠️ Error común:</strong> <em>Confundir interfaz con clase abstracta. Las interfaces NO proporcionan implementación predeterminada (en UML clásico).</em></p>
+                  <p><strong>✅ Principio clave:</strong> <em>Una interfaz define QUÉ puede hacer una clase, no CÓMO lo hace. Cada implementación puede ser completamente diferente.</em></p>
                 </div>
               </div>
             </div>
@@ -586,44 +713,528 @@
 
       <!-- Slide 5: Elementos UML Clasificados -->
       <div class="slide" id="elementos">
-        <div class="slide-header">🔧 Elementos UML Clasificados</div>
+        <div class="slide-header">🔧 Elementos UML: Vocabulario Completo del Modelado</div>
         <div class="slide-content">
-          <div class="concept-grid">
-            <div class="concept-card" style="border-left-color: #3498db">
-              <div class="concept-title">🏗️ Elementos Estructurales</div>
-              <div class="concept-description">
-                Los "ladrillos" del modelo UML:
-                <br><strong>• Clases:</strong> Conceptos del mundo real con atributos y métodos
-                <br><strong>• Interfaces:</strong> Contratos que las clases deben cumplir
-                <br><strong>• Objetos:</strong> Instancias específicas de las clases
-                <br><strong>• Componentes:</strong> Partes físicas y reemplazables
+          
+          <!-- Elementos Estructurales -->
+          <div class="practical-example">
+            <h4>🏗️ Elementos Estructurales: Los Ladrillos del Sistema</h4>
+            <p style="text-align: center; margin-bottom: 20px; font-style: italic; color: #2c3e50;">
+              Representan la arquitectura estática del sistema - las "cosas" que existen
+            </p>
+            
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #3498db">
+                <div class="concept-title">📋 Clases (Classes)</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Plantillas que describen un conjunto de objetos que comparten los mismos atributos, operaciones, relaciones y semántica.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Encapsulan datos (atributos) y comportamiento (métodos)
+                  <br>• Definen la estructura de los objetos
+                  <br>• Pueden ser abstractas o concretas
+                  <br>• Establecen visibilidad (pública, privada, protegida)
+                  <br><br><strong>📍 Cuándo usarlas:</strong>
+                  <br>• Para modelar conceptos del mundo real
+                  <br>• Cuando necesitas crear múltiples objetos similares
+                  <br>• Para organizar código de manera orientada a objetos
+                  
+                  <div class="diagram-example mermaid">
+                    classDiagram
+
+                    %% Clase abstracta (comentado visualmente)
+                    class CuentaBancaria {
+                        # numeroCuenta
+                        # saldo
+                        # titular
+                        + depositar(monto)
+                        + retirar(monto) 
+                        %% abstracto
+                        + consultarSaldo()
+                        + generarEstado()
+                    }
+                    
+                    class CuentaAhorro {
+                        - tasaInteres
+                        + retirar(monto)
+                        + calcularInteres()
+                    }
+                    
+                    class CuentaCorriente {
+                        - sobregiro
+                        + retirar(monto)
+                        + verificarSobregiro()
+                    }
+                    
+                    CuentaBancaria <|-- CuentaAhorro
+                    CuentaBancaria <|-- CuentaCorriente
+                    
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>La clase "CuentaBancaria" es como un formulario en blanco que define qué información necesita toda cuenta (saldo, titular) y qué operaciones puede realizar (depositar, retirar).</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #e67e22">
+                <div class="concept-title">🎯 Objetos (Objects)</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Instancias específicas de una clase con valores concretos para sus atributos. Representan entidades reales del sistema en un momento dado.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Tienen identidad única
+                  <br>• Estado específico (valores de atributos)
+                  <br>• Comportamiento definido por su clase
+                  <br>• Existen en tiempo de ejecución
+                  <br><br><strong>📍 Cuándo modelarlos:</strong>
+                  <br>• Para validar el diseño de clases
+                  <br>• Para mostrar escenarios específicos
+                  <br>• Para ejemplificar colaboraciones concretas
+                  
+                  <div class="diagram-example mermaid">
+                    classDiagram
+
+                    class cuentaAhorro1 {
+                        numeroCuenta = "12345678"
+                        saldo = 1500.50
+                        titular = "Juan Pérez"
+                        tasaInteres = 0.03
+                    }
+                    
+                    class cuentaCorriente1 {
+                        numeroCuenta = "87654321"
+                        saldo = -200.00
+                        titular = "María García"
+                        sobregiro = 1000.00
+                    }
+                    
+                    class transaccion1 {
+                        id = "TXN001"
+                        fecha = "2024-01-15"
+                        monto = 300.00
+                        tipo = "Retiro"
+                    }
+                    
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Mientras "CuentaBancaria" es el concepto general, ":CuentaAhorro" con número "12345678" y saldo $1500.50 es una cuenta real específica de Juan Pérez.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #9b59b6">
+                <div class="concept-title">🔌 Interfaces</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Colección de operaciones que especifican un servicio de una clase o componente. Define QUÉ debe hacer una clase, no CÓMO hacerlo.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Solo declara operaciones, no las implementa
+                  <br>• No tiene atributos (solo constantes)
+                  <br>• Establece contratos de comportamiento
+                  <br>• Permite múltiple implementación
+                  <br><br><strong>📍 Cuándo usarlas:</strong>
+                  <br>• Para definir contratos entre componentes
+                  <br>• Cuando múltiples clases deben compartir operaciones
+                  <br>• Para lograr bajo acoplamiento
+                  
+                  <div class="diagram-example mermaid">
+                    classDiagram
+
+                    %% Interfaces
+                    class Exportable {
+                        + exportarPDF()
+                        + exportarExcel()
+                        + exportarCSV()
+                    }
+                    
+                    class Imprimible {
+                        + imprimir()
+                        + configurarPagina()
+                    }
+                    
+                    %% Clase concreta
+                    class ReporteVentas {
+                        - datos
+                        - periodo
+                        + exportarPDF()
+                        + exportarExcel()
+                        + exportarCSV()
+                        + imprimir()
+                        + configurarPagina()
+                        + calcularTotales()
+                    }
+                    
+                    %% Relaciones de implementación (realización)
+                    ReporteVentas ..|> Exportable
+                    ReporteVentas ..|> Imprimible
+                    
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Una interfaz "Exportable" es como un contrato que dice "cualquier clase que firme este contrato debe saber exportar a PDF, Excel y CSV", sin importar cómo lo haga internamente.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #27ae60">
+                <div class="concept-title">🔧 Componentes</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Partes físicas y reemplazables del sistema que conforman y proporcionan la realización de un conjunto de interfaces.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Unidades de despliegue independientes
+                  <br>• Tienen interfaces bien definidas
+                  <br>• Encapsulan implementación
+                  <br>• Pueden combinarse para formar sistemas mayores
+                  <br><br><strong>📍 Cuándo modelarlos:</strong>
+                  <br>• Para diseño de arquitectura de software
+                  <br>• Al planificar el despliegue del sistema
+                  <br>• Para mostrar dependencias entre módulos
+                  
+                  <div class="diagram-example mermaid">
+                  flowchart TD
+                      subgraph "Sistema E-commerce"
+                          A[📦 Componente<br/>Autenticación]
+                          B[📦 Componente<br/>Catálogo]
+                          C[📦 Componente<br/>Carrito]
+                          D[📦 Componente<br/>Pagos]
+                          E[📦 Componente<br/>Inventario]
+                      end
+                      
+                      A --> B
+                      B --> C
+                      C --> D
+                      C --> E
+                      
+                      style A fill:#e1f5fe
+                      style B fill:#f3e5f5
+                      style C fill:#fff3e0
+                      style D fill:#e8f5e8
+                      style E fill:#fce4ec
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Un componente "Pagos" es como un módulo de software que puedes "enchufar" en tu sistema. Tiene entradas y salidas claras, y puedes reemplazarlo por otro sin afectar el resto del sistema.</em></p>
+                </div>
               </div>
             </div>
-            <div class="concept-card" style="border-left-color: #e74c3c">
-              <div class="concept-title">🎬 Elementos de Comportamiento</div>
-              <div class="concept-description">
-                Partes dinámicas del modelo:
-                <br><strong>• Interacciones:</strong> Mensajes intercambiados entre objetos
-                <br><strong>• Máquinas de Estado:</strong> Secuencias de estados de un objeto
-                <br><strong>• Actividades:</strong> Flujos de trabajo y procesos
+          </div>
+          
+          <!-- Elementos de Comportamiento -->
+          <div class="practical-example">
+            <h4>🎬 Elementos de Comportamiento: La Dinámica del Sistema</h4>
+            <p style="text-align: center; margin-bottom: 20px; font-style: italic; color: #2c3e50;">
+              Representan las partes dinámicas del modelo - lo que "sucede" en el sistema
+            </p>
+            
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #e74c3c">
+                <div class="concept-title">💬 Interacciones</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Comportamiento que comprende un conjunto de mensajes intercambiados entre objetos dentro de un contexto particular para lograr un propósito específico.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Definen comunicación entre objetos
+                  <br>• Tienen orden temporal específico
+                  <br>• Pueden ser síncronas o asíncronas
+                  <br>• Representan casos de uso en acción
+                  <br><br><strong>📍 Cuándo modelarlas:</strong>
+                  <br>• Para diseñar APIs y servicios
+                  <br>• Al especificar protocolos de comunicación
+                  <br>• Para validar flujos de casos de uso
+                  
+                  <div class="diagram-example mermaid">
+                    sequenceDiagram
+                    participant Usuario as 👤Usuario
+                    participant Carrito as 🛒CarritoCompras
+                    participant Inventario as 📦Inventario
+                    participant Pagos as 💳ProcesadorPagos
+                    participant Banco as 🏦Banco
+                
+                    Usuario ->> Carrito: agregar(producto)
+                    Carrito ->> Inventario: verificarDisponibilidad()
+                    Inventario -->> Carrito: disponible = true
+                    Carrito ->> Pagos: procesar(tarjeta)
+                    Pagos ->> Banco: validarPago()
+                    Banco -->> Pagos: aprobado = true
+                    Pagos -->> Usuario: confirmación
+                
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Una interacción es como una conversación telefónica donde cada persona habla en un orden específico para lograr algo, como hacer una reserva en un restaurante.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #f39c12">
+                <div class="concept-title">🔄 Máquinas de Estado</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Especifica las secuencias de estados por las que pasa un objeto durante su vida en respuesta a eventos, junto con las respuestas a esos eventos.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Definen ciclo de vida de objetos
+                  <br>• Estados mutuamente excluyentes
+                  <br>• Transiciones basadas en eventos
+                  <br>• Pueden tener acciones y guardas
+                  <br><br><strong>📍 Cuándo modelarlas:</strong>
+                  <br>• Para objetos con comportamiento complejo
+                  <br>• Al diseñar workflows y procesos
+                  <br>• Para sistemas reactivos y protocolos
+                  
+                  <div class="diagram-example mermaid">
+                  stateDiagram-v2
+                      [*] --> Borrador
+                      Borrador --> EnRevision : enviar()
+                      EnRevision --> Aprobado : aprobar()
+                      EnRevision --> Rechazado : rechazar()
+                      EnRevision --> Borrador : solicitar_cambios()
+                      Aprobado --> Publicado : publicar()
+                      Rechazado --> Borrador : editar()
+                      Publicado --> Archivado : archivar()
+                      Archivado --> [*]
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>El estado de un documento es como el estatus de un pedido en línea: "Procesando" → "Enviado" → "En tránsito" → "Entregado". Cada cambio de estado tiene reglas específicas.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #8e44ad">
+                <div class="concept-title">⚡ Actividades</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Especifica una secuencia de acciones coordinadas que pueden incluir bifurcaciones, uniones, paralelismo y anidamiento.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Modelan flujos de trabajo complejos
+                  <br>• Permiten paralelismo y sincronización
+                  <br>• Incluyen puntos de decisión
+                  <br>• Pueden representar algoritmos detallados
+                  <br><br><strong>📍 Cuándo modelarlas:</strong>
+                  <br>• Para procesos de negocio complejos
+                  <br>• Al diseñar algoritmos con múltiples caminos
+                  <br>• Para workflows que involucran varios actores
+                  
+                  <div class="diagram-example mermaid">
+                    flowchart TD
+                    A[➡️ Solicitud Recibida]
+                    B[🔍 Verificar Documentos]
+                    C[💰 Evaluar Capacidad Crediticia]
+                    D[📊 Consultar Historial]
+                    E{❓ ¿Cumple Criterios?}
+                    F[✅ Aprobar Préstamo]
+                    G[❌ Rechazar Solicitud]
+                
+                    %% Flujo principal
+                    A --> B
+                    B --> C
+                    C --> D
+                    D --> E
+                
+                    %% Decisión
+                    E -->|Sí| F
+                    E -->|No| G
+                
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Una actividad es como una receta de cocina que incluye pasos en paralelo ("mientras hierve el agua, corta las verduras") y decisiones ("si está muy espeso, agrega más caldo").</em></p>
+                </div>
               </div>
             </div>
-            <div class="concept-card" style="border-left-color: #f39c12">
-              <div class="concept-title">📦 Elementos de Agrupación</div>
-              <div class="concept-description">
-                Organizan elementos relacionados:
-                <br><strong>• Paquetes:</strong> Agrupan elementos del modelo
-                <br><strong>• Subsistemas:</strong> Agrupan componentes
-                <br><strong>• Modelos:</strong> Agrupan paquetes completos
+          </div>
+          
+          <!-- Elementos de Agrupación -->
+          <div class="practical-example">
+            <h4>📦 Elementos de Agrupación: Organizando la Complejidad</h4>
+            <p style="text-align: center; margin-bottom: 20px; font-style: italic; color: #2c3e50;">
+              Proporcionan estructura organizacional para gestionar modelos complejos
+            </p>
+            
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #27ae60">
+                <div class="concept-title">📁 Paquetes (Packages)</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Mecanismo de propósito general para organizar elementos en grupos relacionados. Es tanto un espacio de nombres como una unidad de encapsulación.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Agrupan elementos relacionados lógicamente
+                  <br>• Proporcionan espacios de nombres únicos
+                  <br>• Pueden importar/exportar elementos
+                  <br>• Facilitan la reutilización y mantenimiento
+                  <br><br><strong>📍 Cuándo usarlos:</strong>
+                  <br>• Para organizar modelos grandes
+                  <br>• Al dividir responsabilidades por capas
+                  <br>• Para gestionar dependencias entre módulos
+                  
+                  <div class="diagram-example mermaid">
+                  flowchart TD
+                      subgraph "📦 com.empresa.ecommerce"
+                          subgraph "📁 modelo"
+                              A[Usuario]
+                              B[Producto]
+                              C[Pedido]
+                          end
+                          
+                          subgraph "📁 servicio"
+                              D[UsuarioService]
+                              E[ProductoService]
+                              F[PedidoService]
+                          end
+                          
+                          subgraph "📁 controlador"
+                              G[UsuarioController]
+                              H[ProductoController]
+                              I[PedidoController]
+                          end
+                      end
+                      
+                      D --> A
+                      E --> B
+                      F --> C
+                      G --> D
+                      H --> E
+                      I --> F
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Los paquetes son como las carpetas en tu computadora. Organizas archivos relacionados en la misma carpeta para encontrarlos fácilmente y evitar conflictos de nombres.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #34495e">
+                <div class="concept-title">🏢 Subsistemas</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Agrupación de elementos donde algunos constituyen una especificación del comportamiento ofrecido por otros elementos contenidos.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Combinan aspectos de paquetes y componentes
+                  <br>• Tienen interfaces claramente definidas
+                  <br>• Encapsulan funcionalidad compleja
+                  <br>• Pueden implementarse independientemente
+                  <br><br><strong>📍 Cuándo modelarlos:</strong>
+                  <br>• Para sistemas grandes con arquitectura en capas
+                  <br>• Al dividir el sistema en equipos de desarrollo
+                  <br>• Para aislar subsistemas críticos o complejos
+                  
+                  <div class="diagram-example mermaid">
+                    graph TD
+                    %% Nodo raíz
+                    A[🏦 Subsistema Bancario]
+                
+                    %% Subsistemas principales
+                    A1[👤 Subsistema Gestión Clientes]
+                    A2[💰 Subsistema Transacciones]
+                    A3[📊 Subsistema Reportes]
+                
+                    A --> A1
+                    A --> A2
+                    A --> A3
+                
+                    %% Componentes del Subsistema Gestión Clientes
+                    A1 --> A1a[RegistroClientes]
+                    A1 --> A1b[VerificacionIdentidad]
+                    A1 --> A1c[HistorialCrediticio]
+                
+                    %% Componentes del Subsistema Transacciones
+                    A2 --> A2a[ProcesadorPagos]
+                    A2 --> A2b[ValidadorTransacciones]
+                    A2 --> A2c[RegistroMovimientos]
+                
+                    %% Componentes del Subsistema Reportes
+                    A3 --> A3a[GeneradorReportes]
+                    A3 --> A3b[AnalisisRiesgo]
+                    A3 --> A3c[CumplimientoRegulatorio]
+                
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Un subsistema es como un departamento en una empresa. Cada departamento (Recursos Humanos, Contabilidad, Ventas) tiene responsabilidades específicas y se comunica con otros a través de interfaces bien definidas.</em></p>
+                </div>
               </div>
             </div>
-            <div class="concept-card" style="border-left-color: #9b59b6">
-              <div class="concept-title">📝 Elementos de Anotación</div>
-              <div class="concept-description">
-                Añaden información explicativa:
-                <br><strong>• Notas:</strong> Comentarios explicativos
-                <br><strong>• Restricciones:</strong> Reglas y limitaciones
-                <br><strong>• Estereotipos:</strong> Extensiones semánticas
+          </div>
+          
+          <!-- Elementos de Anotación -->
+          <div class="practical-example">
+            <h4>📝 Elementos de Anotación: Documentando el Diseño</h4>
+            <p style="text-align: center; margin-bottom: 20px; font-style: italic; color: #2c3e50;">
+              Proporcionan información adicional y contexto para clarificar el modelo
+            </p>
+            
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #f1c40f">
+                <div class="concept-title">💭 Notas (Notes)</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Símbolo gráfico para mostrar restricciones y comentarios unidos a un elemento o conjunto de elementos.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Proporcionan documentación adicional
+                  <br>• Pueden contener texto, ecuaciones o diagramas
+                  <br>• Se adjuntan a cualquier elemento del modelo
+                  <br>• Aparecen como rectángulos con esquina doblada
+                  <br><br><strong>📍 Cuándo usarlas:</strong>
+                  <br>• Para explicar decisiones de diseño complejas
+                  <br>• Al documentar restricciones no obvias
+                  <br>• Para agregar contexto histórico o empresarial
+                  
+                  <div class="diagram-example">
+                    <strong>Ejemplo de Notas en Diagrama:</strong>
+                    <br><br>
+                    <code>
+                    📝 Nota: "Esta clase implementa el patrón<br>
+                    Singleton para garantizar una única<br>
+                    instancia de configuración del sistema"<br>
+                    ↳ 📦 ConfiguracionSistema<br><br>
+                    
+                    📝 Nota: "El tiempo de respuesta debe<br>
+                    ser menor a 200ms para cumplir<br>
+                    con los SLA acordados"<br>
+                    ↳ 🔍 ServicioBusqueda
+                    </code>
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Las notas son como los post-it que pegas en documentos importantes para recordar algo específico o explicar por qué tomaste una decisión particular.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #e74c3c">
+                <div class="concept-title">⚠️ Restricciones (Constraints)</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Extensión semántica de un elemento UML que permite agregar nuevas reglas o modificar las existentes.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Definen reglas que deben cumplirse
+                  <br>• Pueden expresarse en lenguaje natural o formal (OCL)
+                  <br>• Se escriben entre llaves { }
+                  <br>• Validan la consistencia del modelo
+                  <br><br><strong>📍 Cuándo usarlas:</strong>
+                  <br>• Para especificar reglas de negocio complejas
+                  <br>• Al definir pre y postcondiciones
+                  <br>• Para validar integridad de datos
+                  
+                  <div class="diagram-example">
+                    <strong>Ejemplos de Restricciones:</strong>
+                    <br><br>
+                    <code>
+                    📦 CuentaBancaria<br>
+                    {saldo >= limiteCredito}<br>
+                    {numeroMovimientos <= 50 por mes}<br><br>
+                    
+                    📦 Empleado<br>
+                    {edad >= 18 AND edad <= 65}<br>
+                    {fechaIngreso <= fechaActual}<br><br>
+                    
+                    📦 Pedido<br>
+                    {fechaEntrega > fechaPedido}<br>
+                    {total = sum(item.precio * item.cantidad)}
+                    </code>
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Las restricciones son como las reglas de un juego. Definen qué está permitido y qué no, como "no puedes retirar más dinero del que tienes en tu cuenta".</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #9b59b6">
+                <div class="concept-title">🏷️ Estereotipos (Stereotypes)</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Mecanismo de extensibilidad que permite crear nuevos tipos de elementos del modelo basados en los existentes.
+                  <br><br><strong>🎯 Características:</strong>
+                  <br>• Extienden el vocabulario de UML
+                  <br>• Se escriben entre guillemets «stereotype»
+                  <br>• Pueden tener propiedades (tagged values)
+                  <br>• Permiten especialización por dominio
+                  <br><br><strong>📍 Cuándo usarlos:</strong>
+                  <br>• Para adaptar UML a dominios específicos
+                  <br>• Al modelar arquitecturas particulares
+                  <br>• Para clarificar el propósito de elementos
+                  
+                  <div class="diagram-example">
+                    <strong>Ejemplos de Estereotipos:</strong>
+                    <br><br>
+                    <code>
+                    «entity» 📦 Usuario<br>
+                    «controller» 📦 UsuarioController<br>
+                    «service» 📦 UsuarioService<br>
+                    «repository» 📦 UsuarioRepository<br><br>
+                    
+                    «singleton» 📦 ConfiguracionApp<br>
+                    «factory» 📦 ConexionBaseDatos<br>
+                    «observer» 📦 NotificadorEventos<br><br>
+                    
+                    «web service» 📦 ServicioAutenticacion<br>
+                    «database» 📊 BaseDatosUsuarios
+                    </code>
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Los estereotipos son como etiquetas en un archivo que te dicen rápidamente de qué tipo es: "URGENTE", "CONFIDENCIAL", "BORRADOR". Te dan contexto inmediato sobre cómo tratar el elemento.</em></p>
+                </div>
               </div>
             </div>
           </div>
