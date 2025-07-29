@@ -16,6 +16,7 @@
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         color: #333;
+
       }
 
       .presentation-container {
@@ -265,16 +266,22 @@
   <body>
     <div class="navigation">
       <button class="nav-button" onclick="scrollToSection('introduccion')">
-        Inicio
+        🎯 Inicio
       </button>
       <button class="nav-button" onclick="scrollToSection('elementos')">
-        Elementos
+        🔧 Elementos
       </button>
       <button class="nav-button" onclick="scrollToSection('diagramas')">
-        Diagramas
+        📊 Diagramas
       </button>
       <button class="nav-button" onclick="scrollToSection('requisitos')">
-        Requisitos
+        📝 Requisitos
+      </button>
+      <button class="nav-button" onclick="scrollToSection('ejercicios')">
+        🎯 Ejercicios
+      </button>
+      <button class="nav-button" onclick="scrollToSection('conclusiones')">
+        🎯 Conclusión
       </button>
     </div>
 
@@ -302,6 +309,15 @@
                 del sistema.
               </div>
             </div>
+            <div class="concept-card">
+              <div class="concept-title">Historia y Propósito</div>
+              <div class="concept-description">
+                Nació en los 90 para unificar diferentes métodos de modelado
+                (Booch, Rumbaugh, Jacobson). Su objetivo es ser un lenguaje
+                universal para que los desarrolladores comuniquen diseños
+                complejos de forma clara y estandarizada.
+              </div>
+            </div>
           </div>
 
           <div class="practical-example">
@@ -316,186 +332,440 @@
         </div>
       </div>
 
-      <!-- Slide 2: Elementos y Notación -->
-      <div class="slide" id="elementos">
-        <div class="slide-header">🔧 Elementos y Notación UML</div>
+      <!-- Slide 2: Historia y Propósito Detallado -->
+      <div class="slide">
+        <div class="slide-header">📚 Historia y Evolución de UML</div>
         <div class="slide-content">
           <div class="concept-grid">
             <div class="concept-card">
-              <div class="concept-title">Elementos Estructurales</div>
-              <div class="diagram-example mermaid">
-                classDiagram
-                class Cliente {
-                    -String nombre
-                    -String email
-                    +registrar()
-                    +eliminar()
-                }
-              </div>
+              <div class="concept-title">👨‍💻 Los Tres Amigos</div>
               <div class="concept-description">
-                Las clases son los "moldes" que definen objetos con atributos
-                (datos) y métodos (comportamientos).
+                UML nació de la unificación de tres metodologías en los años 90:
+                <br><strong>• Grady Booch</strong> - Método Booch
+                <br><strong>• James Rumbaugh</strong> - OMT (Object Modeling Technique)  
+                <br><strong>• Ivar Jacobson</strong> - OOSE (Object-Oriented Software Engineering)
+                <br><br>Su objetivo era crear un lenguaje universal que todos los desarrolladores pudieran entender.
               </div>
             </div>
             <div class="concept-card">
-              <div class="concept-title">Elementos de Comportamiento</div>
-              <div class="diagram-example mermaid">
-                flowchart LR
-                Actor[👤 Actor]
-                UseCase((Caso de Uso))
-                Actor --- UseCase
-              </div>
+              <div class="concept-title">🎯 Beneficios de UML</div>
               <div class="concept-description">
-                Los casos de uso muestran cómo los usuarios interactúan con el
-                sistema para lograr objetivos específicos.
+                <strong>• Visualizar:</strong> El sistema antes de construirlo
+                <br><strong>• Comunicar:</strong> Ideas entre equipos de desarrollo
+                <br><strong>• Documentar:</strong> Decisiones de diseño
+                <br><strong>• Reducir errores:</strong> Detectar problemas en fase de diseño
+                <br><strong>• Facilitar mantenimiento:</strong> Del software a largo plazo
+              </div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-title">💰 Costo de Errores</div>
+              <div class="concept-description">
+                Estudios demuestran que corregir un error de requisitos cuesta:
+                <br><strong>• En análisis:</strong> $1
+                <br><strong>• En diseño:</strong> $10
+                <br><strong>• En codificación:</strong> $100
+                <br><strong>• En producción:</strong> $1000+
+                <br><br>UML ayuda a detectar errores temprano, ahorrando tiempo y dinero.
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <h3 style="text-align: center; margin: 30px 0; color: #2c3e50">
-            🔗 Tipos de Relaciones UML
+      <!-- Slide 3: Notación y Nomenclatura Detallada -->
+      <div class="slide">
+        <div class="slide-header">✒️ Notación y Nomenclatura UML</div>
+        <div class="slide-content">
+          <h3 style="text-align: center; margin-bottom: 20px; color: #2c3e50">
+            🔤 Convenciones de Nomenclatura
           </h3>
-          <div class="relationships-demo">
-            <div class="relationship-item">
-              <strong>Dependencia</strong><br />
-              A - - -> B<br />
-              "A usa B temporalmente"
+          <div class="concept-grid">
+            <div class="concept-card">
+              <div class="concept-title">Convenciones Estándar</div>
+              <div class="concept-description">
+                <strong>• Clases:</strong> PascalCase (ej: <code>CustomerOrder</code>)
+                <br><strong>• Atributos:</strong> camelCase (ej: <code>customerName</code>)
+                <br><strong>• Métodos:</strong> camelCase (ej: <code>calculateTotal()</code>)
+                <br><strong>• Constantes:</strong> MAYÚSCULAS (ej: <code>MAX_ITEMS</code>)
+                <br><strong>• Paquetes:</strong> minúsculas (ej: <code>com.empresa.sistema</code>)
+              </div>
             </div>
-            <div class="relationship-item">
-              <strong>Asociación</strong><br />
-              A ──── B<br />
-              "A se relaciona con B"
-            </div>
-            <div class="relationship-item">
-              <strong>Agregación</strong><br />
-              A ◇──── B<br />
-              "A tiene B (débil)"
-            </div>
-            <div class="relationship-item">
-              <strong>Composición</strong><br />
-              A ◆──── B<br />
-              "A contiene B (fuerte)"
-            </div>
-            <div class="relationship-item">
-              <strong>Herencia</strong><br />
-              A △<br />
-              &nbsp;&nbsp;&nbsp;│<br />
-              &nbsp;&nbsp;&nbsp;B<br />
-              "B es un tipo de A"
-            </div>
-            <div class="relationship-item">
-              <strong>Realización</strong><br />
-              A △<br />
-              &nbsp;&nbsp;&nbsp;┊<br />
-              &nbsp;&nbsp;&nbsp;B<br />
-              "B implementa A"
+            <div class="concept-card">
+              <div class="concept-title">Estereotipos Comunes</div>
+              <div class="concept-description">
+                Los estereotipos se escriben entre guillemets (« »):
+                <br><strong>• «interface»</strong> para interfaces
+                <br><strong>• «abstract»</strong> para clases abstractas
+                <br><strong>• «actor»</strong> para actores en casos de uso
+                <br><strong>• «dataType»</strong> para tipos de datos
+                <br><strong>• «enumeration»</strong> para enumeraciones
+              </div>
             </div>
           </div>
 
           <div class="practical-example">
-            <h4>🏠 Ejemplo: Sistema de Biblioteca</h4>
+            <h4>📋 Ejemplo de Clase con Notación Completa</h4>
+            <div class="diagram-example mermaid">
+              classDiagram
+
+              class Drawable {
+                  + draw()
+                  + setColor()
+              }
+              
+              class Figura {
+                  - posicion
+                  - color
+                  + MAX_SIZE = 1000
+                  + mover(x, y)
+                  + calcularArea()
+                  + toString()
+              }
+              
+              Figura ..|> Drawable
+              
+            </div>
+            <p><strong>Visibilidad:</strong> + público, - privado, # protegido, ~ paquete</p>
+          </div>
+        </div>
+      </div>
+
+            <!-- Slide 4: Relaciones UML con Ejemplos de Código -->
+            <div class="slide">
+              <div class="slide-header">🔗 Relaciones UML con Ejemplos Prácticos</div>
+              <div class="slide-content">
+                          <div class="concept-grid">
+            <div class="concept-card">
+              <div class="concept-title">🔄 Dependencia</div>
+              <div class="concept-description">
+                Una clase usa otra temporalmente (línea discontinua con flecha):
+                <br><br><strong>Ejemplo Visual:</strong>
+                <div class="diagram-example mermaid">
+                classDiagram
+                    class Cliente {
+                        +notificar()
+                    }
+                    class ServicioEmail {
+                        +enviar(mensaje)
+                    }
+                    Cliente ..> ServicioEmail : usa temporalmente
+                </div>
+                <p><em>El cliente crea y usa el servicio solo cuando lo necesita</em></p>
+              </div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-title">🔗 Asociación</div>
+              <div class="concept-description">
+                Relación estructural entre clases (línea sólida):
+                <br><br><strong>Ejemplo Visual:</strong>
+                <div class="diagram-example mermaid">
+                classDiagram
+                    class Cliente {
+                        -nombre: String
+                        +agregarPedido()
+                    }
+                    class Pedido {
+                        -fecha: Date
+                        -total: double
+                    }
+                    Cliente "1" -- "0..*" Pedido : realiza
+                </div>
+                <p><em>Un cliente puede tener múltiples pedidos a lo largo del tiempo</em></p>
+              </div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-title">◇ Agregación</div>
+              <div class="concept-description">
+                Relación "tiene-un" débil (rombo vacío):
+                <br><br><strong>Ejemplo Visual:</strong>
+                <div class="diagram-example mermaid">
+                classDiagram
+                    class Universidad {
+                        -nombre: String
+                        +inscribirEstudiante()
+                    }
+                    class Estudiante {
+                        -carnet: String
+                        -nombre: String
+                    }
+                    Universidad "1" o-- "*" Estudiante : tiene
+                </div>
+                <p><em>Los estudiantes pueden existir independientemente de la universidad</em></p>
+              </div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-title">◆ Composición</div>
+              <div class="concept-description">
+                Relación "parte-de" fuerte (rombo lleno):
+                <br><br><strong>Ejemplo Visual:</strong>
+                <div class="diagram-example mermaid">
+                classDiagram
+                    class Casa {
+                        -direccion: String
+                        +construir()
+                    }
+                    class Habitacion {
+                        -tamaño: double
+                        -tipo: String
+                    }
+                    Casa "1" *-- "1..*" Habitacion : contiene
+                </div>
+                <p><em>Las habitaciones no pueden existir sin la casa</em></p>
+              </div>
+            </div>
+          </div>
+      
+                          <div class="practical-example">
+            <h4>🐕 Ejemplo Completo: Herencia y Realización</h4>
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #27ae60">
+                <div class="concept-title">△ Herencia (Generalización)</div>
+                <div class="concept-description">
+                  Relación "es-un-tipo-de" (flecha triangular):
+                  <br><br><strong>Ejemplo Visual:</strong>
+                  <div class="diagram-example mermaid">
+                    classDiagram
+                    class Animal {
+                        # nombre
+                        + dormir()
+                        + hacerSonido()
+                    }
+                    class Perro {
+                        + hacerSonido()
+                        + ladrar()
+                    }
+                    class Gato {
+                        + hacerSonido()
+                        + maullar()
+                    }
+                
+                    Animal <|-- Perro
+                    Animal <|-- Gato
+                
+                  </div>
+                  <p><em>Perro y Gato heredan características comunes de Animal</em></p>
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #8e44ad">
+                <div class="concept-title">△ Realización (Implementación)</div>
+                <div class="concept-description">
+                  Una clase implementa una interfaz (línea discontinua con flecha triangular):
+                  <br><br><strong>Ejemplo Visual:</strong>
+                  <div class="diagram-example mermaid">
+                    classDiagram
+                    class Volador {
+                        + volar()
+                        + aterrizar()
+                    }
+                
+                    class Avion {
+                        - combustible
+                        + volar()
+                        + aterrizar()
+                        + despegar()
+                    }
+                
+                    class Pajaro {
+                        - energia
+                        + volar()
+                        + aterrizar()
+                        + anidar()
+                    }
+                
+                    Volador ..|> Avion
+                    Volador ..|> Pajaro
+                
+                  </div>
+                  <p><em>Avion y Pajaro implementan la interfaz Volador de manera diferente</em></p>
+                </div>
+              </div>
+            </div>
+          </div>
+              </div>
+            </div>
+
+      <!-- Slide 5: Elementos UML Clasificados -->
+      <div class="slide" id="elementos">
+        <div class="slide-header">🔧 Elementos UML Clasificados</div>
+        <div class="slide-content">
+          <div class="concept-grid">
+            <div class="concept-card" style="border-left-color: #3498db">
+              <div class="concept-title">🏗️ Elementos Estructurales</div>
+              <div class="concept-description">
+                Los "ladrillos" del modelo UML:
+                <br><strong>• Clases:</strong> Conceptos del mundo real con atributos y métodos
+                <br><strong>• Interfaces:</strong> Contratos que las clases deben cumplir
+                <br><strong>• Objetos:</strong> Instancias específicas de las clases
+                <br><strong>• Componentes:</strong> Partes físicas y reemplazables
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #e74c3c">
+              <div class="concept-title">🎬 Elementos de Comportamiento</div>
+              <div class="concept-description">
+                Partes dinámicas del modelo:
+                <br><strong>• Interacciones:</strong> Mensajes intercambiados entre objetos
+                <br><strong>• Máquinas de Estado:</strong> Secuencias de estados de un objeto
+                <br><strong>• Actividades:</strong> Flujos de trabajo y procesos
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #f39c12">
+              <div class="concept-title">📦 Elementos de Agrupación</div>
+              <div class="concept-description">
+                Organizan elementos relacionados:
+                <br><strong>• Paquetes:</strong> Agrupan elementos del modelo
+                <br><strong>• Subsistemas:</strong> Agrupan componentes
+                <br><strong>• Modelos:</strong> Agrupan paquetes completos
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #9b59b6">
+              <div class="concept-title">📝 Elementos de Anotación</div>
+              <div class="concept-description">
+                Añaden información explicativa:
+                <br><strong>• Notas:</strong> Comentarios explicativos
+                <br><strong>• Restricciones:</strong> Reglas y limitaciones
+                <br><strong>• Estereotipos:</strong> Extensiones semánticas
+              </div>
+            </div>
+          </div>
+
+          <div class="practical-example">
+            <h4>🏠 Ejemplo Completo: Sistema de Biblioteca con Multiplicidad</h4>
             <div class="diagram-example mermaid">
             classDiagram
               class Usuario {
                 - id: int
                 - nombre: String
+                - email: String
+                - telefono: String
+                +registrar()
+                +actualizar()
                 +prestar()
               }
                class Prestamo {
                 - fecha: Date
-                - devuelto: bool
+                - fechaVencimiento: Date
+                - devuelto: boolean
+                - multa: double
+                +calcularMulta()
+                +devolver()
                }
                class Libro {
-                - id: int
+                - isbn: String
                 - titulo: String
-                + mostrarInfo()
+                - autor: String
+                - disponible: boolean
+                +reservar()
+                +liberar()
+                +mostrarInfo()
             }
-            Usuario "1" -- "*" Prestamo : tiene
-            Prestamo "1" -- "1" Libro : contiene
+            class Biblioteca {
+                - nombre: String
+                - direccion: String
+                +gestionarPrestamos()
+                +generarReportes()
+            }
+            Usuario "1" -- "0..*" Prestamo : "realiza"
+            Prestamo "1" -- "1" Libro : "incluye"
+            Biblioteca "1" *-- "*" Libro : "contiene"
+            Biblioteca "1" -- "*" Usuario : "atiende"
             </div>
-            <p>
-              Un usuario puede tener múltiples préstamos, y cada préstamo
-              corresponde a un libro específico.
-            </p>
+            <p><strong>Multiplicidades:</strong> 
+            <br>• Un usuario puede tener 0 o muchos préstamos (0..*)
+            <br>• Cada préstamo corresponde a exactamente un libro (1)
+            <br>• La biblioteca contiene muchos libros (composición)
+            <br>• La biblioteca atiende a muchos usuarios</p>
           </div>
         </div>
       </div>
 
-      <!-- Slide 3: Clasificación de Diagramas -->
+      <!-- Slide 6: Diagramas con Criterios de Uso -->
       <div class="slide" id="diagramas">
         <div class="slide-header">
-          📊 Clasificación Completa de Diagramas UML
+          📊 Diagramas UML: Cuándo y Cómo Usarlos
         </div>
         <div class="slide-content">
+          <h3 style="text-align: center; margin-bottom: 20px; color: #2c3e50">
+            📋 Criterios de Selección de Diagramas
+          </h3>
+          
+          <div class="concept-grid">
+            <div class="concept-card" style="border-left-color: #3498db">
+              <div class="concept-title">🏗️ Diagramas Estructurales</div>
+              <div class="concept-description">
+                <strong>Cuándo usar:</strong> Para diseño de arquitectura y estructura del sistema
+                <br><strong>Fase del proyecto:</strong> Análisis y Diseño
+                <br><strong>Audiencia:</strong> Desarrolladores, Arquitectos
+                <br><strong>Nivel de detalle:</strong> Alto
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #e74c3c">
+              <div class="concept-title">🎬 Diagramas de Comportamiento</div>
+              <div class="concept-description">
+                <strong>Cuándo usar:</strong> Para modelar funcionalidad y flujos dinámicos
+                <br><strong>Fase del proyecto:</strong> Requisitos y Diseño Detallado
+                <br><strong>Audiencia:</strong> Analistas, Desarrolladores, Stakeholders
+                <br><strong>Nivel de detalle:</strong> Variable
+              </div>
+            </div>
+          </div>
+
           <div class="diagram-classification">
             <div class="diagram-category">
               <h3>🏗️ Diagramas Estructurales</h3>
-              <p
-                style="
-                  text-align: center;
-                  margin-bottom: 15px;
-                  font-style: italic;
-                "
-              >
+              <p style="text-align: center; margin-bottom: 15px; font-style: italic;">
                 Muestran la arquitectura estática del sistema
               </p>
               <ul class="diagram-list">
                 <li onclick="showDiagramExample('class')">
-                  📋 Diagrama de Clases
+                  📋 Diagrama de Clases <span style="font-size: 0.8em;">(Alto detalle)</span>
                 </li>
                 <li onclick="showDiagramExample('object')">
-                  🎯 Diagrama de Objetos
+                  🎯 Diagrama de Objetos <span style="font-size: 0.8em;">(Validación de diseño)</span>
                 </li>
                 <li onclick="showDiagramExample('package')">
-                  📦 Diagrama de Paquetes
+                  📦 Diagrama de Paquetes <span style="font-size: 0.8em;">(Organización)</span>
                 </li>
                 <li onclick="showDiagramExample('component')">
-                  🔧 Diagrama de Componentes
+                  🔧 Diagrama de Componentes <span style="font-size: 0.8em;">(Arquitectura física)</span>
                 </li>
                 <li onclick="showDiagramExample('deployment')">
-                  🖥️ Diagrama de Despliegue
+                  🖥️ Diagrama de Despliegue <span style="font-size: 0.8em;">(Infraestructura)</span>
                 </li>
                 <li onclick="showDiagramExample('composite')">
-                  🏛️ Diagrama de Estructura Compuesta
+                  🏛️ Diagrama de Estructura Compuesta <span style="font-size: 0.8em;">(Patrones complejos)</span>
                 </li>
                 <li onclick="showDiagramExample('profile')">
-                  ⚙️ Diagrama de Perfil
+                  ⚙️ Diagrama de Perfil <span style="font-size: 0.8em;">(Extensiones UML)</span>
                 </li>
               </ul>
             </div>
 
             <div class="diagram-category">
               <h3>🎬 Diagramas de Comportamiento</h3>
-              <p
-                style="
-                  text-align: center;
-                  margin-bottom: 15px;
-                  font-style: italic;
-                "
-              >
+              <p style="text-align: center; margin-bottom: 15px; font-style: italic;">
                 Muestran la dinámica del sistema
               </p>
               <ul class="diagram-list">
                 <li onclick="showDiagramExample('usecase')">
-                  👥 Diagrama de Casos de Uso
+                  👥 Diagrama de Casos de Uso <span style="font-size: 0.8em;">(Requisitos)</span>
                 </li>
                 <li onclick="showDiagramExample('sequence')">
-                  ⏰ Diagrama de Secuencia
+                  ⏰ Diagrama de Secuencia <span style="font-size: 0.8em;">(Interacciones temporales)</span>
                 </li>
                 <li onclick="showDiagramExample('communication')">
-                  💬 Diagrama de Comunicación
+                  💬 Diagrama de Comunicación <span style="font-size: 0.8em;">(Alternativa a secuencia)</span>
                 </li>
                 <li onclick="showDiagramExample('state')">
-                  🔄 Diagrama de Estados
+                  🔄 Diagrama de Estados <span style="font-size: 0.8em;">(Ciclos de vida)</span>
                 </li>
                 <li onclick="showDiagramExample('activity')">
-                  ⚡ Diagrama de Actividades
+                  ⚡ Diagrama de Actividades <span style="font-size: 0.8em;">(Procesos de negocio)</span>
                 </li>
                 <li onclick="showDiagramExample('interaction')">
-                  🌐 Diagrama de Interacción Global
+                  🌐 Diagrama de Interacción Global <span style="font-size: 0.8em;">(Procesos complejos)</span>
                 </li>
                 <li onclick="showDiagramExample('timing')">
-                  ⏱️ Diagrama de Tiempo
+                  ⏱️ Diagrama de Tiempo <span style="font-size: 0.8em;">(Tiempo real)</span>
                 </li>
               </ul>
             </div>
@@ -505,29 +775,182 @@
             <div class="practical-example">
               <h4>
                 💡 Haz clic en cualquier diagrama arriba para ver un ejemplo
-                práctico
+                práctico y criterios de uso
               </h4>
               <p>
                 Cada diagrama tiene un propósito específico y se usa en
                 diferentes fases del desarrollo. Selecciona uno para ver cómo se
-                aplica en un proyecto real.
+                aplica en un proyecto real y cuándo es más efectivo usarlo.
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 4: Herramientas de Captura de Requisitos -->
+      <!-- Slide 7: Casos de Uso Detallados -->
+      <div class="slide">
+        <div class="slide-header">🎭 Casos de Uso: Captura Detallada de Requisitos</div>
+        <div class="slide-content">
+          <div class="concept-grid">
+            <div class="concept-card">
+              <div class="concept-title">🎯 Definición y Propósito</div>
+              <div class="concept-description">
+                Un caso de uso muestra la funcionalidad que un sistema proporciona en términos de:
+                <br><strong>• Actores:</strong> Roles que interactúan con el sistema
+                <br><strong>• Objetivos:</strong> Lo que quieren lograr los actores
+                <br><strong>• Dependencias:</strong> Relaciones entre casos de uso
+              </div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-title">👤 Tipos de Actores</div>
+              <div class="concept-description">
+                <strong>• Primario:</strong> Inicia la interacción con el sistema
+                <br><strong>• Secundario:</strong> Participa en la interacción
+                <br><strong>• Externo:</strong> Sistema o dispositivo externo
+                <br><br>Ejemplo: Cliente (primario), Sistema Bancario (externo)
+              </div>
+            </div>
+            <div class="concept-card">
+              <div class="concept-title">🔗 Relaciones entre Casos de Uso</div>
+              <div class="concept-description">
+                <strong>• Include (<<include>>):</strong> Un caso SIEMPRE incluye otro
+                <br><strong>• Extend (<<extend>>):</strong> Un caso PUEDE extender otro
+                <br><strong>• Generalización:</strong> Relación padre-hijo
+                <br><br>Include es obligatorio, Extend es condicional
+              </div>
+            </div>
+          </div>
+
+          <div class="practical-example">
+            <h4>🏧 Ejemplo Completo: Sistema de Cajero Automático</h4>
+            <div class="use-case-diagram">
+              <div class="diagram-example mermaid">
+                graph LR
+                    Cliente[👤 Cliente]
+                    Banco[🏦 Sistema Bancario]
+                    
+                    subgraph "Sistema Cajero Automático"
+                        UC1((Consultar Saldo))
+                        UC2((Retirar Dinero))
+                        UC3((Depositar Dinero))
+                        UC4((Validar PIN))
+                        UC5((Imprimir Recibo))
+                    end
+                    
+                    Cliente --- UC1
+                    Cliente --- UC2
+                    Cliente --- UC3
+                    
+                    UC2 -.->|include| UC4
+                    UC1 -.->|include| UC4
+                    UC3 -.->|include| UC4
+                    
+                    UC5 -.->|extend| UC2
+                    UC5 -.->|extend| UC3
+                    
+                    UC1 --- Banco
+                    UC2 --- Banco
+                    UC3 --- Banco
+              </div>
+            </div>
+            
+            <div class="user-story-card" style="margin-top: 20px;">
+              <div class="concept-title" style="margin-bottom: 15px;">📋 Descripción Detallada: "Retirar Dinero"</div>
+              <div style="color: #333;">
+                <strong>Actor Principal:</strong> Cliente<br>
+                <strong>Actor Secundario:</strong> Sistema Bancario<br>
+                <strong>Precondiciones:</strong> Cliente tiene cuenta activa y tarjeta válida<br>
+                <strong>Postcondiciones:</strong> Dinero retirado y saldo actualizado<br><br>
+                
+                <strong>Flujo Principal:</strong><br>
+                1. Cliente inserta tarjeta<br>
+                2. Sistema solicita PIN<br>
+                3. Cliente ingresa PIN<br>
+                4. Sistema valida PIN (include: Validar PIN)<br>
+                5. Cliente selecciona "Retirar Dinero"<br>
+                6. Sistema muestra opciones de monto<br>
+                7. Cliente selecciona monto<br>
+                8. Sistema verifica saldo suficiente<br>
+                9. Sistema dispensa dinero<br>
+                10. Sistema actualiza saldo<br>
+                11. Sistema devuelve tarjeta<br><br>
+                
+                <strong>Flujo Alternativo:</strong><br>
+                • Si PIN incorrecto: Sistema muestra error y permite reintentar<br>
+                • Si saldo insuficiente: Sistema muestra mensaje y vuelve al menú
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-grid" style="margin-top: 30px;">
+            <div class="concept-card" style="border-left-color: #e74c3c">
+              <div class="concept-title">✅ Mejores Prácticas</div>
+              <div class="concept-description">
+                <strong>• Nomenclatura Clara:</strong> Usar verbos en infinitivo
+                <br><strong>• Granularidad:</strong> Cada caso debe dar valor al actor
+                <br><strong>• Identificación:</strong> ¿Quién usa el sistema? ¿Qué sistemas externos?
+                <br><strong>• Especificidad:</strong> "Generar Reporte de Ventas" vs "Generar Reporte"
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #27ae60">
+              <div class="concept-title">🎯 Cuándo Usar Casos de Uso</div>
+              <div class="concept-description">
+                <strong>• Proyectos grandes</strong> que requieren documentación formal
+                <br><strong>• Equipos distribuidos</strong> que necesitan comunicación clara
+                <br><strong>• Sistemas complejos</strong> con muchos actores
+                <br><strong>• Contratos</strong> que requieren especificaciones detalladas
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: Herramientas de Captura de Requisitos Detalladas -->
       <div class="slide" id="requisitos">
         <div class="slide-header">📝 Herramientas de Captura de Requisitos</div>
         <div class="slide-content">
+          <div class="concept-grid">
+            <div class="concept-card" style="border-left-color: #e74c3c">
+              <div class="concept-title">❓ ¿Qué son los Requisitos?</div>
+              <div class="concept-description">
+                Los requisitos son declaraciones sobre:
+                <br><strong>• Qué debe hacer</strong> el sistema
+                <br><strong>• Cómo debe comportarse</strong>
+                <br><strong>• Qué propiedades</strong> debe exhibir
+                <br><strong>• Qué restricciones</strong> debe satisfacer
+                <br><br>Son el puente entre el problema del usuario y la solución técnica.
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #f39c12">
+              <div class="concept-title">📊 Tipos de Requisitos</div>
+              <div class="concept-description">
+                <strong>• Funcionales:</strong> Qué debe hacer el sistema
+                <br>&nbsp;&nbsp;- Procesar pagos, gestionar usuarios, generar reportes
+                <br><strong>• No Funcionales:</strong> Cómo debe comportarse
+                <br>&nbsp;&nbsp;- Rendimiento, seguridad, usabilidad, escalabilidad
+                <br><br>Ambos tipos son críticos para el éxito del proyecto.
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #8e44ad">
+              <div class="concept-title">💸 Importancia de la Captura</div>
+              <div class="concept-description">
+                Una captura inadecuada de requisitos es la causa principal de fallas en proyectos de software.
+                <br><br><strong>Consecuencias:</strong>
+                <br>• Retrasos en entrega
+                <br>• Sobrecostos del proyecto
+                <br>• Insatisfacción del cliente
+                <br>• Productos que no resuelven el problema real
+              </div>
+            </div>
+          </div>
+
           <div class="concept-grid">
             <div class="concept-card">
               <div class="concept-title">🎭 Casos de Uso</div>
               <div class="concept-description">
                 Describen cómo los usuarios interactúan con el sistema para
                 lograr objetivos específicos. Son detallados y formales, ideales
-                para documentación completa.
+                para documentación completa y sistemas complejos.
               </div>
             </div>
             <div class="concept-card">
@@ -535,7 +958,7 @@
               <div class="concept-description">
                 Descripciones breves y simples de funcionalidades desde la
                 perspectiva del usuario. Son ágiles y flexibles, perfectas para
-                desarrollo iterativo.
+                desarrollo iterativo y equipos pequeños.
               </div>
             </div>
           </div>
@@ -547,6 +970,7 @@
               <div class="diagram-example mermaid">
                 flowchart LR
                 Actor[👤 Cliente]
+                Sistema[🏪 Sistema de Pagos]
                 UseCase1((Buscar Productos))
                 UseCase2((Agregar al Carrito))
                 UseCase3((Realizar Compra))
@@ -555,8 +979,9 @@
                 Actor --- UseCase1
                 Actor --- UseCase2
                 Actor --- UseCase3
-                Actor --- UseCase4
+                UseCase3 -.->|include| UseCase4
                 Actor --- UseCase5
+                UseCase4 --- Sistema
               </div>
             </div>
           </div>
@@ -577,38 +1002,268 @@
           </div>
 
           <h3 style="text-align: center; margin: 30px 0; color: #2c3e50">
-            ⚖️ Comparación: Casos de Uso vs Historias de Usuario
+            ⚖️ Comparación Detallada: Casos de Uso vs Historias de Usuario
           </h3>
 
+          <div style="overflow-x: auto; margin: 20px 0;">
+            <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              <thead style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                <tr>
+                  <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd;">Aspecto</th>
+                  <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd;">Casos de Uso</th>
+                  <th style="padding: 15px; text-align: left; border-bottom: 2px solid #ddd;">Historias de Usuario</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 12px; border-bottom: 1px solid #eee; font-weight: bold;">Detalle</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Muy detallado, formal</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Breve y concisa</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee; font-weight: bold;">Formato</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Estructura formal con flujos</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Como...Quiero...Para...</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 12px; border-bottom: 1px solid #eee; font-weight: bold;">Perspectiva</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Sistema-céntrico</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Usuario-céntrico</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee; font-weight: bold;">Metodología</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Análisis tradicional</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Metodologías ágiles</td>
+                </tr>
+                <tr style="background: #f8f9fa;">
+                  <td style="padding: 12px; border-bottom: 1px solid #eee; font-weight: bold;">Documentación</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Extensa y completa</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Mínima pero suficiente</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee; font-weight: bold;">Mejor para</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Proyectos grandes, equipos distribuidos</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #eee;">Desarrollo ágil, equipos pequeños</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: Historias de Usuario INVEST -->
+      <div class="slide">
+        <div class="slide-header">📚 Historias de Usuario: Metodología INVEST</div>
+        <div class="slide-content">
           <div class="concept-grid">
-            <div class="concept-card" style="border-left-color: #e74c3c">
-              <div class="concept-title">📋 Casos de Uso</div>
+            <div class="concept-card">
+              <div class="concept-title">📖 Definición y Origen</div>
               <div class="concept-description">
-                <strong>Ventajas:</strong> Muy detallados, documentación
-                completa, incluyen flujos alternativos<br />
-                <strong>Desventajas:</strong> Pueden ser rígidos, requieren más
-                tiempo<br />
-                <strong>Mejor para:</strong> Proyectos grandes, equipos
-                distribuidos, documentación formal
+                Las historias de usuario son descripciones cortas y simples de una característica contada desde la perspectiva del usuario final. Fueron popularizadas por Extreme Programming (XP) y son fundamentales en metodologías ágiles.
               </div>
             </div>
-            <div class="concept-card" style="border-left-color: #27ae60">
-              <div class="concept-title">📝 Historias de Usuario</div>
+            <div class="concept-card">
+              <div class="concept-title">📝 Formato Estándar</div>
               <div class="concept-description">
-                <strong>Ventajas:</strong> Ágiles, flexibles, centradas en el
-                usuario, fáciles de entender<br />
-                <strong>Desventajas:</strong> Pueden ser ambiguas, requieren
-                comunicación constante<br />
-                <strong>Mejor para:</strong> Desarrollo ágil, equipos pequeños,
-                iteraciones rápidas
+                <strong>Como</strong> [tipo de usuario],<br>
+                <strong>Quiero</strong> [funcionalidad]<br>
+                <strong>Para</strong> [beneficio/objetivo]<br><br>
+                Este formato asegura que siempre tengamos claro quién, qué y por qué.
+              </div>
+            </div>
+          </div>
+
+          <div class="practical-example">
+            <h4>💎 Características INVEST de una Buena Historia</h4>
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #3498db">
+                <div class="concept-title">I - Independent (Independiente)</div>
+                <div class="concept-description">
+                  Cada historia debe poder desarrollarse independientemente de otras historias, permitiendo flexibilidad en la priorización y desarrollo.
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #e74c3c">
+                <div class="concept-title">N - Negotiable (Negociable)</div>
+                <div class="concept-description">
+                  Los detalles pueden discutirse y modificarse. La historia es una invitación a la conversación, no un contrato rígido.
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #f39c12">
+                <div class="concept-title">V - Valuable (Valiosa)</div>
+                <div class="concept-description">
+                  Debe proporcionar valor claro al usuario o al negocio. Si no aporta valor, no debería ser desarrollada.
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #27ae60">
+                <div class="concept-title">E - Estimable (Estimable)</div>
+                <div class="concept-description">
+                  Debe poder estimarse en términos de esfuerzo y tiempo. Si no se puede estimar, probablemente necesita más detalle.
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #9b59b6">
+                <div class="concept-title">S - Small (Pequeña)</div>
+                <div class="concept-description">
+                  Debe poder completarse en una iteración (sprint). Si es muy grande, debe dividirse en historias más pequeñas.
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #e67e22">
+                <div class="concept-title">T - Testable (Comprobable)</div>
+                <div class="concept-description">
+                  Debe tener criterios claros para verificar su cumplimiento. Sin esto, no sabemos cuándo está "terminada".
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-story-card">
+            <div class="concept-title" style="margin-bottom: 15px;">🎯 Criterios de Aceptación: Formato Given-When-Then</div>
+            <div style="color: #333;">
+              <strong>Historia de Usuario:</strong><br>
+              <em>Como usuario registrado,<br>
+              Quiero poder cambiar mi contraseña<br>
+              Para mantener mi cuenta segura</em><br><br>
+              
+              <div class="acceptance-criteria">
+                <strong>Criterio 1:</strong><br>
+                <strong>Dado que</strong> soy un usuario registrado y he iniciado sesión<br>
+                <strong>Cuando</strong> accedo a la opción "Cambiar contraseña"<br>
+                <strong>Entonces</strong> el sistema me solicita mi contraseña actual y la nueva<br><br>
+                
+                <strong>Criterio 2:</strong><br>
+                <strong>Dado que</strong> ingreso mi contraseña actual correctamente<br>
+                <strong>Cuando</strong> ingreso una nueva contraseña válida (mínimo 8 caracteres)<br>
+                <strong>Entonces</strong> el sistema actualiza mi contraseña y muestra confirmación<br><br>
+                
+                <strong>Criterio 3:</strong><br>
+                <strong>Dado que</strong> ingreso una contraseña actual incorrecta<br>
+                <strong>Cuando</strong> intento cambiar la contraseña<br>
+                <strong>Entonces</strong> el sistema muestra error y no permite el cambio
+              </div>
+            </div>
+          </div>
+
+          <div class="practical-example">
+            <h4>🔧 Refinamiento de Historias: De Épica a Historias Pequeñas</h4>
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #e74c3c">
+                <div class="concept-title">📚 Historia Épica (Muy Grande)</div>
+                <div class="concept-description">
+                  <em>Como administrador del sistema,<br>
+                  Quiero gestionar usuarios<br>
+                  Para mantener el control del acceso al sistema</em><br><br>
+                  <strong>Problema:</strong> Muy amplia, no estimable, múltiples funcionalidades
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #27ae60">
+                <div class="concept-title">✅ Historias Refinadas</div>
+                <div class="concept-description">
+                  <strong>Historia 1:</strong> <em>Como administrador, quiero crear nuevos usuarios para dar acceso a nuevos empleados</em><br><br>
+                  <strong>Historia 2:</strong> <em>Como administrador, quiero modificar permisos de usuarios para ajustar el acceso según los roles</em><br><br>
+                  <strong>Historia 3:</strong> <em>Como administrador, quiero desactivar usuarios para revocar el acceso cuando sea necesario</em>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 5: Ejercicios Prácticos -->
-      <div class="slide">
+      <!-- Slide 10: Conclusiones -->
+      <div class="slide" id="conclusiones">
+        <div class="slide-header">🎯 Conclusiones y Reflexiones Finales</div>
+        <div class="slide-content">
+          <div class="concept-grid">
+            <div class="concept-card" style="border-left-color: #3498db">
+              <div class="concept-title">🌟 Importancia de UML</div>
+              <div class="concept-description">
+                UML nos proporciona un <strong>lenguaje visual universal</strong> para comunicar diseños complejos. Es fundamental para:
+                <br>• Reducir malentendidos entre equipos
+                <br>• Documentar decisiones arquitectónicas
+                <br>• Facilitar el mantenimiento a largo plazo
+                <br>• Detectar problemas antes de la implementación
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #e74c3c">
+              <div class="concept-title">⚖️ Elección de Herramientas</div>
+              <div class="concept-description">
+                La elección entre casos de uso e historias de usuario depende del <strong>contexto del proyecto</strong>:
+                <br>• Casos de uso: análisis detallado, documentación formal
+                <br>• Historias de usuario: entornos ágiles, flexibilidad, comunicación directa
+                <br>• Ambas pueden coexistir en el mismo proyecto
+              </div>
+            </div>
+            <div class="concept-card" style="border-left-color: #27ae60">
+              <div class="concept-title">🚀 Impacto en el Desarrollo</div>
+              <div class="concept-description">
+                El dominio de estas herramientas permite crear software que <strong>realmente satisface las necesidades</strong>:
+                <br>• Reduces errores y retrabajos
+                <br>• Mejoras la calidad del producto final
+                <br>• Facilitas la comunicación con stakeholders
+                <br>• Optimizas recursos y tiempo
+              </div>
+            </div>
+          </div>
+
+          <div class="practical-example">
+            <h4>💡 Mejores Prácticas para el Éxito</h4>
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #f39c12">
+                <div class="concept-title">📋 Para Diagramas UML</div>
+                <div class="concept-description">
+                  • Comienza con diagramas simples y añade detalle gradualmente
+                  <br>• Usa la notación estándar para asegurar comprensión universal
+                  <br>• Mantén los diagramas actualizados con el código
+                  <br>• Enfócate en los diagramas que aporten más valor al proyecto
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #9b59b6">
+                <div class="concept-title">📝 Para Requisitos</div>
+                <div class="concept-description">
+                  • Involucra a los usuarios finales en la definición de requisitos
+                  <br>• Valida requisitos temprano y frecuentemente
+                  <br>• Escribe criterios de aceptación claros y medibles
+                  <br>• Prioriza requisitos según valor de negocio
+                </div>
+              </div>
+              <div class="concept-card" style="border-left-color: #e67e22">
+                <div class="concept-title">🔄 Para Metodologías Ágiles</div>
+                <div class="concept-description">
+                  • Refina historias de usuario continuamente
+                  <br>• Mantén historias pequeñas e independientes
+                  <br>• Usa retrospectivas para mejorar el proceso
+                  <br>• Adapta las herramientas al contexto del equipo
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-section">
+            <h4>🎓 Camino de Aprendizaje Recomendado</h4>
+            <div style="color: white; line-height: 1.8;">
+              <strong>1. Fundamentos:</strong> Domina la notación básica de UML y los tipos de diagramas<br>
+              <strong>2. Práctica:</strong> Crea diagramas de clase para proyectos personales<br>
+              <strong>3. Requisitos:</strong> Experimenta con casos de uso e historias de usuario<br>
+              <strong>4. Integración:</strong> Combina UML con metodologías ágiles<br>
+              <strong>5. Herramientas:</strong> Aprende herramientas como PlantUML, Lucidchart, o Draw.io<br>
+              <strong>6. Colaboración:</strong> Practica comunicación técnica usando diagramas
+            </div>
+          </div>
+
+          <div class="user-story-card">
+            <div class="concept-title" style="margin-bottom: 15px;">🌟 Reflexión Final</div>
+            <div style="color: #333; text-align: center; font-size: 1.1em; line-height: 1.6;">
+              <em>"El software que cambia vidas no surge por accidente. 
+              Surge de la comprensión profunda de las necesidades humanas, 
+              comunicada claramente a través de herramientas como UML y metodologías robustas de captura de requisitos.
+              <br><br>
+              Dominar estas herramientas no es solo aprender técnicas; 
+              es desarrollar la capacidad de transformar ideas complejas en soluciones tangibles que impactan positivamente a las personas."</em>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 11: Ejercicios Prácticos -->
+      <div class="slide" id="ejercicios">
         <div class="slide-header">🎯 Ejercicios Prácticos para Consolidar</div>
         <div class="slide-content">
           <div class="exercise-section">
@@ -649,6 +1304,7 @@
           <div id="exercise-answer" style="margin-top: 20px"></div>
         </div>
       </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -699,7 +1355,9 @@
     Pedido "1" *-- "*" DetallePedido : contiene
     DetallePedido "*" -- "1" Producto : se refiere a
     </div>
-<p><strong>Cuándo usar:</strong> Para el diseño detallado del sistema, definir la estructura de datos y las relaciones entre entidades.</p>`,
+<p><strong>Cuándo usar:</strong> Para el diseño detallado del sistema, definir la estructura de datos y las relaciones entre entidades.</p>
+<p><strong>Nivel de detalle:</strong> Alto - Incluye atributos, métodos y relaciones precisas</p>
+<p><strong>Mejor para:</strong> Fase de diseño, comunicación con desarrolladores, documentación de arquitectura</p>`,
             description:
               "El diagrama de clases es el corazón del diseño orientado a objetos. Muestra las clases del sistema, sus atributos, métodos y las relaciones entre ellas.",
           },
@@ -720,7 +1378,9 @@
                     Actor --- UseCase5
                 </div>
             </div>
-<p><strong>Cuándo usar:</strong> Al inicio del proyecto para capturar los requisitos funcionales y definir el alcance del sistema.</p>`,
+<p><strong>Cuándo usar:</strong> Al inicio del proyecto para capturar los requisitos funcionales y definir el alcance del sistema.</p>
+<p><strong>Nivel de detalle:</strong> Bajo-Medio - Se enfoca en funcionalidades principales</p>
+<p><strong>Mejor para:</strong> Comunicación con stakeholders, definición de alcance, análisis de requisitos</p>`,
             description:
               "Los casos de uso capturan los requisitos funcionales del sistema mostrando cómo los usuarios (actores) interactúan con el sistema para lograr objetivos específicos.",
           },
@@ -739,7 +1399,9 @@
     ServicioEmail-->>Sistema: OK
     Sistema-->>Usuario: token
 </div>
-<p><strong>Cuándo usar:</strong> Para diseñar la interacción detallada entre objetos en escenarios específicos, especialmente útil para APIs y servicios.</p>`,
+<p><strong>Cuándo usar:</strong> Para diseñar la interacción detallada entre objetos en escenarios específicos, especialmente útil para APIs y servicios.</p>
+<p><strong>Nivel de detalle:</strong> Alto - Muestra el orden preciso de mensajes y timing</p>
+<p><strong>Mejor para:</strong> Diseño de APIs, flujos complejos, debugging de interacciones</p>`,
             description:
               "El diagrama de secuencia muestra cómo los objetos interactúan entre sí a lo largo del tiempo, revelando el orden de los mensajes intercambiados.",
           },
@@ -755,7 +1417,9 @@
     Cancelado --> [*]
     Entregado --> [*]
 </div>
-<p><strong>Cuándo usar:</strong> Para objetos que tienen un ciclo de vida complejo con diferentes estados y reglas de transición específicas.</p>`,
+<p><strong>Cuándo usar:</strong> Para objetos que tienen un ciclo de vida complejo con diferentes estados y reglas de transición específicas.</p>
+<p><strong>Nivel de detalle:</strong> Alto - Define estados precisos y condiciones de transición</p>
+<p><strong>Mejor para:</strong> Objetos con comportamiento complejo, validación de reglas de negocio, sistemas reactivos</p>`,
             description:
               "El diagrama de estados muestra los diferentes estados por los que puede pasar un objeto y las transiciones que los provocan.",
           },
@@ -770,7 +1434,9 @@
     ConfirmOrder --> End([Fin]);
     CheckoutDecision -- No --> End;
 </div>
-<p><strong>Cuándo usar:</strong> Para modelar procesos de negocio, flujos de trabajo complejos y algoritmos con decisiones y paralelismo.</p>`,
+<p><strong>Cuándo usar:</strong> Para modelar procesos de negocio, flujos de trabajo complejos y algoritmos con decisiones y paralelismo.</p>
+<p><strong>Nivel de detalle:</strong> Medio-Alto - Muestra flujos de trabajo completos con decisiones</p>
+<p><strong>Mejor para:</strong> Procesos de negocio, workflows, algoritmos complejos, análisis de eficiencia</p>`,
             description:
               "El diagrama de actividades muestra el flujo de trabajo paso a paso, incluyendo decisiones, paralelismo y sincronización.",
           },
