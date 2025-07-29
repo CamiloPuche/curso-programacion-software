@@ -434,7 +434,237 @@
             <div class="slide">
               <div class="slide-header">🔗 Relaciones UML con Ejemplos Prácticos</div>
               <div class="slide-content">
-                          <div class="concept-grid">
+                <!-- Sección de Multiplicidad -->
+          <div class="practical-example">
+            <h4>🔢 Multiplicidad: Definiendo Cuántos Pueden Participar</h4>
+            <p style="text-align: center; margin-bottom: 20px; font-style: italic; color: #2c3e50;">
+              La multiplicidad especifica cuántas instancias de una clase pueden estar relacionadas con una instancia de otra clase
+            </p>
+            
+            <div class="concept-grid">
+              <div class="concept-card" style="border-left-color: #3498db">
+                <div class="concept-title">📋 ¿Qué es Multiplicidad?</div>
+                <div class="concept-description">
+                  <strong>📋 Definición:</strong> Especificación que indica el número de instancias de una clase que pueden estar asociadas con una instancia de otra clase en una relación específica.
+                  <br><br><strong>🎯 Propósito:</strong>
+                  <br>• Define restricciones de negocio
+                  <br>• Valida la integridad de datos
+                  <br>• Especifica cardinalidad de relaciones
+                  <br>• Guía la implementación de bases de datos
+                  <br><br><strong>📍 Cómo leerla:</strong>
+                  <br>• Se lee desde una clase hacia la otra
+                  <br>• Indica cuántas instancias del destino pueden relacionarse
+                  <br>• Se coloca cerca del extremo de la línea de relación
+                  
+                  <div class="diagram-example">
+                    <strong>Ejemplo de Lectura:</strong>
+                    <br><br>
+                    <code>
+                    Cliente "1" ──── "0..*" Pedido<br>
+                    <br>
+                    Se lee como:<br>
+                    "Un Cliente puede tener cero o muchos Pedidos"<br>
+                    "Un Pedido pertenece a exactamente un Cliente"
+                    </code>
+                  </div>
+                  <p><strong>💡 Ejemplo del mundo real:</strong> <em>Es como las reglas de un club deportivo: "Un equipo debe tener entre 11 y 25 jugadores" o "Un jugador puede estar en máximo un equipo".</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #e74c3c">
+                <div class="concept-title">🎯 Notación Completa</div>
+                <div class="concept-description">
+                  <strong>📋 Símbolos Básicos:</strong>
+                  <br><br><strong>• 1</strong> = Exactamente uno (obligatorio)
+                  <br><strong>• *</strong> = Cero o más (ilimitado)
+                  <br><strong>• 0..1</strong> = Cero o uno (opcional)
+                  <br><strong>• 1..*</strong> = Uno o más (al menos uno)
+                  <br><br><strong>📋 Rangos Específicos:</strong>
+                  <br><strong>• 0..3</strong> = Máximo tres
+                  <br><strong>• 2..5</strong> = Entre dos y cinco
+                  <br><strong>• 5</strong> = Exactamente cinco
+                  <br><strong>• 1..10</strong> = Entre uno y diez
+                  
+                  <div class="diagram-example">
+                    <strong>Ejemplos Prácticos:</strong>
+                    <br><br>
+                    <code>
+                    📋 Multiplicidades Comunes:<br>
+                    • Persona ─"0..1"─ Pasaporte (opcional)<br>
+                    • Madre ─"1..*"─ Hijo (al menos uno)<br>
+                    • Equipo ─"11..22"─ Jugador (plantilla)<br>
+                    • Curso ─"*"─ Estudiante (sin límite)<br>
+                    • Auto ─"4"─ Rueda (exactamente cuatro)
+                    </code>
+                  </div>
+                  <p><strong>⚠️ Error común:</strong> <em>Usar siempre "*" por pereza. Cada multiplicidad debe reflejar las reglas reales del negocio.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #f39c12">
+                <div class="concept-title">🔍 Ejemplos Detallados</div>
+                <div class="concept-description">
+                  <strong>📋 Casos del Mundo Real:</strong>
+                  
+                  <div class="diagram-example mermaid">
+                  classDiagram
+                      class Persona {
+                          - nombre: String
+                          - edad: int
+                          + obtenerPasaporte()
+                      }
+                      
+                      class Pasaporte {
+                          - numero: String
+                          - fechaVencimiento: Date
+                          + renovar()
+                      }
+                      
+                      class Universidad {
+                          - nombre: String
+                          + inscribirEstudiante()
+                      }
+                      
+                      class Estudiante {
+                          - carnet: String
+                          - carrera: String
+                          + estudiar()
+                      }
+                      
+                      class Curso {
+                          - codigo: String
+                          - nombre: String
+                          + impartir()
+                      }
+                      
+                      Persona "1" -- "0..1" Pasaporte : tiene
+                      Universidad "1" -- "*" Estudiante : matricula
+                      Estudiante "*" -- "*" Curso : cursa
+                  </div>
+                  
+                  <div style="margin-top: 15px;">
+                    <strong>📊 Interpretación de Multiplicidades:</strong>
+                    <br><br>
+                    <code>
+                    🔹 Persona "1" ── "0..1" Pasaporte<br>
+                    &nbsp;&nbsp;"Una persona puede tener como máximo un pasaporte"<br>
+                    &nbsp;&nbsp;"Un pasaporte pertenece a exactamente una persona"<br><br>
+                    
+                    🔹 Universidad "1" ── "*" Estudiante<br>
+                    &nbsp;&nbsp;"Una universidad puede tener muchos estudiantes"<br>
+                    &nbsp;&nbsp;"Un estudiante pertenece a una universidad"<br><br>
+                    
+                    🔹 Estudiante "*" ── "*" Curso<br>
+                    &nbsp;&nbsp;"Un estudiante puede cursar múltiples materias"<br>
+                    &nbsp;&nbsp;"Un curso puede tener múltiples estudiantes"
+                    </code>
+                  </div>
+                  <p><strong>💡 Tip profesional:</strong> <em>La multiplicidad "*" a "*" generalmente requiere una clase de asociación intermedia en la implementación.</em></p>
+                </div>
+              </div>
+              
+              <div class="concept-card" style="border-left-color: #9b59b6">
+                <div class="concept-title">⚠️ Errores Comunes y Mejores Prácticas</div>
+                <div class="concept-description">
+                  <strong>🚫 Errores Frecuentes:</strong>
+                  <br><br><strong>• Dirección de lectura:</strong>
+                  <br>&nbsp;&nbsp;❌ Confundir desde dónde hacia dónde se lee
+                  <br>&nbsp;&nbsp;✅ Siempre leer desde la clase origen hacia la clase destino
+                  <br><br><strong>• Multiplicidad genérica:</strong>
+                  <br>&nbsp;&nbsp;❌ Usar "*" para todo por pereza
+                  <br>&nbsp;&nbsp;✅ Especificar rangos realistas según el negocio
+                  <br><br><strong>• Reglas de negocio:</strong>
+                  <br>&nbsp;&nbsp;❌ No considerar restricciones empresariales
+                  <br>&nbsp;&nbsp;✅ Validar multiplicidades con expertos del dominio
+                  
+                  <div class="diagram-example">
+                    <strong>Ejemplos de Corrección:</strong>
+                    <br><br>
+                    <code>
+                    ❌ Incorrecto:<br>
+                    Empresa ─"*"─ Empleado (sin límites realistas)<br><br>
+                    
+                    ✅ Correcto:<br>
+                    Empresa ─"1..10000"─ Empleado (límite empresarial)<br><br>
+                    
+                    ❌ Incorrecto:<br>
+                    Factura ─"*"─ LineaFactura (líneas ilimitadas)<br><br>
+                    
+                    ✅ Correcto:<br>
+                    Factura ─"1..50"─ LineaFactura (límite del sistema)
+                    </code>
+                  </div>
+                  
+                  <div style="margin-top: 15px;">
+                    <strong>✅ Mejores Prácticas:</strong>
+                    <br>• Documenta las razones de multiplicidades específicas
+                    <br>• Considera limitaciones técnicas del sistema
+                    <br>• Valida con reglas de negocio reales
+                    <br>• Usa rangos específicos en lugar de "*" cuando sea posible
+                    <br>• Revisa multiplicidades durante el diseño de BD
+                  </div>
+                  <p><strong>🎯 Regla de oro:</strong> <em>La multiplicidad debe reflejar fielmente las restricciones del mundo real, no ser una aproximación genérica.</em></p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tabla de Referencia Rápida -->
+            <div style="margin-top: 30px;">
+              <h4>📊 Tabla de Referencia Rápida: Multiplicidades</h4>
+              <div style="overflow-x: auto; margin: 20px 0;">
+                <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                  <thead style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                    <tr>
+                      <th style="padding: 12px; text-align: left; color: #000000;">Notación</th>
+                      <th style="padding: 12px; text-align: left; color: #000000;">Significado</th>
+                      <th style="padding: 12px; text-align: left; color: #000000;">Ejemplo del Mundo Real</th>
+                      <th style="padding: 12px; text-align: left; color: #000000;">Cuándo Usar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="background: #f8f9fa;">
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;"><strong>1</strong></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Exactamente uno</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Persona → DNI</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Relaciones obligatorias</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;"><strong>0..1</strong></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Cero o uno (opcional)</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Persona → Pasaporte</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Relaciones opcionales</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;"><strong>*</strong></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Cero o más</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Cliente → Pedido</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Sin límite superior conocido</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;"><strong>1..*</strong></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Uno o más</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Pedido → LineaPedido</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Al menos uno requerido</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;"><strong>2..10</strong></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Entre dos y diez</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Equipo → Jugador</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Rangos específicos de negocio</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;"><strong>5</strong></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Exactamente cinco</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Mano → Dedo</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #eee; color: #000000;">Cantidades fijas conocidas</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+ 
+            <div class="concept-grid">
             <div class="concept-card">
               <div class="concept-title">🔄 Dependencia (Uses)</div>
               <div class="concept-description">
@@ -588,9 +818,10 @@
                 <p><strong>⚠️ Error común:</strong> <em>Usar composición cuando las partes podrían reutilizarse o existir independientemente.</em></p>
               </div>
             </div>
-          </div>
-      
-                          <div class="practical-example">
+                    </div>
+          
+               
+          <div class="practical-example">
             <h4>🐕 Relaciones de Especialización: Herencia y Realización</h4>
             <div class="concept-grid">
               <div class="concept-card" style="border-left-color: #27ae60">
