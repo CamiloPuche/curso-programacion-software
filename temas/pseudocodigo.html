@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pseudocódigo y PSeInt - Fundamentos de Programación</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 20px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+      }
+
+      .content-section:hover {
+        transform: translateY(-5px);
+      }
+
+      .section-title {
+        color: #2c3e50;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #3498db;
+        padding-bottom: 1rem;
+      }
+
+      .subsection-title {
+        color: #34495e;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #3498db;
+        padding-left: 1rem;
+      }
+
+      h3 {
+        color: #34495e;
+        margin: 20px 0 15px 0;
+        font-size: 1.4em;
+        border-left: 3px solid #74b9ff;
+        padding-left: 15px;
+      }
+
+      p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #555;
+        font-size: 1.1rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        border: 1px solid #bdc3c7;
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+        font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f8f9fa;
+      }
+
+      tr:hover {
+        background-color: #e3f2fd;
+      }
+
+      .code-example {
+        background: #2c3e50;
+        color: #ecf0f1;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: "Courier New", monospace;
+        margin: 15px 0;
+        border-left: 5px solid #e74c3c;
+        overflow-x: auto;
+        white-space: pre-line;
+        line-height: 1.4;
+      }
+
+      details {
+        margin: 15px 0;
+        background: #f8f9fa;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #e9ecef;
+      }
+
+      details summary {
+        background: linear-gradient(135deg, #74b9ff, #0984e3);
+        color: white;
+        padding: 15px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      details summary:hover {
+        background: linear-gradient(135deg, #0984e3, #74b9ff);
+      }
+
+      details[open] summary {
+        background: linear-gradient(135deg, #00b894, #00a085);
+      }
+
+      .highlight-box {
+        background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+        border-left: 5px solid #e17055;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+
+      .concept-card {
+        background: #f8f9fa;
+        border-left: 5px solid #3498db;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+      }
+
+      .concept-card:hover {
+        background: #e3f2fd;
+        transform: scale(1.02);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #3498db;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+      }
+
+      .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="../index.html" class="back-button">← Volver al Inicio</a>
+
+    <div class="container">
+      <div class="content-section">
+        <h1 class="section-title">💻 Pseudocódigo y PSeInt</h1>
+        <p>
+          El pseudocódigo es un lenguaje intermedio, escrito en español
+          estructurado, que describe algoritmos de forma clara y evita detalles
+          técnicos propios de los lenguajes de programación reales. Facilita la
+          <b>planificación</b>, mejora la <b>comunicación</b> en equipo y
+          acelera el aprendizaje al reducir la carga cognitiva inicial.
+        </p>
+        <p>
+          Usaremos <b>PSeInt</b> como "gimnasio de programación" porque
+          interpreta ese pseudocódigo y permite ver el resultado de inmediato.
+        </p>
+      </div>
+
+      <div class="content-section">
+        <h2 class="subsection-title">📊 Tipos de datos en PSeInt y teoría</h2>
+        <p>
+          Un <b>tipo de dato</b> define el dominio de valores que una variable
+          puede almacenar y las operaciones válidas sobre ella. Elegir el tipo
+          correcto previene errores y hace más eficiente la memoria.
+        </p>
+        <table>
+          <tr>
+            <th>Tipo</th>
+            <th>Descripción</th>
+          </tr>
+          <tr>
+            <td>Entero</td>
+            <td>Números sin parte decimal (-7, 0, 23)</td>
+          </tr>
+          <tr>
+            <td>Real</td>
+            <td>Números con decimales (3.14, -8.5)</td>
+          </tr>
+          <tr>
+            <td>Cadena</td>
+            <td>Texto de cualquier longitud ("Hola")</td>
+          </tr>
+          <tr>
+            <td>Caracter</td>
+            <td>Un único símbolo ('A')</td>
+          </tr>
+          <tr>
+            <td>Lógico</td>
+            <td>Valores booleanos: Verdadero o Falso</td>
+          </tr>
+        </table>
+        <div class="code-example">
+          // Ejemplo Definir edad Como Entero Definir precio Como Real Definir
+          nombre Como Cadena Definir inicial Como Caracter Definir esMayor Como
+          Lógico
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="subsection-title">
+          🔑 Palabras reservadas de PSeInt (resumen)
+        </h2>
+        <table>
+          <tr>
+            <th>Categoría</th>
+            <th>Reservadas</th>
+          </tr>
+          <tr>
+            <td>Estructura global</td>
+            <td>Algoritmo, Proceso, FinAlgoritmo, FinProceso</td>
+          </tr>
+          <tr>
+            <td>Entrada/Salida</td>
+            <td>Escribir, Leer, Sin Saltar</td>
+          </tr>
+          <tr>
+            <td>Declaración</td>
+            <td>Definir, Como, Dimension</td>
+          </tr>
+          <tr>
+            <td>Condición</td>
+            <td>Si, Entonces, Sino, FinSi, Segun, De Otro Modo, FinSegun</td>
+          </tr>
+          <tr>
+            <td>Repetición</td>
+            <td>
+              Mientras, Hacer, FinMientras, Para, Hasta, Con Paso, FinPara,
+              Repetir, Hasta Que
+            </td>
+          </tr>
+          <tr>
+            <td>Subprogramas</td>
+            <td>
+              SubProceso, FinSubProceso, Funcion, FinFuncion, Por Valor, Por
+              Referencia
+            </td>
+          </tr>
+          <tr>
+            <td>Lógicos</td>
+            <td>Verdadero, Falso</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="content-section">
+        <h2 class="subsection-title">
+          💡 Palabras reservadas – Ejemplos prácticos
+        </h2>
+
+        <details>
+          <summary><b>Algoritmo / FinAlgoritmo</b></summary>
+          <div class="code-example">
+            Algoritmo Hola Escribir "¡Hola mundo!" FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>Definir … Como</b></summary>
+          <div class="code-example">
+            Algoritmo Variables Definir nota Como Real Definir nombre Como
+            Cadena Escribir "Ingresa tu nota:" Leer nota FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>Dimension</b></summary>
+          <div class="code-example">
+            Algoritmo ListaPrecios Dimension precio[5] Para i <- 1 Hasta 5 Hacer
+            Leer precio[i] FinPara FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>Si … Entonces … Sino … FinSi</b></summary>
+          <div class="code-example">
+            Algoritmo MayorEdad Leer edad Si edad >= 18 Entonces Escribir "Mayor
+            de edad" Sino Escribir "Menor de edad" FinSi FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>Mientras … Hacer … FinMientras</b></summary>
+          <div class="code-example">
+            Algoritmo Contador Definir n Como Entero n <- 1 Mientras n <= 5
+            Hacer Escribir n n <- n + 1 FinMientras FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>Para … Hasta … Con Paso … FinPara</b></summary>
+          <div class="code-example">
+            Algoritmo TablaMultiplicar Para i <- 1 Hasta 10 Con Paso 1 Hacer
+            Escribir "5 x ", i, " = ", 5 * i FinPara FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>Repetir … Hasta Que</b></summary>
+          <div class="code-example">
+            Algoritmo Adivinar Repetir Leer numero Hasta Que numero = 7 Escribir
+            "¡Correcto!" FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>SubProceso / FinSubProceso</b></summary>
+          <div class="code-example">
+            SubProceso Saludar(nombre) Escribir "Hola ", nombre FinSubProceso
+            Algoritmo Principal Saludar("Camilo") FinAlgoritmo
+          </div>
+        </details>
+
+        <details>
+          <summary><b>Funcion / FinFuncion</b></summary>
+          <div class="code-example">
+            Funcion area <- CalcularTriangulo(b, h) area <- (b * h) / 2
+            FinFuncion Algoritmo Demo area <- CalcularTriangulo(5, 8) Escribir
+            area FinAlgoritmo
+          </div>
+        </details>
+      </div>
+
+      <div class="content-section">
+        <h2 class="subsection-title">
+          🔄 Estructuras de control – Ejemplos completos
+        </h2>
+
+        <h3>Mientras</h3>
+        <div class="code-example">
+          Algoritmo Sumatoria Definir suma, x Como Entero suma <- 0 x <- 1
+          Mientras x <= 100 Hacer suma <- suma + x x <- x + 1 FinMientras
+          Escribir suma FinAlgoritmo
+        </div>
+
+        <h3>Para</h3>
+        <div class="code-example">
+          Algoritmo Promedio Definir total, calificacion Como Real total <- 0
+          Para i <- 1 Hasta 4 Hacer Leer calificacion total <- total +
+          calificacion FinPara Escribir "Promedio: ", total / 4 FinAlgoritmo
+        </div>
+
+        <h3>Repetir Hasta Que</h3>
+        <div class="code-example">
+          Algoritmo Clave Repetir Leer clave Hasta Que clave = 1234 Escribir
+          "Acceso concedido" FinAlgoritmo
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h2 class="subsection-title">⚡ Operadores lógicos y relacionales</h2>
+
+        <h3>Operadores lógicos: Y, O, NO</h3>
+        <div class="code-example">
+          Algoritmo EdadYNota Leer edad, nota Si (edad >= 18) Y (nota >= 3)
+          Entonces Escribir "Aprueba mayores" FinSi FinAlgoritmo
+        </div>
+
+        <h3>Operadores relacionales: =, <>, >, <, >=, <=</h3>
+        <div class="code-example">
+          Algoritmo Comparar Definir a, b Como Entero a <- 5 b <- 10 Escribir "a
+          = b ", a = b Escribir "a <> b", a <> b Escribir "a > b", a > b
+          FinAlgoritmo
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
