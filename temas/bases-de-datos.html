@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bases de Datos - Curso de Programación de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+        color: #1e293b;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 20px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+      }
+      .content-section:hover {
+        transform: translateY(-2px);
+      }
+      .section-title {
+        color: #5b21b6;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #5b21b6;
+        padding-bottom: 1rem;
+      }
+      .subsection-title {
+        color: #7c3aed;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #7c3aed;
+        padding-left: 1rem;
+      }
+      h3 {
+        color: #8b5cf6;
+        margin: 20px 0 15px 0;
+        font-size: 1.4em;
+        border-left: 3px solid #a78bfa;
+        padding-left: 15px;
+      }
+      p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #555;
+        font-size: 1.1rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+      .card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #7c3aed;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+        color: inherit;
+      }
+      .card h3 {
+        color: #5b21b6;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        border: none;
+        padding: 0;
+      }
+      .card p {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+      .card .status {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+      .status.available {
+        background: linear-gradient(135deg, #d1fae5, #34d399);
+        color: #065f46;
+      }
+      .status.coming-soon {
+        background: linear-gradient(135deg, #fef3c7, #f59e0b);
+        color: #92400e;
+      }
+      .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        color: white;
+      }
+      .intro-section {
+        background: linear-gradient(135deg, #ede9fe, #c4b5fd);
+        border-left: 5px solid #7c3aed;
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+      }
+      .intro-section h2 {
+        color: #5b21b6;
+        margin-bottom: 1rem;
+      }
+      .intro-section p {
+        color: #4c1d95;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #fef3c7, #f59e0b);
+        border-left: 5px solid #f59e0b;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1.5rem 0;
+      }
+      .highlight-box h4 {
+        color: #92400e;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+      .highlight-box p {
+        color: #92400e;
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="../index.html" class="back-button">← Volver al Inicio</a>
+
+    <div class="container">
+      <div class="content-section">
+        <h1 class="section-title">🗄️ Bases de Datos</h1>
+
+        <h2 class="subsection-title">📖 Conceptos Fundamentales</h2>
+
+        <div class="content-section">
+          <h3>¿Qué es una Base de Datos?</h3>
+          <p>
+            Una <strong>base de datos</strong> es una colección organizada de
+            información estructurada, típicamente almacenada electrónicamente en
+            un sistema informático. Una base de datos está generalmente
+            controlada por un sistema de gestión de bases de datos (SGBD).
+          </p>
+
+          <div class="highlight-box">
+            <h4>🎯 Definición Técnica</h4>
+            <p>
+              Una base de datos es un conjunto de datos relacionados entre sí,
+              almacenados sin redundancias perjudiciales, que sirven a
+              aplicaciones múltiples de manera independiente de los programas
+              que las usan.
+            </p>
+          </div>
+
+          <h3>Componentes Principales</h3>
+          <div class="grid">
+            <div class="card">
+              <h3>📊 Datos</h3>
+              <p>
+                La información real que se almacena en la base de datos. Pueden
+                ser números, texto, fechas, imágenes, etc.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🗂️ Metadatos</h3>
+              <p>
+                Información sobre los datos: estructura, tipos, restricciones,
+                relaciones y esquemas.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔧 SGBD</h3>
+              <p>
+                Sistema de Gestión de Bases de Datos que maneja el
+                almacenamiento, recuperación y administración de los datos.
+              </p>
+            </div>
+            <div class="card">
+              <h3>👥 Usuarios</h3>
+              <p>
+                Personas o aplicaciones que interactúan con la base de datos
+                para consultar, insertar, modificar o eliminar información.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">✨ Características Principales</h2>
+
+        <div class="content-section">
+          <div class="grid">
+            <div class="card">
+              <h3>🔒 Integridad</h3>
+              <p>
+                Los datos mantienen su consistencia y validez, respetando las
+                reglas y restricciones definidas en el esquema.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔐 Seguridad</h3>
+              <p>
+                Control de acceso mediante usuarios, roles y permisos.
+                Protección contra accesos no autorizados.
+              </p>
+            </div>
+            <div class="card">
+              <h3>⚡ Rendimiento</h3>
+              <p>
+                Acceso rápido a los datos mediante índices, optimización de
+                consultas y técnicas de almacenamiento eficientes.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔄 Concurrencia</h3>
+              <p>
+                Múltiples usuarios pueden acceder simultáneamente sin
+                comprometer la integridad de los datos.
+              </p>
+            </div>
+            <div class="card">
+              <h3>💾 Persistencia</h3>
+              <p>
+                Los datos se mantienen almacenados de forma permanente,
+                sobreviviendo a fallos del sistema.
+              </p>
+            </div>
+            <div class="card">
+              <h3>📈 Escalabilidad</h3>
+              <p>
+                Capacidad de manejar crecientes volúmenes de datos y usuarios
+                sin degradar significativamente el rendimiento.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">
+          ⚡ Propiedades ACID de las Transacciones
+        </h2>
+
+        <div class="content-section">
+          <h3>¿Qué son las Propiedades ACID?</h3>
+          <p>
+            <strong>ACID</strong> es un acrónimo que representa las cuatro
+            propiedades fundamentales que garantizan la confiabilidad de las
+            transacciones en bases de datos. Estas propiedades aseguran que las
+            operaciones de base de datos se ejecuten de manera confiable,
+            incluso en caso de fallos del sistema.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>🔒 A - Atomicidad (Atomicity)</h3>
+              <p>
+                <strong>Definición:</strong> Una transacción se ejecuta
+                completamente o no se ejecuta en absoluto.
+              </p>
+              <p>
+                <strong>Ejemplo:</strong> Si estás transfiriendo dinero entre
+                cuentas, la operación debe completarse en ambas cuentas (debitar
+                de una y acreditar en la otra) o no ejecutarse en ninguna. No
+                puede quedar "a medias".
+              </p>
+              <div class="highlight-box">
+                <h4>💡 En la Práctica</h4>
+                <p>
+                  Si ocurre un error durante la transacción, todas las
+                  operaciones se revierten (rollback) al estado anterior.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>✅ C - Consistencia (Consistency)</h3>
+              <p>
+                <strong>Definición:</strong> Una transacción lleva la base de
+                datos de un estado válido a otro estado válido.
+              </p>
+              <p>
+                <strong>Ejemplo:</strong> Si tienes una regla que dice "el saldo
+                no puede ser negativo", la transacción debe garantizar que esta
+                regla se mantenga antes y después de la operación.
+              </p>
+              <div class="highlight-box">
+                <h4>💡 En la Práctica</h4>
+                <p>
+                  Las restricciones de integridad y las reglas de negocio se
+                  respetan en todo momento.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>🔐 I - Aislamiento (Isolation)</h3>
+              <p>
+                <strong>Definición:</strong> Las transacciones concurrentes no
+                interfieren entre sí.
+              </p>
+              <p>
+                <strong>Ejemplo:</strong> Si dos usuarios están actualizando el
+                mismo registro simultáneamente, cada uno ve los datos como si
+                fuera el único usuario trabajando.
+              </p>
+              <div class="highlight-box">
+                <h4>💡 En la Práctica</h4>
+                <p>
+                  Previene problemas como lecturas sucias, lecturas no
+                  repetibles y lecturas fantasma.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>💾 D - Durabilidad (Durability)</h3>
+              <p>
+                <strong>Definición:</strong> Una vez que una transacción se
+                confirma (commit), los cambios son permanentes.
+              </p>
+              <p>
+                <strong>Ejemplo:</strong> Si el sistema se apaga después de
+                confirmar una transacción, los datos deben estar disponibles
+                cuando el sistema se reinicie.
+              </p>
+              <div class="highlight-box">
+                <h4>💡 En la Práctica</h4>
+                <p>
+                  Los cambios se escriben en almacenamiento persistente (disco)
+                  antes de confirmar la transacción.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <h4>🎯 Ejemplo Práctico: Transferencia Bancaria</h4>
+            <p>
+              <strong>Transacción:</strong> Transferir $100 de la cuenta A a la
+              cuenta B
+            </p>
+            <p>
+              <strong>Operaciones:</strong>
+            </p>
+            <ul>
+              <li>
+                <strong>Atomicidad:</strong> Ambas operaciones (debitar $100 de
+                A y acreditar $100 a B) se ejecutan o ninguna
+              </li>
+              <li>
+                <strong>Consistencia:</strong> Los saldos finales respetan las
+                reglas (no negativos, suma total correcta)
+              </li>
+              <li>
+                <strong>Aislamiento:</strong> Otras transacciones no ven estados
+                intermedios
+              </li>
+              <li>
+                <strong>Durabilidad:</strong> Los cambios persisten aunque haya
+                un corte de luz
+              </li>
+            </ul>
+          </div>
+
+          <h3>Niveles de Aislamiento</h3>
+          <div class="grid">
+            <div class="card">
+              <h3>📖 Read Uncommitted</h3>
+              <p>
+                <strong>Nivel más bajo:</strong> Permite leer datos no
+                confirmados. Puede causar lecturas sucias.
+              </p>
+            </div>
+            <div class="card">
+              <h3>📚 Read Committed</h3>
+              <p>
+                <strong>Nivel por defecto:</strong> Solo lee datos confirmados.
+                Previene lecturas sucias.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔄 Repeatable Read</h3>
+              <p>
+                <strong>Nivel intermedio:</strong> Garantiza lecturas
+                consistentes durante toda la transacción.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔒 Serializable</h3>
+              <p>
+                <strong>Nivel más alto:</strong> Aislamiento completo. Las
+                transacciones se ejecutan como si fueran secuenciales.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">
+          🛠️ Sistemas de Gestión de Bases de Datos (SGBD)
+        </h2>
+
+        <div class="content-section">
+          <h3>¿Qué es un SGBD?</h3>
+          <p>
+            Un <strong>Sistema de Gestión de Bases de Datos (SGBD)</strong> o
+            <strong>Database Management System (DBMS)</strong> es un software
+            que proporciona una interfaz entre la base de datos y los usuarios
+            finales o programas de aplicación, garantizando que los datos estén
+            organizados de manera consistente y sean fácilmente accesibles.
+          </p>
+
+          <h3>Funciones Principales de un SGBD</h3>
+          <div class="grid">
+            <div class="card">
+              <h3>📝 Definición de Datos</h3>
+              <p>
+                Crear, modificar y eliminar estructuras de datos (tablas,
+                índices, vistas, etc.) mediante lenguajes como DDL.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔍 Manipulación de Datos</h3>
+              <p>
+                Insertar, consultar, actualizar y eliminar datos mediante
+                lenguajes como SQL (DML).
+              </p>
+            </div>
+            <div class="card">
+              <h3>🛡️ Control de Acceso</h3>
+              <p>
+                Gestionar usuarios, roles, permisos y políticas de seguridad
+                para proteger la información.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔄 Control de Transacciones</h3>
+              <p>
+                Asegurar la consistencia de los datos mediante transacciones
+                ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad).
+              </p>
+            </div>
+            <div class="card">
+              <h3>💾 Gestión de Almacenamiento</h3>
+              <p>
+                Optimizar el almacenamiento físico, gestión de memoria, índices
+                y estructuras de datos.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔧 Administración</h3>
+              <p>
+                Herramientas para backup, recuperación, monitoreo, optimización
+                y mantenimiento del sistema.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">🌟 SGBD Más Populares</h2>
+
+        <div class="content-section">
+          <div class="grid">
+            <div class="card">
+              <h3>🐬 MySQL</h3>
+              <div style="text-align: center; margin-bottom: 1rem">
+                <img
+                  src="../img/mysql.png"
+                  alt="Logo de MySQL"
+                  style="max-width: 120px; height: auto"
+                />
+              </div>
+              <p>
+                <strong>Tipo:</strong> Relacional, Open Source<br />
+                <strong>Características:</strong> Rápido, confiable, fácil de
+                usar. Muy popular para aplicaciones web. Soporte para múltiples
+                motores de almacenamiento.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>🐘 PostgreSQL</h3>
+              <div style="text-align: center; margin-bottom: 1rem">
+                <img
+                  src="../img/postgresql.png"
+                  alt="Logo de PostgreSQL"
+                  style="max-width: 120px; height: auto"
+                />
+              </div>
+              <p>
+                <strong>Tipo:</strong> Relacional, Open Source<br />
+                <strong>Características:</strong> Muy potente, soporte avanzado
+                para tipos de datos, extensibilidad, cumplimiento de estándares
+                SQL. Ideal para aplicaciones complejas.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>🗃️ Oracle Database</h3>
+              <div style="text-align: center; margin-bottom: 1rem">
+                <img
+                  src="../img/oracle.png"
+                  alt="Logo de Oracle Database"
+                  style="max-width: 120px; height: auto"
+                />
+              </div>
+              <p>
+                <strong>Tipo:</strong> Relacional, Comercial<br />
+                <strong>Características:</strong> Líder empresarial, alta
+                disponibilidad, escalabilidad masiva, herramientas avanzadas de
+                administración.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>🔷 Microsoft SQL Server</h3>
+              <div style="text-align: center; margin-bottom: 1rem">
+                <img
+                  src="../img/sqlserver.png"
+                  alt="Logo de Microsoft SQL Server"
+                  style="max-width: 120px; height: auto"
+                />
+              </div>
+              <p>
+                <strong>Tipo:</strong> Relacional, Comercial<br />
+                <strong>Características:</strong> Integración con ecosistema
+                Microsoft, herramientas de BI avanzadas, soporte para análisis
+                de datos.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>🍃 MongoDB</h3>
+              <div style="text-align: center; margin-bottom: 1rem">
+                <img
+                  src="../img/mongodb.png"
+                  alt="Logo de MongoDB"
+                  style="max-width: 120px; height: auto"
+                />
+              </div>
+              <p>
+                <strong>Tipo:</strong> NoSQL, Documento, Open Source<br />
+                <strong>Características:</strong> Almacenamiento de documentos
+                JSON, escalabilidad horizontal, flexibilidad en el esquema.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>🔴 Redis</h3>
+              <div style="text-align: center; margin-bottom: 1rem">
+                <img
+                  src="../img/redis.png"
+                  alt="Logo de Redis"
+                  style="max-width: 120px; height: auto"
+                />
+              </div>
+              <p>
+                <strong>Tipo:</strong> NoSQL, Clave-Valor, Open Source<br />
+                <strong>Características:</strong> Almacenamiento en memoria, muy
+                rápido, ideal para caché, sesiones y datos temporales.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">🎯 Tipos de Bases de Datos</h2>
+
+        <div class="content-section">
+          <div class="grid">
+            <div class="card">
+              <h3>📊 Relacionales</h3>
+              <p>
+                Organizan datos en tablas con filas y columnas. Utilizan SQL y
+                siguen el modelo relacional. Ejemplos: MySQL, PostgreSQL,
+                Oracle.
+              </p>
+            </div>
+            <div class="card">
+              <h3>📄 NoSQL - Documentos</h3>
+              <p>
+                Almacenan datos como documentos (JSON, XML). Flexibles en
+                esquema. Ejemplos: MongoDB, CouchDB.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🔑 NoSQL - Clave-Valor</h3>
+              <p>
+                Almacenan datos como pares clave-valor. Muy simples y rápidas.
+                Ejemplos: Redis, DynamoDB.
+              </p>
+            </div>
+            <div class="card">
+              <h3>📊 NoSQL - Columnas</h3>
+              <p>
+                Organizan datos por columnas en lugar de filas. Ideales para
+                análisis. Ejemplos: Cassandra, HBase.
+              </p>
+            </div>
+            <div class="card">
+              <h3>🕸️ NoSQL - Grafos</h3>
+              <p>
+                Almacenan datos como nodos y relaciones. Ideales para redes
+                sociales. Ejemplos: Neo4j, ArangoDB.
+              </p>
+            </div>
+            <div class="card">
+              <h3>⏰ Tiempo Real</h3>
+              <p>
+                Optimizadas para datos que cambian constantemente. Streaming de
+                datos. Ejemplos: InfluxDB, TimescaleDB.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">📚 Contenido del Módulo</h2>
+
+        <div class="grid">
+          <a href="modelo-entidad-relacion.html" class="card">
+            <h3>🎨 Modelo Entidad-Relación (MER)</h3>
+            <p>
+              Fundamentos del modelado conceptual. Entidades, atributos,
+              relaciones, cardinalidades y restricciones. Aprende a diseñar
+              diagramas E/R profesionales.
+            </p>
+            <div class="status available">✅ Disponible</div>
+          </a>
+
+          <a href="reglas-modelo-relacional.html" class="card">
+            <h3>📋 Reglas del Modelo Relacional</h3>
+            <p>
+              Las 12 reglas fundamentales de Codd para bases de datos
+              relacionales. Integridad referencial, normalización y principios
+              de diseño. Base teórica sólida para el modelado.
+            </p>
+            <div class="status available">✅ Disponible</div>
+          </a>
+
+          <a href="modelo-relacional.html" class="card">
+            <h3>🔄 Del Modelo Conceptual al Modelo Relacional</h3>
+            <p>
+              Aprende a transformar diagramas Entidad-Relación en estructuras de
+              tablas relacionales. Entidades fuertes y débiles, relaciones 1:1,
+              1:N, N:N, generalización y especialización.
+            </p>
+            <div class="status available">✅ Disponible</div>
+          </a>
+
+          <div class="card">
+            <h3>📊 Normalización de Bases de Datos</h3>
+            <p>
+              Primera, segunda y tercera forma normal. Eliminación de
+              redundancias y dependencias funcionales para optimizar el diseño
+              de bases de datos.
+            </p>
+            <div class="status coming-soon">🚧 Próximamente</div>
+          </div>
+
+          <div class="card">
+            <h3>🗃️ SQL Básico y Avanzado</h3>
+            <p>
+              Consultas SELECT, INSERT, UPDATE, DELETE. Joins, subconsultas,
+              vistas, procedimientos almacenados y triggers.
+            </p>
+            <div class="status coming-soon">🚧 Próximamente</div>
+          </div>
+
+          <div class="card">
+            <h3>🔧 Gestores de Bases de Datos</h3>
+            <p>
+              MySQL, PostgreSQL, SQL Server. Instalación, configuración,
+              administración y optimización de rendimiento.
+            </p>
+            <div class="status coming-soon">🚧 Próximamente</div>
+          </div>
+
+          <div class="card">
+            <h3>🎨 Herramientas de Modelado</h3>
+            <p>
+              MySQL Workbench, pgAdmin, DBeaver. Diseño visual de bases de
+              datos, generación de scripts y documentación.
+            </p>
+            <div class="status coming-soon">🚧 Próximamente</div>
+          </div>
+
+          <div class="card">
+            <h3>⚡ Optimización y Rendimiento</h3>
+            <p>
+              Índices, consultas eficientes, análisis de rendimiento y técnicas
+              de optimización para bases de datos de gran escala.
+            </p>
+            <div class="status coming-soon">🚧 Próximamente</div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <h4>💡 Consejo para el Aprendizaje</h4>
+          <p>
+            Comienza con el "Modelo Entidad-Relación (MER)" para entender los
+            fundamentos del modelado conceptual. Luego estudia las "Reglas del
+            Modelo Relacional" para comprender los principios teóricos de Codd.
+            Finalmente, continúa con "Del Modelo Conceptual al Modelo
+            Relacional" para aprender a transformar esos modelos en estructuras
+            de bases de datos. Esta secuencia te dará una base sólida y
+            completa.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add hover effects to cards
+      const cards = document.querySelectorAll(".card");
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)";
+        });
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+
+      // Add hover effects to content sections
+      const sections = document.querySelectorAll(".content-section");
+      sections.forEach((section) => {
+        section.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-2px)";
+        });
+        section.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>

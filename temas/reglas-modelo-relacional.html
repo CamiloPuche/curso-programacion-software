@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reglas del Modelo Relacional - Bases de Datos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .back-button {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .back-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+      .content-section {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #1a202c;
+        margin-bottom: 30px;
+        text-align: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .subsection-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin: 40px 0 20px 0;
+        border-left: 4px solid #667eea;
+        padding-left: 20px;
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #f7fafc, #edf2f7);
+        border: 2px solid #e2e8f0;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .info-box {
+        background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+        border: 2px solid #90cdf4;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .warning-box {
+        background: linear-gradient(135deg, #fef5e7, #fed7aa);
+        border: 2px solid #f6ad55;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 25px 0;
+      }
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 2px solid #e2e8f0;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        border-color: #667eea;
+      }
+      .card h3 {
+        color: #2d3748;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .card p {
+        color: #4a5568;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+      .rule-number {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+      .rule-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding: 20px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s ease;
+      }
+      .rule-item:hover {
+        border-color: #667eea;
+        transform: translateY(-2px);
+      }
+      .rule-content h4 {
+        color: #2d3748;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .rule-content p {
+        color: #4a5568;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .diagram-box {
+        background: linear-gradient(135deg, #f0fff4, #c6f6d5);
+        border: 2px solid #68d391;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .example-box {
+        background: linear-gradient(135deg, #fef5e7, #fed7aa);
+        border: 2px solid #f6ad55;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .step-box {
+        background: linear-gradient(135deg, #f0f9ff, #bae6fd);
+        border: 2px solid #0ea5e9;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 25px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+        padding-left: 25px;
+        position: relative;
+      }
+      li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #48bb78;
+        font-weight: bold;
+      }
+      .entity {
+        background: #e9d5ff;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #5b21b6;
+      }
+      .attribute {
+        background: #dbeafe;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #1e40af;
+      }
+      .relationship {
+        background: #fef3c7;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #d97706;
+      }
+      .key {
+        background: #fecaca;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #dc2626;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #e5e7eb;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      tr:hover {
+        background-color: #f3e8ff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="bases-de-datos.html" class="back-button"
+      >← Volver a Bases de Datos</a
+    >
+
+    <div class="container">
+      <div class="content-section">
+        <h1 class="section-title">📋 Reglas del Modelo Relacional</h1>
+
+        <div class="highlight-box">
+          <h2>¿Qué es el Modelo Relacional?</h2>
+          <p>
+            El <strong>Modelo Relacional</strong> es el siguiente paso en el
+            modelado de la base de datos. Este representa la base de datos por
+            medio de tablas en las cuales se almacenará la información. El
+            diagrama del modelo relacional se crea a partir del diagrama entidad
+            relación siguiendo una serie de reglas.
+          </p>
+          <p>
+            <strong>Importancia:</strong> Comprender estas reglas es esencial
+            para transformar correctamente un modelo conceptual (MER) en un
+            modelo relacional implementable en una base de datos real.
+          </p>
+        </div>
+
+        <h2 class="subsection-title">
+          📚 Reglas para pasar del Modelo Entidad-Relación al Relacional
+        </h2>
+
+        <div class="rule-item">
+          <div class="rule-number">1</div>
+          <div class="rule-content">
+            <h4>Conversión de Entidades a Tablas</h4>
+            <p>
+              Todas las entidades del modelo entidad relación se convierten en
+              tablas en el modelo relacional, y sus atributos en campos de la
+              tabla. Como ejemplo tomaremos la entidad persona con sus atributos
+              y los representaremos así:
+            </p>
+          </div>
+        </div>
+
+        <div class="diagram-box">
+          <h4>📊 Modelo Relacional - Tablas</h4>
+          <img
+            src="../img/modelo-relacional-tablas.png"
+            alt="Modelo Relacional - Tablas"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >Las entidades se convierten en tablas y los atributos en campos
+              (columnas).</em
+            >
+          </p>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-number">2</div>
+          <div class="rule-content">
+            <h4>Llave Primaria</h4>
+            <p>
+              El atributo principal de cada entidad en el modelo entidad
+              relación lo llamaremos
+              <span class="key">llave primaria</span> en el modelo relacional y
+              por facilidad lo representaremos con las letras PK (Primary Key),
+              las cuales irán a continuación del nombre del campo. Para el caso
+              de personas el atributo principal es la cédula, por lo tanto su
+              representación dentro de la tabla será así:
+            </p>
+          </div>
+        </div>
+
+        <div class="diagram-box">
+          <h4>🔑 Modelo Relacional - Llave Primaria</h4>
+          <img
+            src="../img/modelo-relacional-llave-primaria.png"
+            alt="Modelo Relacional - Llave Primaria"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >El atributo principal (cédula) se convierte en la llave primaria
+              (PK) de la tabla.</em
+            >
+          </p>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-number">3</div>
+          <div class="rule-content">
+            <h4>Relación Uno a Uno (1:1)</h4>
+            <p>
+              Donde exista una relación Uno a Uno (1:1) entre 2 entidades, se
+              debe crear una llave que llamaremos
+              <span class="key">foránea</span>, en una de las 2 tablas
+              asociadas.
+            </p>
+            <p>
+              Una llave foránea es una referencia a una llave en otra tabla y
+              determina una relación existente entre 2 tablas. Una llave foránea
+              en una tabla se asocia con una llave primaria en la otra tabla.
+              Para agregar una llave foránea simplemente se agrega un campo más
+              con las mismas características que el campo que es llave primaria.
+            </p>
+            <p>Como ejemplo tomemos las entidades profesor y cubículo.</p>
+          </div>
+        </div>
+
+        <div class="diagram-box">
+          <h4>🔗 Modelo Relacional - Uno a Uno</h4>
+          <img
+            src="../img/modelo-relacional-uno-uno.png"
+            alt="Modelo Relacional - Relación Uno a Uno"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >La llave primaria de profesor (Cédula) se agrega como llave
+              foránea en cubículo.</em
+            >
+          </p>
+        </div>
+
+        <div class="info-box">
+          <h4>💡 Nota Importante</h4>
+          <p>
+            Aunque la multiplicidad era originalmente de uno a uno (1:1) en el
+            diagrama entidad relación, veremos que siempre donde coloquemos una
+            llave foránea la relación puede llegar a ser a muchos (M) registros.
+          </p>
+          <p>
+            Como la relación es de uno a uno (1:1) también hubiéramos podido
+            hacer el siguiente diagrama:
+          </p>
+        </div>
+
+        <div class="diagram-box">
+          <h4>🔄 Alternativa para Relación 1:1</h4>
+          <img
+            src="../img/modelo-relacional-uno-muchos-1.png"
+            alt="Modelo Relacional - Alternativa Uno a Uno"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >En este caso la llave primaria de la tabla Cubículo
+              (Nro_cubículo) se pasa como llave foránea a la tabla Profesor.</em
+            >
+          </p>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-number">4</div>
+          <div class="rule-content">
+            <h4>Relación Uno a Muchos (1:M)</h4>
+            <p>
+              Donde exista una relación de uno a muchos (1:M) en el modelo
+              entidad relación, crearemos las tablas correspondientes en el
+              modelo relacional, y donde se encontraba la multiplicidad muchos
+              (M) se creará obligatoriamente la llave foránea de la misma forma
+              como se hizo en el caso anterior.
+            </p>
+            <p>
+              Tomemos como ejemplo las entidades Persona y Mascota. En este caso
+              asumiremos que una persona puede tener varias mascotas, pero cada
+              mascota pertenece a una sola persona.
+            </p>
+          </div>
+        </div>
+
+        <div class="diagram-box">
+          <h4>📊 Modelo Relacional - Uno a Muchos</h4>
+          <img
+            src="../img/modelo-relacional-uno-muchos-2.png"
+            alt="Modelo Relacional - Relación Uno a Muchos"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >La multiplicidad queda uno (1) al lado de la llave primaria y
+              muchos (M) al lado de la llave foránea.</em
+            >
+          </p>
+        </div>
+
+        <div class="rule-item">
+          <div class="rule-number">5</div>
+          <div class="rule-content">
+            <h4>Relación Muchos a Muchos (M:M)</h4>
+            <p>
+              Donde exista una relación de muchos a muchos en el modelo entidad
+              relación, la relación se convierte en una tabla nueva que une las
+              2 entidades que se estaban relacionando originalmente. La nueva
+              tabla tendrá su propia llave primaria y tendrá 2 llaves foráneas,
+              las cuales corresponden a las llaves primarias de las otras dos
+              tablas. Adicionalmente tendrá los campos adicionales que sean
+              requeridos. El nombre para la nueva tabla puede ser el mismo de la
+              relación u otro que sea más adecuado.
+            </p>
+            <p>
+              Para la cardinalidad se mantiene la misma regla aplicada en los
+              casos anteriores. Se colocará un 1 donde se encuentran las llaves
+              primarias, y una M donde se encuentra las llaves foráneas,
+              transformándose así en dos relaciones de uno a muchos (1:M).
+            </p>
+            <p>
+              Tomando como ejemplo las entidades estudiante y libro, y aplicando
+              esta regla, se transformarían en el modelo relacional de la
+              siguiente forma:
+            </p>
+          </div>
+        </div>
+
+        <div class="diagram-box">
+          <h4>🔗 Modelo Relacional - Muchos a Muchos</h4>
+          <img
+            src="../img/modelo-relacional-muchos-muchos.png"
+            alt="Modelo Relacional - Relación Muchos a Muchos"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >La nueva tabla "PRÉSTAMOS" une las entidades ESTUDIANTES y LIBROS
+              con sus respectivas llaves foráneas.</em
+            >
+          </p>
+        </div>
+
+        <div class="info-box">
+          <h4>📝 Detalles de la Tabla Intermedia</h4>
+          <p>
+            La nueva tabla que fue creada a partir de la relación "prestar", se
+            le puso el nombre préstamo, se le creó una llave primaria llamada
+            "Id_Préstamo", se le agregó las dos llaves foráneas a partir de las
+            llaves primarias de estudiantes (Nro_Id) y libros (Isbn) y se le
+            agregó un nuevo campo llamado "Fecha_préstamo".
+          </p>
+        </div>
+
+        <div class="diagram-box">
+          <h4>🎓 Ejemplo Completo: Sistema Universitario</h4>
+          <img
+            src="../img/modelo-relacional.png"
+            alt="Modelo Relacional Completo del Sistema Universitario"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >Ejemplo completo aplicando todas las reglas del modelo relacional
+              al sistema universitario.</em
+            >
+          </p>
+        </div>
+
+        <div class="highlight-box">
+          <h3>🚀 Siguiente Paso</h3>
+          <p>
+            Ahora que conoces las reglas para transformar un modelo MER en un
+            modelo relacional, el siguiente paso es aprender a implementar este
+            diseño en una base de datos real con
+            <strong>Del Modelo Conceptual al Modelo Relacional</strong>.
+          </p>
+          <p>
+            <strong>Continúa con:</strong>
+            <a
+              href="modelo-relacional.html"
+              style="color: #5b21b6; font-weight: bold"
+            >
+              Del Modelo Conceptual al Modelo Relacional →
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add hover effects to rule items
+      const ruleItems = document.querySelectorAll(".rule-item");
+      ruleItems.forEach((item) => {
+        item.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-2px)";
+        });
+        item.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>

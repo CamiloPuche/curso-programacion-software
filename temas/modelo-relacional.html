@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unidad 03. Del modelo conceptual al modelo relacional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+        color: #1e293b;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 20px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+      }
+      .content-section:hover {
+        transform: translateY(-2px);
+      }
+      .section-title {
+        color: #5b21b6;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #5b21b6;
+        padding-bottom: 1rem;
+      }
+      .subsection-title {
+        color: #7c3aed;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #7c3aed;
+        padding-left: 1rem;
+      }
+      h3 {
+        color: #8b5cf6;
+        margin: 20px 0 15px 0;
+        font-size: 1.4em;
+        border-left: 3px solid #a78bfa;
+        padding-left: 15px;
+      }
+      p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #555;
+        font-size: 1.1rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #e5e7eb;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      tr:hover {
+        background-color: #f3e8ff;
+      }
+      .code-example {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: "Courier New", monospace;
+        margin: 15px 0;
+        border-left: 5px solid #7c3aed;
+        overflow-x: auto;
+        white-space: pre-line;
+        line-height: 1.4;
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #ede9fe, #c4b5fd);
+        border-left: 5px solid #7c3aed;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      .concept-card {
+        background: #f8fafc;
+        border-left: 5px solid #7c3aed;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+      }
+      .concept-card:hover {
+        background: #f3e8ff;
+        transform: scale(1.02);
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #7c3aed;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+      }
+      .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+      .toc {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin: 2rem 0;
+      }
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+      .toc li {
+        margin: 0.5rem 0;
+      }
+      .toc a {
+        color: #7c3aed;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.25rem 0;
+        display: block;
+      }
+      .toc a:hover {
+        color: #5b21b6;
+        text-decoration: underline;
+      }
+      .pros-cons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .pros {
+        background: linear-gradient(135deg, #d1fae5 0%, #34d399 100%);
+        border-left: 4px solid #10b981;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+      }
+      .cons {
+        background: linear-gradient(135deg, #fee2e2 0%, #f87171 100%);
+        border-left: 4px solid #ef4444;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+      }
+      .activity-box {
+        background: linear-gradient(135deg, #ede9fe 0%, #7c3aed 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        margin: 2rem 0;
+      }
+      .definition-box {
+        background: #f0f9ff;
+        border: 1px solid #0ea5e9;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .example-box {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .warning-box {
+        background: #fef2f2;
+        border: 1px solid #f87171;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .info-box {
+        background: #eff6ff;
+        border: 1px solid #3b82f6;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .step-box {
+        background: #f0fdf4;
+        border: 1px solid #22c55e;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .formula-box {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+        font-family: "Courier New", monospace;
+        text-align: center;
+        font-size: 1.2rem;
+      }
+      .diagram-box {
+        background: #f8fafc;
+        border: 2px dashed #7c3aed;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+        text-align: center;
+        color: #7c3aed;
+        font-style: italic;
+      }
+      ul,
+      ol {
+        margin: 1rem 0;
+        padding-left: 2rem;
+      }
+      li {
+        margin: 0.5rem 0;
+        line-height: 1.6;
+      }
+      strong {
+        color: #5b21b6;
+        font-weight: 700;
+      }
+      em {
+        color: #7c3aed;
+        font-style: italic;
+      }
+      .math {
+        font-family: "Times New Roman", serif;
+        font-style: italic;
+      }
+      .entity {
+        background: #ede9fe;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #5b21b6;
+      }
+      .attribute {
+        background: #dbeafe;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #1e40af;
+      }
+      .relationship {
+        background: #fef3c7;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #d97706;
+      }
+      .key {
+        background: #fecaca;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #dc2626;
+      }
+      .markdown-body {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+      .markdown-body h1 {
+        color: #5b21b6;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #5b21b6;
+        padding-bottom: 1rem;
+      }
+      .markdown-body h2 {
+        color: #7c3aed;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #7c3aed;
+        padding-left: 1rem;
+      }
+      .markdown-body h3 {
+        color: #8b5cf6;
+        margin: 20px 0 15px 0;
+        font-size: 1.4em;
+        border-left: 3px solid #a78bfa;
+        padding-left: 15px;
+      }
+      .markdown-body h4 {
+        color: #a78bfa;
+        margin: 15px 0 10px 0;
+        font-size: 1.2em;
+        border-left: 2px solid #c4b5fd;
+        padding-left: 10px;
+      }
+      .markdown-body p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #555;
+        font-size: 1.1rem;
+      }
+      .markdown-body ul,
+      .markdown-body ol {
+        margin: 1rem 0;
+        padding-left: 2rem;
+      }
+      .markdown-body li {
+        margin: 0.5rem 0;
+        line-height: 1.6;
+      }
+      .markdown-body strong {
+        color: #5b21b6;
+        font-weight: 700;
+      }
+      .markdown-body em {
+        color: #7c3aed;
+        font-style: italic;
+      }
+      .markdown-body code {
+        background: #f3e8ff;
+        color: #5b21b6;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.25rem;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+      }
+      .markdown-body pre {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: "Courier New", monospace;
+        margin: 15px 0;
+        border-left: 5px solid #7c3aed;
+        overflow-x: auto;
+        white-space: pre-line;
+        line-height: 1.4;
+      }
+      .markdown-body pre code {
+        background: none;
+        color: inherit;
+        padding: 0;
+        border-radius: 0;
+      }
+      .markdown-body blockquote {
+        background: linear-gradient(135deg, #ede9fe, #c4b5fd);
+        border-left: 5px solid #7c3aed;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        font-style: italic;
+      }
+      .markdown-body hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, #7c3aed, #5b21b6);
+        margin: 2rem 0;
+        border-radius: 1px;
+      }
+      .markdown-body a {
+        color: #7c3aed;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .markdown-body a:hover {
+        color: #5b21b6;
+        text-decoration: underline;
+      }
+      .markdown-body .toc-title {
+        color: #5b21b6;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .markdown-body .toc-section-number {
+        color: #7c3aed;
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+      .markdown-body .subtitle {
+        text-align: center;
+        color: #7c3aed;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .markdown-body .date {
+        text-align: center;
+        color: #8b5cf6;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="../index.html" class="back-button">← Volver al Inicio</a>
+
+    <div class="container">
+      <div class="content-section">
+        <div class="markdown-body">
+          <header>
+            <h1 class="title followed-by-subtitle">
+              Modelo relacional
+            </h1>
+          </header>
+          <h1 data-number="1" id="del-modelo-conceptual-al-modelo-relacional">
+            Del modelo conceptual al modelo relacional
+          </h1>
+          <h2 data-number="1.1" id="entidades-fuertes-y-débiles"> Entidades (Fuertes y Débiles)
+          </h2>
+          <p>
+            Cada una de las entidades (fuertes y débiles) del diagrama E/R
+            genera una tabla, donde cada uno de los atributos de la entidad pasa
+            a ser una columna de la tabla.
+          </p>
+          <p><strong>Ejemplo:</strong></p>
+          <figure>
+            <img src="../img/entidad-fuerte.svg" alt="Entidad Fuerte" />
+            <figcaption aria-hidden="true">Entidad Fuerte</figcaption>
+          </figure>
+          <p>
+            En este ejemplo las entidades fuertes <strong>Alumno</strong> y
+            <strong>Examen Teórico</strong> generan una tabla en el modelo
+            relacional con las siguientes columnas.
+          </p>
+          <ul>
+            <li>
+              ALUMNO(<strong>id</strong>, nombre, apellido1, apellido2, nif,
+              grupo)
+            </li>
+            <li>
+              EXAMEN_TEÓRICO(<strong>id</strong>, título, número_preguntas,
+              fecha)
+            </li>
+          </ul>
+          <h2 data-number="1.2" id="relaciones-con-cardinalidad-11">
+            Relaciones con cardinalidad 1:1
+          </h2>
+          <p>
+            Como norma general, las relaciones con cardinalidad 1:1 no generan
+            una tabla, lo que haremos será que la clave primaria de una entidad
+            pasará a formar parte de la tabla de la otra entidad, y pasará como
+            un atributo.
+          </p>
+          <p>
+            La participación de cada una de las entidades será lo que nos ayude
+            a decidir cuál será la entidad que pasará su clave primaria a la
+            otra entidad.
+          </p>
+          <p>
+            <mark>Excepción:</mark> Sólo existe un caso donde una relación con
+            cardinalidad 1:1 genera una nueva tabla, y será cuando la
+            participación de las dos entidades sea de tipo (0,1)..(0..1).
+          </p>
+          <p>Veamos los casos que pueden existir.</p>
+          <h3 data-number="1.2.1" id="participación-11..01">
+            Participación (1,1)..(0,1)
+          </h3>
+          <figure>
+            <img src="../img/relación-uno-a-uno.svg" alt="Relación uno a uno" />
+            <figcaption aria-hidden="true">Relación uno a uno</figcaption>
+          </figure>
+          <p>
+            Como la participación de <strong>Usuario</strong> es de
+            <strong>(1,1)</strong> y la de <strong>Canal YouTube</strong> es de
+            <strong>(0,1)</strong>, la clave primaria de
+            <strong>Usuario</strong> se almacena en la tabla de
+            <strong>Canal YouTube</strong> como un atributo. Se dice que el
+            atributo <em>id_usuario</em> que se añade en la tabla
+            <strong>Canal_YouTube</strong> es una <strong>clave ajena</strong> o
+            <strong>foreign key (FK)</strong> de la tabla
+            <strong>Usuario</strong>.
+          </p>
+          <p>Las tablas del modelo relacional quedarían así:</p>
+          <ul>
+            <li>
+              USUARIO(<strong>id</strong>, email, password, nombre, apellido1,
+              apellido2)
+            </li>
+            <li>
+              CANAL_YOUTUBE(<strong>id</strong>, nombre, descripción,
+              fecha_creación, <mark><em>id_usuario</em></mark
+              >)
+              <ul>
+                <li><em>id_usuario</em>: FOREIGN KEY de USUARIO(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <h3 data-number="1.2.2" id="participación-11..11">
+            Participación (1,1)..(1,1)
+          </h3>
+          <figure>
+            <img
+              src="../img/relación-uno-a-uno-1.svg"
+              alt="Relación uno a uno"
+            />
+            <figcaption aria-hidden="true">Relación uno a uno</figcaption>
+          </figure>
+          <p>
+            En este caso, como la participación de las dos entidades es de
+            <strong>(1,1)</strong> podemos resolverlo de tres formas.
+          </p>
+          <ol type="1">
+            <li>
+              La clave primaria de <strong>Presidente</strong> se almacena en la
+              tabla <strong>País</strong> como un atributo
+              (<em>id_presidente</em>). Se dice que <em>id_presidente</em> es
+              una <strong>clave ajena</strong> o
+              <strong>foreign key (FK)</strong> de la tabla
+              <strong>Presidente</strong>.
+            </li>
+          </ol>
+          <ul>
+            <li>
+              PRESIDENTE(<strong>id</strong>, nombre, apellido1, apellido2)
+            </li>
+            <li>
+              PAÍS(<strong>id</strong>, nombre,
+              <mark><em>id_presidente</em></mark
+              >)
+              <ul>
+                <li><em>id_presidente</em>: FOREIGN KEY de PRESIDENTE(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <ol start="2" type="1">
+            <li>
+              La clave primaria de <strong>País</strong> se almacena en la tabla
+              <strong>Presidente</strong> como un atributo (<em>id_pais</em>).
+              Se dice que <em>id_pais</em> es una <strong>clave ajena</strong> o
+              <strong>foreign key (FK)</strong> de la tabla
+              <strong>País</strong>.
+            </li>
+          </ol>
+          <ul>
+            <li>PAÍS(<strong>id</strong>, nombre)</li>
+            <li>
+              PRESIDENTE(<strong>id</strong>, nombre, apellido1, apellido2,
+              <mark><em>id_país</em></mark
+              >)
+              <ul>
+                <li><em>id_país</em>: FOREIGN KEY de PAÍS(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <ol start="3" type="1">
+            <li>
+              Las claves primarias de ambas entidades se guardan en la tabla de
+              la otra entidad. Es decir, la tabla
+              <strong>Presidente</strong> guardaría la clave primaria de
+              <strong>País</strong> y la tabla <strong>País</strong> guardaría
+              también la clave primaria de <strong>Presidente</strong>. Esta
+              solución puede presentar redundancia, pero puede ser interesante
+              en algunas ocasiones, dependiendo de las consultas que se vayan a
+              realizar sobre estas tablas a nivel de aplicación. En este caso
+              los atributos <em>id_país</em> y <em>id_presidente</em> serían
+              <strong>claves_ajenas</strong> o
+              <strong>foreign key (FK)</strong>.
+            </li>
+          </ol>
+          <ul>
+            <li>
+              PRESIDENTE(<strong>id</strong>, nombre, apellido1, apellido2,
+              <mark><em>id_país</em></mark
+              >)
+              <ul>
+                <li><em>id_país</em>: FOREIGN KEY de PAÍS(id)</li>
+              </ul>
+            </li>
+            <li>
+              PAÍS(<strong>id</strong>, nombre,
+              <mark><em>id_presidente</em></mark
+              >)
+              <ul>
+                <li><em>id_presidente</em>: FOREIGN KEY de PRESIDENTE(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <h3 data-number="1.2.3" id="participación-01..01">
+            Participación (0,1)..(0,1)
+          </h3>
+          <figure>
+            <img
+              src="../img/relación-uno-a-uno-2.svg"
+              alt="Relación uno a uno"
+            />
+            <figcaption aria-hidden="true">Relación uno a uno</figcaption>
+          </figure>
+          <p>
+            Cuando la participación de las dos entidades es de
+            <strong>(0,1)</strong>, se puede crear una nueva tabla donde se
+            almacenan las claves primarias de las dos entidades que participan
+            en la relación.&nbsp;La clave primaria de la nueva tabla será una de
+            las dos claves ajenas que se reciben.
+          </p>
+          <p>En este ejemplo tendríamos:</p>
+          <ul>
+            <li>
+              ALQUILER(<strong>id</strong>, fecha_inicio, fecha_fin, importe,
+              fianza)
+            </li>
+            <li>
+              ALQUILER_RENUEVA_ALQUILER(<mark><strong>id_alquiler</strong></mark
+              >, <mark><em>id_alquiler_anterior</em></mark
+              >)
+              <ul>
+                <li><em>id_alquiler</em>: FOREIGN KEY de ALQUILER(id)</li>
+                <li>
+                  <em>id_alquiler_anterior</em>: FOREIGN KEY de ALQUILER(id)
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <h2 data-number="1.3" id="relaciones-con-cardinalidad-1n">
+            Relaciones con cardinalidad 1:N
+          </h2>
+          <p>
+            Las relaciones con cardinalidad 1:N no generan una tabla, lo que
+            haremos será que la clave primaria de la entidad que participa con
+            cardinalidad 1 pasará a formar parte de la tabla de entidad que
+            participa con cardinalidad N, y además pasará como un atributo.
+          </p>
+          <p><strong>Ejemplo:</strong></p>
+          <figure>
+            <img
+              src="../img/relación-uno-a-muchos.svg"
+              alt="Relación uno a muchos"
+            />
+            <figcaption aria-hidden="true">Relación uno a muchos</figcaption>
+          </figure>
+          <p>
+            En este caso la clave primaria de la entidad que participa en la
+            relación con cardinalidad <strong>1</strong> se guarda en la tabla
+            de la entidad que participa con cardinalidad <strong>N</strong>.
+          </p>
+          <ul>
+            <li>
+              USUSARIO(<strong>id</strong>, email, password, nombre, apellido1,
+              apellido2)
+            </li>
+            <li>
+              VÍDEO(<strong>id</strong>, nombre, descripción, duración,
+              <mark><em>id_usuario</em></mark
+              >)
+              <ul>
+                <li><em>id_usuario</em>: FOREIGN KEY de USUARIO(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <!--
+### Entidad Débil por Existencia
+
+![Entidad Débil por Identificación](diagrams/entidad_debil_existencia.svg)
+
+### Entidad Débil por Identificación
+
+![Entidad Débil por Identificación](diagrams/entidad_debil_identificacion.svg)
+-->
+          <h3
+            data-number="1.3.1"
+            id="relaciones-reflexivas-con-cardinalidad-1n"
+          >
+          Relaciones reflexivas con cardinalidad 1:N
+          </h3>
+          <figure>
+            <img
+              src="../img/relación-uno-a-muchos-reflexiva.svg"
+              alt="Relación uno a muchos reflexiva"
+            />
+            <figcaption aria-hidden="true">
+              Relación uno a muchos reflexiva
+            </figcaption>
+          </figure>
+          <p>
+            En este caso la clave primaria se almacena en la misma tabla como
+            atributo.
+          </p>
+          <p>
+            La tabla <strong>Empleado</strong> vuelve a guardar su clave
+            primaria como atributo haciendo referencia al
+            <strong>id</strong> del jefe, le llamaremos
+            <strong>id_jefe</strong>.
+          </p>
+          <ul>
+            <li>
+              EMPLEADO(<strong>id</strong>, nombre, apellido1, apellido2,
+              <mark><em>id_jefe</em></mark
+              >)
+              <ul>
+                <li><em>id_jefe</em>: FOREIGN KEY de EMPLEADO(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <h2 data-number="1.4" id="relaciones-con-cardinalidad-nn">
+            Relaciones con cardinalidad N:N
+          </h2>
+          <p>
+            Las relaciones con cardinalidad N:N son las únicas que van a generar
+            una nueva tabla.
+          </p>
+          <p><strong>Ejemplo:</strong></p>
+          <figure>
+            <img
+              src="../img/relación-muchos-a-muchos.svg"
+              alt="Relación muchos a muchos"
+            />
+            <figcaption aria-hidden="true">Relación muchos a muchos</figcaption>
+          </figure>
+          <p>
+            En este caso se crea una nueva tabla donde se almacenan las claves
+            primarias de las dos entidades que participan en la relación. Las
+            claves primarias de las entidades también serán claves primarias de
+            la nueva tabla. Si la relación contiene algún atributo, se deberán
+            añadir a la nueva tabla.
+          </p>
+          <ul>
+            <li>
+              ALUMNO(<strong>id</strong>, nombre, apellido1, apellido2, nif,
+              grupo)
+            </li>
+            <li>
+              EXAMEN_TEÓRICO(<strong>id</strong>, título, número_preguntas,
+              fecha)
+            </li>
+            <li>
+              ALUMNO_HACE_EXAMEN_TEÓRICO(<mark><strong>id_alumno</strong></mark
+              >, <mark><strong>id_examen</strong></mark
+              >, nota)
+              <ul>
+                <li><em>id_alumno</em>: FOREIGN KEY de ALUMNO(id)</li>
+                <li><em>id_examen</em>: FOREIGN KEY de EXAMEN(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            <mark><strong>NOTA:</strong></mark> Habrá casos donde los atributos
+            de la relación también formarán parte de la clave primaria de la
+            nueva tabla. Estos casos aparecerán cuando en la relación existan
+            atributos de tipo fecha y sea necesario almacenar un histórico de
+            las relaciones entre las dos entidades en función de las fechas.
+            Estos casos también pueden resolverse añadiendo un nuevo
+            identificador de tipo entero con autoincremento en lugar de utilizar
+            una clave primaria compuesta por varias columnas.
+          </p>
+          <p><strong>Ejemplo:</strong></p>
+          <figure>
+            <img
+              src="../img/relación-muchos-a-muchos-1.svg"
+              alt="Relación muchos a muchos"
+            />
+            <figcaption aria-hidden="true">Relación muchos a muchos</figcaption>
+          </figure>
+          <p>
+            Las reglas de transformación de E/R al modelo relacional nos dicen
+            que la relación <strong>Suministra</strong> genera una nueva tabla
+            porque es una relación de <strong>cardinalidad N:N</strong>. Esta
+            nueva tabla recibe las claves primarias de las dos entidades que
+            participan en la relación y además participan como clave primaria.
+            La solución teórica sería la siguiente:
+          </p>
+          <ul>
+            <li>
+              PROVEEDOR(<strong>id</strong>, dirección, ciudad, provincia)
+            </li>
+            <li>PIEZA(<strong>id</strong>, nombre, color, precio)</li>
+            <li>
+              PROVEEDOR_SUMINISTRA_PIEZA(<mark
+                ><strong>id_proveedor</strong></mark
+              >, <mark><strong>id_pieza</strong></mark
+              >, fecha, cantidad)
+              <ul>
+                <li><em>id_proveedor</em>: FOREIGN KEY de PROVEEDOR(id)</li>
+                <li><em>id_pieza</em>: FOREIGN KEY de PIEZA(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            Con esta solución podemos tener un problema en el caso de que un
+            proveedor nos suministre piezas con el mismo id en fechas
+            diferentes. En este caso no podríamos almacenar esta información en
+            la tabla porque se produciría un error de claves primarias
+            duplicadas.
+          </p>
+          <table>
+            <thead>
+              <tr class="header">
+                <th>#id_proveedor</th>
+                <th>#id_pieza</th>
+                <th>fecha</th>
+                <th>cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="odd">
+                <td>1</td>
+                <td>1</td>
+                <td>01/01/2018</td>
+                <td>100</td>
+              </tr>
+              <tr class="even">
+                <td>1</td>
+                <td>1</td>
+                <td>20/01/2018</td>
+                <td>100</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Para solucionarlo podemos incluir el atributo <em>fecha</em> como
+            parte de la clave primaria de la tabla, de modo que la clave
+            primaria estaría compuesta por <strong>id_proveedor</strong>,
+            <strong>id_pieza</strong> y <strong>fecha</strong>. La solución
+            sería la siguiente:
+          </p>
+          <ul>
+            <li>
+              PROVEEDOR_SUMINISTRA_PIEZA(<strong>id_proveedor</strong>, <strong>id_pieza</strong>
+              , <strong>fecha</strong>, cantidad)
+              <ul>
+                <li><em>id_proveedor</em>: FOREIGN KEY de PROVEEDOR(id)</li>
+                <li><em>id_pieza</em>: FOREIGN KEY de PIEZA(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            En este caso ya no habría ningún problema para almacenar que un
+            proveedor nos suministra piezas con el mismo id en fechas
+            diferentes.
+          </p>
+          <table>
+            <thead>
+              <tr class="header">
+                <th>#id_proveedor</th>
+                <th>#id_pieza</th>
+                <th>#fecha</th>
+                <th>cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="odd">
+                <td>1</td>
+                <td>1</td>
+                <td>01/01/2018</td>
+                <td>100</td>
+              </tr>
+              <tr class="even">
+                <td>1</td>
+                <td>1</td>
+                <td>20/01/2018</td>
+                <td>100</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Si fuese necesario registrar que el mismo proveedor puede
+            suministrar piezas con el mismo código en diferentes horas del mismo
+            día, habría que reemplazar la columna fecha por fecha_hora.
+          </p>
+          <table>
+            <thead>
+              <tr class="header">
+                <th>#id_proveedor</th>
+                <th>#id_pieza</th>
+                <th>#fecha_hora</th>
+                <th>cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="odd">
+                <td>1</td>
+                <td>1</td>
+                <td>01/01/2018 08:00:00</td>
+                <td>100</td>
+              </tr>
+              <tr class="even">
+                <td>1</td>
+                <td>1</td>
+                <td>20/01/2018 10:00:00</td>
+                <td>100</td>
+              </tr>
+              <tr class="odd">
+                <td>1</td>
+                <td>1</td>
+                <td>20/01/2018 17:00:00</td>
+                <td>100</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Otra forma de resolver este problema puede ser creando un nuevo
+            atributo <strong>id</strong> que sea un valor numérico con
+            autoincremento y que éste sea la única clave primara de la tabla. La
+            solución sería la siguiente:
+          </p>
+          <ul>
+            <li>
+              PROVEEDOR_SUMINISTRA_PIEZA(<strong>id</strong>,
+              id_proveedor, id_pieza, fecha_hora,
+              cantidad)
+              <ul>
+                <li><em>id_proveedor</em>: FOREIGN KEY de PROVEEDOR(id)</li>
+                <li><em>id_pieza</em>: FOREIGN KEY de PIEZA(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            En este caso tampoco habría ningún problema para almacenar que un
+            proveedor nos suministra piezas con el mismo id en fechas
+            diferentes.
+          </p>
+          <table>
+            <thead>
+              <tr class="header">
+                <th>#id</th>
+                <th>id_proveedor</th>
+                <th>id_pieza</th>
+                <th>fecha_hora</th>
+                <th>cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="odd">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1/01/2018 08:00:00</td>
+                <td>100</td>
+              </tr>
+              <tr class="even">
+                <td>2</td>
+                <td>1</td>
+                <td>1</td>
+                <td>20/01/2018 10:00:00</td>
+                <td>100</td>
+              </tr>
+              <tr class="odd">
+                <td>3</td>
+                <td>1</td>
+                <td>1</td>
+                <td>20/01/2018 17:00:00</td>
+                <td>100</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3
+            data-number="1.4.1"
+            id="relaciones-reflexivas-con-cardinalidad-nn"
+          >
+            Relaciones reflexivas con cardinalidad N:N
+          </h3>
+          <figure>
+            <img
+              src="../img/relación-muchos-a-muchos-reflexiva.svg"
+              alt="Relación muchos a muchos reflexiva"
+            />
+            <figcaption aria-hidden="true">
+              Relación muchos a muchos reflexiva
+            </figcaption>
+          </figure>
+          <p>En este caso tendremos dos tablas en el modelo relacional:</p>
+          <ul>
+            <li>
+              VÍDEO(<strong>id</strong>, título, descripción, reproducciones)
+            </li>
+            <li>
+              VÍDEOS_RELACIONADOS(<strong>id_video</strong>
+              >, strong>id_video_relacionado</strong>
+              >)
+              <ul>
+                <li><em>id_video</em>: FOREIGN KEY de VÍDEO(id)</li>
+                <li><em>id_video_relacionado</em>: FOREIGN KEY de VÍDEO(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <h2 data-number="1.5" id="relaciones-grado-3">
+            Relaciones grado 3
+          </h2>
+          <p>
+            Siempre que sea posible se recomienda convertir las relaciones de
+            grado 3 en dos relaciones de grado 2.
+          </p>
+          <p>
+            Las relaciones de grado 3 pueden generar una nueva tabla dependiendo
+            de la cardinalidad de la relación.
+          </p>
+          <h3 data-number="1.5.1" id="cardinalidad-nnn">
+            Cardinalidad N:N:N
+          </h3>
+          <p>
+            En este caso creamos una tabla. La clave primaria de la nueva tabla
+            estará formada por las <strong>tres</strong> claves de las entidades
+            que participan en la relación.
+          </p>
+          <figure>
+            <img src="../img/relación-grado-3.svg" alt="Relación grado 3" />
+            <figcaption aria-hidden="true">Relación grado 3</figcaption>
+          </figure>
+          <h3 data-number="1.5.2" id="cardinalidad-1nn">
+            Cardinalidad 1:N:N
+          </h3>
+          <p>
+            En este caso creamos una tabla. La clave primaria de la nueva tabla
+            estará formada por las <strong>dos</strong> claves de las entidades
+            que participan como N en la relación.
+          </p>
+          <h3 data-number="1.5.3" id="cardinalidad-11n">
+            Cardinalidad 1:1:N
+          </h3>
+          <p>
+            En este caso <strong>no es necesario crear una tabla</strong>. La
+            entidad que participa como N recibe las claves de las dos entidades
+            que participan como 1.
+          </p>
+          <h2
+            data-number="1.6"
+            id="generalización-y-especialización-relaciones-isa"
+          >
+            Generalización y Especialización (Relaciones ISA)
+          </h2>
+          <p>
+            Existen varias soluciones para realizar el el paso a tablas de una
+            especialización. La solución que se elija en cada caso dependerá del
+            tipo de especialización que estemos resolviendo: total, parcial,
+            inclusiva o exclusiva.
+          </p>
+          <p>
+            Las 3 soluciones posibles que podemos aplicar son las siguientes:
+          </p>
+          <ol type="1">
+            <li>
+              <p>
+                Crear una única tabla para la superclase. En este caso todos los
+                atributos de las subclases se guardarían en la superclase.
+              </p>
+            </li>
+            <li>
+              <p>
+                Crear una tabla sólo para las subclases. En este caso los
+                atributos de la superclase habría que guardarlos en cada una de
+                las subclases.
+              </p>
+            </li>
+            <li>
+              <p>
+                Crear una tabla para cada una de las entidades, tanto para la
+                superclase como las subclases. En este caso las subclases
+                tendrían que guardar la clave de la primaria de la superclase.
+              </p>
+            </li>
+          </ol>
+          <p><strong>Ejemplo de especialización exclusiva/total</strong></p>
+          <p>
+            En este caso sería adecuado utilizar la solución 2 o 3. También
+            sería posible utilizar la solución 1, pero al tratarse de una
+            especialización exlusiva, tendríamos muchas columnas con valores
+            <code>NULL</code>.
+          </p>
+          <p>
+            <img src="../img/generalizacion-solucion-2.svg" alt="diagrama 11" />
+          </p>
+          <p>
+            <strong
+              >Solución 2: Crear una tabla sólo para las subclases.</strong
+            >
+          </p>
+          <ul>
+            <li>
+              <p>
+                EPISODIO(<strong>id</strong>, título, sinopsis, imagen,
+                archivo_vídeo, duración temporada, número)
+              </p>
+            </li>
+            <li>
+              <p>
+                PELÍCULA(<strong>id</strong>, título, sinopsis, imagen,
+                archivo_vídeo, duración puntuación_imdb, director)
+              </p>
+            </li>
+          </ul>
+          <p>
+            <strong
+              >Solución 3: Crear una tabla para cada una de las
+              entidades.</strong
+            >
+          </p>
+          <ul>
+            <li>
+              <p>
+                VÍDEO(<strong>id</strong>, título, sinopsis, imagen,
+                archivo_vídeo, duración, <strong>tipo</strong>)
+              </p>
+            </li>
+            <li>
+              <p>EPISODIO(<strong>id</strong>, temporada, número)</p>
+              <ul>
+                <li><strong>id</strong>: FK de VÍDEO(id)</li>
+              </ul>
+            </li>
+            <li>
+              <p>PELÍCULA(<strong>id</strong>, puntuación_imdb, director)</p>
+              <ul>
+                <li><strong>id</strong>: FK de VÍDEO(id)</li>
+              </ul>
+            </li>
+          </ul>
+          <p><strong>Ejemplo de especialización inclusiva/total</strong></p>
+          <p>
+            En este caso podríamos utilizar cualquiera de las tres soluciones,
+            dependerá del contexto del ejercicio y de cómo se relacionen estas
+            entidades con el resto de entidades del diagrama.
+          </p>
+          <p>
+            <img src="../img/generalizacion-solucion-1.svg" alt="diagrama 12" />
+          </p>
+          <p>
+            <strong
+              >Solución 1. Crear una única tabla para la superclase.</strong
+            >
+          </p>
+          <ul>
+            <li>
+              LIBRO(<strong>id</strong>, título, isbn, año_publicación,
+              descripción, <mark>tipo</mark>, lugar_impresión, fecha_impresión,
+              precio_papel, tamaño_archivo, precio_ebook)
+            </li>
+          </ul>
+          <p>
+            <strong
+              >Solución 2: Crear una tabla sólo para las subclases.</strong
+            >
+          </p>
+          <ul>
+            <li>
+              <p>
+                LIBRO_PAPEL(<strong>id</strong>, título, isbn, año_publicación,
+                descripción, lugar_impresión, fecha_impresión, precio)
+              </p>
+            </li>
+            <li>
+              <p>
+                LIBRO_EBOOK(<strong>id</strong>, título, isbn, año_publicación,
+                descripción, tamaño_archivo, precio)
+              </p>
+            </li>
+          </ul>
+          <p>
+            <strong
+              >Solución 3: Crear una tabla para cada una de las
+              entidades.</strong
+            >
+          </p>
+          <ul>
+            <li>
+              <p>
+                LIBRO(<strong>id</strong>, título, isbn, año_publicación,
+                descripción, <mark>tipo</mark>)
+              </p>
+            </li>
+            <li>
+              <p>LIBRO_PAPEL(<strong>id</strong>, fecha_impresión, precio)</p>
+              <ul>
+                <li><strong>id</strong>: FK de LIBRO(id)</li>
+              </ul>
+            </li>
+            <li>
+              <p>LIBRO_EBOOK(<strong>id</strong>, tamaño_archivo, precio)</p>
+              <ul>
+                <li><strong>id</strong>: FK de LIBRO(id)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add some hover effects and animations
+      const cards = document.querySelectorAll(".card");
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)";
+        });
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+
+      // Add hover effects to content sections
+      const sections = document.querySelectorAll(".content-section");
+      sections.forEach((section) => {
+        section.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-2px)";
+        });
+        section.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modelo Entidad-Relación (MER) - Bases de Datos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+        color: #1e293b;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .content-section {
+        background: rgba(255, 255, 255, 0.95);
+        margin: 20px 0;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease;
+      }
+      .content-section:hover {
+        transform: translateY(-2px);
+      }
+      .section-title {
+        color: #5b21b6;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 4px solid #5b21b6;
+        padding-bottom: 1rem;
+      }
+      .subsection-title {
+        color: #7c3aed;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem 0;
+        border-left: 4px solid #7c3aed;
+        padding-left: 1rem;
+      }
+      h3 {
+        color: #8b5cf6;
+        margin: 20px 0 15px 0;
+        font-size: 1.4em;
+        border-left: 3px solid #a78bfa;
+        padding-left: 15px;
+      }
+      h4 {
+        color: #a78bfa;
+        margin: 15px 0 10px 0;
+        font-size: 1.2em;
+        border-left: 2px solid #c4b5fd;
+        padding-left: 10px;
+      }
+      p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #555;
+        font-size: 1.1rem;
+      }
+      .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        color: white;
+      }
+      .definition-box {
+        background: #f0f9ff;
+        border: 1px solid #0ea5e9;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .example-box {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .warning-box {
+        background: #fef2f2;
+        border: 1px solid #f87171;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .info-box {
+        background: #eff6ff;
+        border: 1px solid #3b82f6;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .step-box {
+        background: #f0fdf4;
+        border: 1px solid #22c55e;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #ede9fe, #c4b5fd);
+        border-left: 5px solid #7c3aed;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      .concept-card {
+        background: #f8fafc;
+        border-left: 5px solid #7c3aed;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+      }
+      .concept-card:hover {
+        background: #f3e8ff;
+        transform: scale(1.02);
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-top: 4px solid #7c3aed;
+        transition: transform 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+      }
+      .diagram-box {
+        background: #f8fafc;
+        border: 2px dashed #7c3aed;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+        text-align: center;
+        color: #7c3aed;
+        font-style: italic;
+      }
+      ul,
+      ol {
+        margin: 1rem 0;
+        padding-left: 2rem;
+      }
+      li {
+        margin: 0.5rem 0;
+        line-height: 1.6;
+      }
+      strong {
+        color: #5b21b6;
+        font-weight: 700;
+      }
+      em {
+        color: #7c3aed;
+        font-style: italic;
+      }
+      .entity {
+        background: #ede9fe;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #5b21b6;
+      }
+      .attribute {
+        background: #dbeafe;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #1e40af;
+      }
+      .relationship {
+        background: #fef3c7;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #d97706;
+      }
+      .key {
+        background: #fecaca;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        color: #dc2626;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #e5e7eb;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      tr:hover {
+        background-color: #f3e8ff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="bases-de-datos.html" class="back-button"
+      >← Volver a Bases de Datos</a
+    >
+
+    <div class="container">
+      <div class="content-section">
+        <h1 class="section-title">🎨 Modelo Entidad-Relación (MER)</h1>
+
+        <div class="highlight-box">
+          <h2>¿Qué es el Modelo Entidad-Relación?</h2>
+          <p>
+            El Modelo Entidad-Relación (MER) es una herramienta fundamental para
+            el diseño conceptual de bases de datos. Permite representar de
+            manera gráfica y clara la estructura de los datos que se van a
+            almacenar, facilitando la comunicación entre analistas, diseñadores
+            y desarrolladores.
+          </p>
+          <p>
+            <strong>Analogía:</strong> En la arquitectura se utilizan los planos
+            para diseñar y elaborar el diseño de futuras construcciones. En
+            bases de datos, el modelo entidad relación (MER) cumple el papel del
+            plano en la arquitectura,
+            <strong
+              >nos permite planificar cómo quedará nuestra base de datos, para
+              que sea funcional y optimizada.</strong
+            >
+          </p>
+        </div>
+
+        <div class="diagram-box">
+          <h4>🎨 Ejemplos de Entidades</h4>
+          <img
+            src="../img/entidades.png"
+            alt="Ejemplos de Entidades"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >Las entidades representan objetos del mundo real que pueden ser
+              identificados de manera única.</em
+            >
+          </p>
+        </div>
+
+        <h2 class="subsection-title">📋 Conceptos Fundamentales</h2>
+
+        <div class="grid-2">
+          <div class="concept-card">
+            <h3>🏢 Entidad</h3>
+            <p>
+              Una <strong>entidad</strong> es un objeto del mundo real que puede
+              ser identificado de manera única. Representa algo sobre lo cual
+              queremos almacenar información.
+            </p>
+            <p>
+              <strong>Definición clave:</strong> Las entidades son TODO aquello
+              donde podamos guardar información. Ya sea un objeto del mundo real
+              (como una persona) o algo abstracto (como una cuenta bancaria).
+            </p>
+            <div class="example-box">
+              <h4>Ejemplos de Entidades:</h4>
+              <ul>
+                <li>
+                  <span class="entity">PERSONA</span> - Individuo con
+                  características únicas
+                </li>
+                <li>
+                  <span class="entity">LIBRO</span> - Objeto con información
+                  específica
+                </li>
+                <li>
+                  <span class="entity">MASCOTA</span> - Animal con atributos
+                  particulares
+                </li>
+              </ul>
+              <h4>Otros Ejemplos:</h4>
+              <ul>
+                <li><span class="entity">Estudiante</span></li>
+                <li><span class="entity">Profesor</span></li>
+                <li><span class="entity">Curso</span></li>
+                <li><span class="entity">Libro</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <h3>📝 Atributo</h3>
+            <p>
+              Un <strong>atributo</strong> es una característica o propiedad de
+              una entidad que describe alguna información específica sobre ella.
+            </p>
+            <p>
+              <strong>Pregunta clave:</strong> ¿Qué datos necesito tomar de cada
+              entidad? Son todas aquellas características que nos interesa
+              almacenar.
+            </p>
+            <div class="example-box">
+              <h4>Ejemplo Visual de Entidad y Atributos:</h4>
+              <img
+                src="../img/atributos-entidad.png"
+                alt="Entidad PERSONA con sus atributos"
+                style="
+                  max-width: 100%;
+                  height: auto;
+                  border-radius: 10px;
+                  margin: 15px 0;
+                "
+              />
+              <p><strong>Ejemplo de Entidad PERSONA:</strong></p>
+              <ul>
+                <li>
+                  <span class="attribute">cédula</span> - Identificación única
+                  de la persona
+                </li>
+                <li>
+                  <span class="attribute">nombres</span> - Nombres de la persona
+                </li>
+                <li>
+                  <span class="attribute">apellidos</span> - Apellidos de la
+                  persona
+                </li>
+                <li>
+                  <span class="attribute">género</span> - Género de la persona
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <h3>🔗 Relación</h3>
+            <p>
+              Una <strong>relación</strong> es una asociación entre dos o más
+              entidades que representa una interacción o dependencia entre
+              ellas.
+            </p>
+            <p>
+              <strong>¿Cómo detectar una relación?</strong> Identificando los
+              procesos. ¿Para qué estamos creando este sistema? Para vender! Ese
+              es nuestro proceso y por consecuente nuestra relación.
+            </p>
+            <div class="example-box">
+              <h4>Ejemplo Visual de Relación:</h4>
+              <img
+                src="../img/relaciones.png"
+                alt="Relación entre ESTUDIANTE y LIBRO"
+                style="
+                  max-width: 100%;
+                  height: auto;
+                  border-radius: 10px;
+                  margin: 15px 0;
+                "
+              />
+              <p><strong>Ejemplo de Relaciones:</strong></p>
+              <ul>
+                <li>
+                  <span class="relationship">ESTUDIANTE</span>
+                  <strong>PRESTAR</strong>
+                  <span class="relationship">LIBRO</span>
+                </li>
+              </ul>
+              <h4>Otros Ejemplos:</h4>
+              <ul>
+                <li>
+                  <span class="relationship">Estudiante</span>
+                  <strong>inscribe</strong>
+                  <span class="relationship">Curso</span>
+                </li>
+                <li>
+                  <span class="relationship">Profesor</span>
+                  <strong>enseña</strong>
+                  <span class="relationship">Curso</span>
+                </li>
+                <li>
+                  <span class="relationship">Estudiante</span>
+                  <strong>presta</strong>
+                  <span class="relationship">Libro</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <h3>🔑 Clave Primaria</h3>
+            <p>
+              Una <strong>clave primaria</strong> es un atributo o conjunto de
+              atributos que identifica de manera única cada instancia de una
+              entidad.
+            </p>
+            <p>
+              <strong>Pregunta clave:</strong> ¿Cómo identifico una instancia de
+              otra? Es el campo que nos permite identificar un dato de otro de
+              manera inconfundible e irrepetible.
+            </p>
+            <div class="example-box">
+              <h4>Ejemplo de Clave Primaria:</h4>
+              <p><strong>¿Cómo identifico una persona de otra?</strong></p>
+              <ul>
+                <li>
+                  ¿Por el nombre? No... porque puedo tener muchas personas con
+                  el mismo nombre
+                </li>
+                <li>
+                  ¿Por la dirección? No... porque pueden vivir en la misma
+                  dirección
+                </li>
+                <li>¿Por la cédula? ¡SÍ! La cédula es única e irrepetible</li>
+              </ul>
+              <p><strong>Claves primarias:</strong></p>
+              <ul>
+                <li><span class="key">cédula</span> - Para PERSONA</li>
+                <li><span class="key">código</span> - Para LIBRO</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">🎯 Tipos de Entidades</h2>
+
+        <div class="grid-2">
+          <div class="definition-box">
+            <h3>💪 Entidad Fuerte</h3>
+            <p>
+              Una <strong>entidad fuerte</strong> es aquella que puede existir
+              independientemente y tiene su propia clave primaria.
+            </p>
+            <div class="example-box">
+              <h4>Características:</h4>
+              <ul>
+                <li>Tiene clave primaria propia</li>
+                <li>Puede existir sin depender de otras entidades</li>
+                <li>Se representa con un rectángulo</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="definition-box">
+            <h3>🤝 Entidad Débil</h3>
+            <p>
+              Una <strong>entidad débil</strong> es aquella que depende de otra
+              entidad para su identificación y no puede existir por sí sola.
+            </p>
+            <div class="example-box">
+              <h4>Características:</h4>
+              <ul>
+                <li>No tiene clave primaria propia</li>
+                <li>Depende de una entidad fuerte</li>
+                <li>Se representa con un rectángulo de doble línea</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">🔢 Cardinalidades</h2>
+
+        <div class="info-box">
+          <h3>¿Qué es la Cardinalidad?</h3>
+          <p>
+            La <strong>cardinalidad</strong> indica cuántas instancias de una
+            entidad pueden estar relacionadas con cuántas instancias de otra
+            entidad.
+          </p>
+        </div>
+
+        <div class="diagram-box">
+          <h4>🔢 Tipos de Cardinalidades</h4>
+          <img
+            src="../img/cardinalidad-multiplicidad.png"
+            alt="Tipos de Cardinalidades: 1:1, 1:M, N:M"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >Los tres tipos principales de cardinalidades en el modelo
+              entidad-relación.</em
+            >
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h4>1:1 (Uno a Uno)</h4>
+            <p>
+              Cada instancia de A se relaciona con exactamente una instancia de
+              B, y viceversa.
+            </p>
+            <div class="example-box">
+              <strong>Ejemplo:</strong><br />
+              <span class="entity">Profesor</span> ↔
+              <span class="entity">Cubículo</span><br />
+              Un profesor puede tener 1 cubículo, cada cubículo puede ser usado
+              por 1 solo profesor.
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>1:N (Uno a Muchos)</h4>
+            <p>
+              Una instancia de A puede relacionarse con muchas instancias de B,
+              pero cada B se relaciona con una sola A.
+            </p>
+            <div class="example-box">
+              <strong>Ejemplo:</strong><br />
+              <span class="entity">General</span> →
+              <span class="entity">Soldado</span><br />
+              Un general puede tener muchos soldados a su mando, los soldados
+              solo pueden tener 1 general.
+            </div>
+            <div class="example-box">
+              <strong>Biblioteca:</strong><br />
+              <span class="entity">Estudiante</span> →
+              <span class="entity">Libro</span><br />
+              Un estudiante puede prestar muchos libros, cada libro solo puede
+              ser prestado por un estudiante a la vez.
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>N:N (Muchos a Muchos)</h4>
+            <p>
+              Una instancia de A puede relacionarse con muchas instancias de B,
+              y viceversa.
+            </p>
+            <div class="example-box">
+              <strong>Ejemplo:</strong><br />
+              <span class="entity">Equipo</span> ↔
+              <span class="entity">Estadio</span><br />
+              Los equipos pueden jugar en muchos estadios, en los estadios
+              pueden jugar muchos equipos.
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h3>🎯 Cardinalidad del Sistema Universitario</h3>
+          <p>
+            Basado en nuestro ejemplo del sistema universitario, podemos ver
+            diferentes tipos de cardinalidades:
+          </p>
+          <ul>
+            <li>
+              <span class="relationship">1:1</span> - Un decano dirige una
+              facultad
+            </li>
+            <li>
+              <span class="relationship">1:N</span> - Una facultad tiene muchos
+              docentes
+            </li>
+            <li>
+              <span class="relationship">N:M</span> - Un docente dicta muchas
+              asignaturas, una asignatura puede ser dictada por muchos docentes
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="subsection-title">🔗 Tipos de Relaciones</h2>
+
+        <div class="grid-2">
+          <div class="definition-box">
+            <h3>🔗 Relación Binaria</h3>
+            <p>
+              Es la más famosa y común.
+              <strong
+                >Es cuando solamente dos entidades están relacionadas</strong
+              >
+              a través de sus atributos.
+            </p>
+            <div class="example-box">
+              <h4>Ejemplo:</h4>
+              <p>
+                <span class="entity">CLIENTES</span> ←→
+                <span class="relationship">Comprar</span> ←→
+                <span class="entity">VEHÍCULOS</span>
+              </p>
+              <p>
+                Es una relación binaria porque solo dos entidades se relacionan.
+              </p>
+            </div>
+          </div>
+
+          <div class="definition-box">
+            <h3>🔗 Relación Ternaria</h3>
+            <p>
+              Es cuando tenemos
+              <strong>tres entidades interactuando entre sí</strong>. No son tan
+              comunes y suelen aparecer con cardinalidades de mucho a mucho.
+            </p>
+            <div class="example-box">
+              <h4>Ejemplo:</h4>
+              <p>
+                <span class="entity">PROFESOR</span> ←→
+                <span class="relationship">Enseña</span> ←→
+                <span class="entity">CURSO</span> ←→
+                <span class="entity">AULA</span>
+              </p>
+              <p>Tres entidades relacionadas: profesor enseña curso en aula.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">📊 Tipos de Atributos</h2>
+
+        <div class="diagram-box">
+          <h4>📋 Atributos y Valores</h4>
+          <img
+            src="../img/atributos-valores.png"
+            alt="Ejemplo de Atributos y Valores"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <p>
+            <em
+              >Los atributos son las características (columnas) y los valores
+              son los datos específicos (filas).</em
+            >
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="step-box">
+            <h3>🔑 Atributos Clave</h3>
+            <ul>
+              <li>
+                <strong>Simple:</strong> No se puede dividir (ej: edad, nombre)
+              </li>
+              <li>
+                <strong>Compuesto:</strong> Se puede dividir en sub-atributos
+                (ej: dirección → calle, ciudad, código postal)
+              </li>
+              <li>
+                <strong>Único:</strong> Identifica de manera única cada
+                instancia
+              </li>
+              <li>
+                <strong>Múltiple:</strong> Puede tener varios valores (ej:
+                teléfonos)
+              </li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <h3>📝 Atributos Descriptivos</h3>
+            <ul>
+              <li>
+                <strong>Obligatorio:</strong> Debe tener un valor (ej: nombre)
+              </li>
+              <li><strong>Opcional:</strong> Puede ser nulo (ej: teléfono)</li>
+              <li>
+                <strong>Derivado:</strong> Se calcula a partir de otros
+                atributos (ej: edad a partir de fecha_nacimiento)
+              </li>
+              <li>
+                <strong>Almacenado:</strong> Se guarda físicamente en la base de
+                datos
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">🏗️ Proceso de Diseño MER</h2>
+
+        <div class="step-box">
+          <h3>Paso 1: Identificar Entidades</h3>
+          <p>
+            Analiza el problema y determina qué objetos del mundo real necesitas
+            representar.
+          </p>
+          <div class="example-box">
+            <strong>Preguntas clave:</strong>
+            <ul>
+              <li>¿Qué información necesito almacenar?</li>
+              <li>¿Cuáles son los objetos principales del sistema?</li>
+              <li>¿Qué entidades son independientes?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <h3>Paso 2: Identificar Atributos</h3>
+          <p>
+            Para cada entidad, determina qué características necesitas
+            almacenar.
+          </p>
+          <div class="example-box">
+            <strong>Consideraciones:</strong>
+            <ul>
+              <li>¿Qué información es relevante para el negocio?</li>
+              <li>¿Cuáles atributos son únicos?</li>
+              <li>¿Hay atributos que se pueden derivar?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <h3>Paso 3: Identificar Relaciones</h3>
+          <p>Determina cómo se relacionan las entidades entre sí.</p>
+          <div class="example-box">
+            <strong>Preguntas clave:</strong>
+            <ul>
+              <li>¿Cómo interactúan las entidades?</li>
+              <li>¿Qué dependencias existen entre ellas?</li>
+              <li>¿Cuál es la cardinalidad de cada relación?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <h3>Paso 4: Definir Claves Primarias</h3>
+          <p>Asigna identificadores únicos a cada entidad.</p>
+          <div class="example-box">
+            <strong>Recomendaciones:</strong>
+            <ul>
+              <li>Usa identificadores numéricos cuando sea posible</li>
+              <li>Evita claves primarias compuestas</li>
+              <li>Asegúrate de que sean únicas y estables</li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">⚠️ Errores Comunes</h2>
+
+        <div class="warning-box">
+          <h3>❌ Errores Frecuentes en el Diseño MER</h3>
+          <ul>
+            <li>
+              <strong>Entidades mal definidas:</strong> No distinguir entre
+              entidades y atributos
+            </li>
+            <li>
+              <strong>Relaciones incorrectas:</strong> Cardinalidades mal
+              definidas
+            </li>
+            <li>
+              <strong>Atributos en relaciones:</strong> Colocar atributos en el
+              lugar incorrecto
+            </li>
+            <li>
+              <strong>Redundancia:</strong> Incluir información que se puede
+              derivar
+            </li>
+            <li>
+              <strong>Falta de normalización:</strong> No seguir las reglas de
+              diseño
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="subsection-title">✅ Mejores Prácticas</h2>
+
+        <div class="info-box">
+          <h3>🎯 Consejos para un Buen Diseño MER</h3>
+          <ul>
+            <li>
+              <strong>Nombres claros:</strong> Usa nombres descriptivos y
+              consistentes
+            </li>
+            <li><strong>Simplicidad:</strong> Evita la sobre-complejidad</li>
+            <li>
+              <strong>Consistencia:</strong> Mantén un estilo uniforme en todo
+              el diagrama
+            </li>
+            <li>
+              <strong>Validación:</strong> Revisa el diseño con usuarios finales
+            </li>
+            <li>
+              <strong>Documentación:</strong> Documenta las decisiones de diseño
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="subsection-title">
+          🎨 Ejemplo Completo: Sistema Universitario
+        </h2>
+
+        <div class="diagram-box">
+          <h4>📊 Diagrama MER del Sistema Universitario</h4>
+          <div class="example-box">
+            <h5>📋 Enunciado del Problema:</h5>
+            <p>
+              <strong>En una universidad:</strong> Las facultades son dirigidas
+              por un decano y a su vez, un decano dirige una facultad.
+            </p>
+            <p>
+              Cada facultad cuenta con una serie de docentes, pero cada docente
+              solo puede pertenecer a una facultad.
+            </p>
+            <p>
+              Cada docente dicta varias asignaturas, así mismo una misma
+              asignatura la pueden dictar docentes diferentes.
+            </p>
+            <p>
+              Los estudiantes inscriben las asignaturas que le corresponde cada
+              semestre.
+            </p>
+            <div class="info-box">
+              <h6>📝 Información Requerida:</h6>
+              <p>
+                <strong>De las facultades:</strong> nombre, ubicación y número
+                de bloque.
+              </p>
+              <p>
+                <strong>De los decanos:</strong> cédula, nombres, apellidos y
+                celular.
+              </p>
+              <p>
+                <strong>De los docentes:</strong> cédula, nombres, apellidos y
+                título.
+              </p>
+              <p>
+                <strong>De las asignaturas:</strong> código, nombre y número de
+                créditos.
+              </p>
+              <p>
+                <strong>De los estudiantes:</strong> identificación, nombres,
+                apellidos y dirección de residencia.
+              </p>
+            </div>
+            <p>
+              <strong
+                >Teniendo esta información lo primero que debemos hacer es sacar
+                un listado de las entidades y relaciones que allí
+                identifiquemos.</strong
+              >
+            </p>
+          </div>
+          <img
+            src="../img/diagrama-entidad-relacion.png"
+            alt="Diagrama Entidad-Relación del Sistema Universitario"
+            style="
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+              margin: 20px 0;
+            "
+          />
+          <div class="info-box">
+            <h5>🎯 Entidades Identificadas:</h5>
+            <ul>
+              <li>
+                <span class="entity">FACULTAD</span> - Sección de la universidad
+              </li>
+              <li>
+                <span class="entity">DECANO</span> - Persona que dirige una
+                facultad
+              </li>
+              <li>
+                <span class="entity">DOCENTE</span> - Profesor que dicta
+                asignaturas
+              </li>
+              <li>
+                <span class="entity">ASIGNATURA</span> - Materia que se imparte
+              </li>
+              <li>
+                <span class="entity">ESTUDIANTE</span> - Persona que estudia
+              </li>
+            </ul>
+            <h5>🔗 Relaciones Identificadas:</h5>
+            <ul>
+              <li>
+                <span class="relationship">DIRIGIR</span> - Entre Facultad y
+                Decano (1:1)
+              </li>
+              <li>
+                <span class="relationship">PERTENECER</span> - Entre Facultad y
+                Docente (1:N)
+              </li>
+              <li>
+                <span class="relationship">DICTAR</span> - Entre Docente y
+                Asignatura (N:M)
+              </li>
+              <li>
+                <span class="relationship">INSCRIBIR</span> - Entre Asignatura y
+                Estudiante (N:M)
+              </li>
+            </ul>
+            <h5>📝 Atributos de cada Entidad:</h5>
+            <ul>
+              <li>
+                <strong>FACULTAD:</strong>
+                <span class="attribute">nombre</span>,
+                <span class="attribute">ubicación</span>,
+                <span class="attribute">número</span>
+              </li>
+              <li>
+                <strong>DECANO:</strong> <span class="attribute">cédula</span>,
+                <span class="attribute">nombres</span>,
+                <span class="attribute">apellidos</span>,
+                <span class="attribute">celular</span>
+              </li>
+              <li>
+                <strong>DOCENTE:</strong> <span class="attribute">cédula</span>,
+                <span class="attribute">nombres</span>,
+                <span class="attribute">apellidos</span>,
+                <span class="attribute">título</span>
+              </li>
+              <li>
+                <strong>ASIGNATURA:</strong>
+                <span class="attribute">código</span>,
+                <span class="attribute">nombre</span>,
+                <span class="attribute">créditos</span>
+              </li>
+              <li>
+                <strong>ESTUDIANTE:</strong>
+                <span class="attribute">identificación</span>,
+                <span class="attribute">nombres</span>,
+                <span class="attribute">apellidos</span>,
+                <span class="attribute">dirección</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <h3>🚀 Siguiente Paso</h3>
+          <p>
+            Una vez que tengas tu modelo MER bien definido, el siguiente paso es
+            transformarlo en un <strong>Modelo Relacional</strong>. Esto te
+            permitirá implementar tu diseño en una base de datos real.
+          </p>
+          <p>
+            <strong>Continúa con:</strong>
+            <a
+              href="modelo-relacional.html"
+              style="color: #5b21b6; font-weight: bold"
+            >
+              Del Modelo Conceptual al Modelo Relacional →
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add hover effects to cards
+      const cards = document.querySelectorAll(".card, .concept-card");
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-2px)";
+        });
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+
+      // Add hover effects to content sections
+      const sections = document.querySelectorAll(".content-section");
+      sections.forEach((section) => {
+        section.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-2px)";
+        });
+        section.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+    </script>
+  </body>
+</html>
