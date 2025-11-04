@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clase de SQL: Comandos DDL</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 2em;
+        background: #f9f9f9;
+        color: #263238;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #003366;
+      }
+      h1::before {
+        content: "🗄️ ";
+      }
+      h2::before {
+        content: "📑 ";
+        color: #0059b2;
+      }
+      h3::before {
+        content: "➤ ";
+        color: #2e607d;
+      }
+      code,
+      pre {
+        background: #f4f4f4;
+        padding: 0.4em 0.8em;
+        border-radius: 4px;
+      }
+      pre {
+        display: block;
+        margin-left: 2em;
+        box-shadow: 0 2px 6px #00336611;
+      }
+      .ejemplo {
+        background: #e6f7ff;
+        padding: 0.6em;
+        border-left: 3px solid #1890ff;
+      }
+      .criterios,
+      .faq,
+      .recursos {
+        background: #fff3cd;
+        padding: 0.6em;
+        border-left: 3px solid #ffc107;
+        margin: 1em 0;
+      }
+      .ejercicios {
+        background: #eaf8ec;
+        border-left: 3px solid #43a047;
+        padding: 0.7em 1em;
+        margin: 1.5em 0;
+      }
+      ul {
+        margin-left: 2em;
+      }
+      .indice {
+        background: #ffe0b2;
+        border-left: 3px solid #ffa726;
+        padding: 8px 18px;
+        margin-bottom: 18px;
+      }
+      a {
+        color: #0059b2;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+        color: #003366;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="definicion">
+      Clase de SQL: Comandos DDL (Data Definition Language)
+    </h1>
+    <p>
+      <strong>¿Qué es DDL?</strong> <br />
+      <strong>DDL (Data Definition Language)</strong> permite definir y
+      gestionar la estructura de una base de datos. Incluye comandos para crear,
+      modificar y eliminar tablas, relaciones y restricciones.
+      <br />
+      <i style="color: #607d8b"
+        >¡Recuerda! DDL se centra en la definición de la base de datos, NO en la
+        manipulación de los datos.</i
+      >
+    </p>
+
+    <h2 id="comandos">Comandos DDL más importantes</h2>
+    <ul>
+      <li>
+        <strong>CREATE</strong>: Permite crear nuevas bases de datos, tablas y
+        otros objetos. Ideal para empezar tu estructura desde cero.<br />
+        <pre>
+CREATE TABLE Clientes (
+    ClienteID INT PRIMARY KEY,
+    Nombre VARCHAR(255) NOT NULL,
+    Email VARCHAR(100),
+    Pais VARCHAR(60)
+);
+        </pre>
+      </li>
+      <li>
+        <strong>ALTER</strong>: Modifica la estructura de tablas u objetos
+        existentes. Es útil para agregar, cambiar o eliminar columnas.<br />
+        <pre>
+ALTER TABLE Clientes ADD Telefono VARCHAR(15);
+ALTER TABLE Clientes ALTER COLUMN Email VARCHAR(255);
+ALTER TABLE Clientes DROP COLUMN Pais;
+        </pre>
+      </li>
+      <li>
+        <strong>DROP</strong>: Elimina objetos (tabla, base de datos, etc).
+        <span style="color: crimson"
+          >¡Advertencia! Esta operación es irreversible.</span
+        ><br />
+        <pre>
+DROP TABLE Clientes;
+DROP DATABASE MiBaseDatos;
+        </pre>
+      </li>
+      <li>
+        <strong>TRUNCATE</strong>: Elimina todos los registros de una tabla,
+        pero conserva su estructura para seguir usándola.<br />
+        <pre>TRUNCATE TABLE Clientes;</pre>
+      </li>
+      <li>
+        <strong>RENAME</strong>: Cambia el nombre de tablas u objetos.
+        <br />
+        <pre>ALTER TABLE Clientes RENAME TO ClientesVIP;</pre>
+      </li>
+      <li>
+        <strong>COMMENT</strong>: Añade comentarios para documentación, mejora
+        la legibilidad y mantenimiento. <br />
+        <pre>COMMENT ON TABLE Clientes IS 'Tabla principal de clientes';</pre>
+      </li>
+    </ul>
+
+    <h2 id="ejemplos">Ejemplos prácticos</h2>
+    <h3>Crear tabla de actores</h3>
+    <pre>
+CREATE TABLE actor (
+    actor_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    last_update DATE
+);
+    </pre>
+    <h3>Modificar tabla existente</h3>
+    <pre>
+ALTER TABLE actor ADD email VARCHAR(100);
+ALTER TABLE actor ALTER COLUMN first_name VARCHAR(100);
+    </pre>
+    <h3>Restricciones y relaciones entre tablas</h3>
+    <pre>
+CREATE TABLE Vehiculos (
+    CodigoVehiculo INT PRIMARY KEY,
+    marca VARCHAR(20),
+    modelo VARCHAR(20),
+    cilindrada DECIMAL
+);
+
+CREATE TABLE Personas_vehiculos (
+    dni VARCHAR(9),
+    CodigoVehiculo INT,
+    CONSTRAINT pk PRIMARY KEY(dni, CodigoVehiculo),
+    FOREIGN KEY (CodigoVehiculo) REFERENCES Vehiculos(CodigoVehiculo)
+);
+    </pre>
+
+    <h2 id="ejercicios">Ejercicios propuestos</h2>
+    <div class="ejercicios">
+      <ul>
+        <li>
+          <b>Ejercicio 1:</b> Crea una tabla CLIENTES con los campos: id_cliente
+          (entero, clave primaria), nombre (varchar 50), apellido (varchar 50),
+          email (varchar 100), fecha_registro (date).
+        </li>
+        <li>
+          <b>Ejercicio 2:</b> En la tabla CLIENTES, agrega las columnas
+          "telefono" (varchar 15) y "activo" (boolean).
+        </li>
+        <li>
+          <b>Ejercicio 3:</b> Crea dos tablas: FAMILIA (CodigoFamilia,
+          DescripcionFamilia) y PERSONAS (dni, nombre, apellido1, apellido2,
+          CodigoFamilia), estableciendo las claves primarias y foráneas.
+        </li>
+        <li>
+          <b>Ejercicio 4:</b> Crea una tabla PRODUCTOS con restricciones UNIQUE,
+          CHECK y NOT NULL en los campos correspondientes.
+        </li>
+      </ul>
+    </div>
+
+    <h2 id="faq">Preguntas frecuentes (FAQ)</h2>
+    <div class="faq">
+      <ul>
+        <li>
+          <b>¿DDL también puede modificar los datos?</b> <br />
+          No, para modificar registros se usan los comandos DML.
+        </li>
+        <li>
+          <b>¿DROP elimina todos los datos y la estructura?</b> <br />
+          Sí, elimina tanto la estructura como los datos. Úsalo con cuidado.
+        </li>
+        <li>
+          <b>¿Puedo revertir un DROP TABLE?</b> <br />
+          No, salvo que tengas backups. Es permanente.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
