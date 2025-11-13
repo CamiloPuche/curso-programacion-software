@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clase de SQL: Comandos DML</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 2em;
+        background: #f9f9f9;
+        color: #263238;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #003366;
+      }
+      h1::before {
+        content: "💾 ";
+      }
+      h2::before {
+        content: "🧮 ";
+        color: #0059b2;
+      }
+      h3::before {
+        content: "➤ ";
+        color: #2e607d;
+      }
+      code,
+      pre {
+        background: #f4f4f4;
+        padding: 0.4em 0.8em;
+        border-radius: 4px;
+      }
+      pre {
+        display: block;
+        margin-left: 2em;
+        box-shadow: 0 2px 6px #00336611;
+      }
+      .ejemplo {
+        background: #e6f7ff;
+        padding: 0.6em;
+        border-left: 3px solid #1890ff;
+      }
+      .criterios,
+      .faq,
+      .recursos {
+        background: #fff3cd;
+        padding: 0.6em;
+        border-left: 3px solid #ffc107;
+        margin: 1em 0;
+      }
+      .ejercicios {
+        background: #eaf8ec;
+        border-left: 3px solid #43a047;
+        padding: 0.7em 1em;
+        margin: 1.5em 0;
+      }
+      ul {
+        margin-left: 2em;
+      }
+      .indice {
+        background: #ffe0b2;
+        border-left: 3px solid #ffa726;
+        padding: 8px 18px;
+        margin-bottom: 18px;
+      }
+      a {
+        color: #0059b2;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+        color: #003366;
+      }
+      .tip {
+        background: #e8f5e9;
+        border-left: 3px solid #2e7d32;
+        padding: 0.6em 1em;
+        margin: 1em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="definicion">
+      Clase de SQL: Comandos DML (Data Manipulation Language)
+    </h1>
+    <p>
+      <strong>¿Qué es DML?</strong> <br />
+      <strong>DML (Data Manipulation Language)</strong> se enfoca en insertar,
+      consultar, actualizar y eliminar datos dentro de las tablas existentes de
+      una base de datos. <br />
+      <i style="color: #607d8b"
+        >A diferencia de DDL, DML trabaja con los registros que ya viven dentro
+        de la estructura.</i
+      >
+    </p>
+
+    <div class="tip">
+      <b>Recuerda:</b> Los cambios que haces con DML suelen requerir
+      confirmación con <code>COMMIT</code> o reversión con <code>ROLLBACK</code>
+      cuando trabajas dentro de transacciones.
+    </div>
+
+    <h2 id="comandos">Comandos DML más importantes</h2>
+    <ul>
+      <li>
+        <strong>INSERT</strong>: Agrega nuevos registros a una tabla. Puedes
+        insertar un registro a la vez o múltiples registros en una sola
+        sentencia.<br />
+        <pre>
+INSERT INTO Clientes (ClienteID, Nombre, Email, Pais)
+VALUES (1, 'Ana Torres', 'ana@example.com', 'Colombia');
+
+INSERT INTO Clientes (ClienteID, Nombre, Email, Pais)
+VALUES
+    (2, 'Luis Pérez', 'luis@example.com', 'México'),
+    (3, 'Sara Gómez', 'sara@example.com', 'Chile');
+        </pre>
+      </li>
+      <li>
+        <strong>UPDATE</strong>: Modifica los valores de uno o varios registros.
+        Siempre combina este comando con una cláusula <code>WHERE</code> para
+        evitar cambiar toda la tabla por accidente.<br />
+        <pre>
+UPDATE Clientes
+SET Email = 'ana.torres@example.com', Pais = 'Perú'
+WHERE ClienteID = 1;
+        </pre>
+      </li>
+      <li>
+        <strong>DELETE</strong>: Elimina registros de una tabla. Al igual que
+        con <code>UPDATE</code>, utiliza <code>WHERE</code> para controlar qué
+        filas se borran.<br />
+        <pre>
+DELETE FROM Clientes
+WHERE ClienteID = 3;
+        </pre>
+      </li>
+      <li>
+        <strong>SELECT</strong>: Recupera datos de las tablas. Aunque algunos
+        autores lo clasifican como parte de DQL (Data Query Language), suele
+        estudiarse junto a DML porque manipula y consulta los registros.<br />
+        <pre>
+SELECT ClienteID, Nombre, Pais
+FROM Clientes
+WHERE Pais = 'Perú'
+ORDER BY Nombre ASC;
+        </pre>
+      </li>
+    </ul>
+
+    <h2 id="ejemplos">Ejemplos prácticos</h2>
+    <h3>Preparar la tabla de clientes</h3>
+    <pre>
+CREATE TABLE Clientes (
+    ClienteID INT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Email VARCHAR(150),
+    Pais VARCHAR(60),
+    FechaRegistro DATE
+);
+    </pre>
+
+    <h3>Insertar y consultar datos de clientes</h3>
+    <pre>
+INSERT INTO Clientes (ClienteID, Nombre, Email, Pais, FechaRegistro)
+VALUES (4, 'Camila Ríos', 'camila.rios@example.com', 'Argentina', CURRENT_DATE);
+
+SELECT Nombre, Email
+FROM Clientes
+WHERE FechaRegistro &gt;= DATE '2024-01-01';
+    </pre>
+
+    <h3>Preparar la tabla de productos</h3>
+    <pre>
+CREATE TABLE Productos (
+    ProductoID INT PRIMARY KEY,
+    Nombre VARCHAR(120),
+    Precio DECIMAL(10, 2),
+    Stock INT
+);
+    </pre>
+
+    <h3>Actualizar inventario con control de stock</h3>
+    <pre>
+UPDATE Productos
+SET Stock = Stock - 5
+WHERE ProductoID = 101 AND Stock &gt;= 5;
+    </pre>
+
+    <h3>Preparar la tabla de pedidos</h3>
+    <pre>
+CREATE TABLE Pedidos (
+    PedidoID INT PRIMARY KEY,
+    ClienteID INT,
+    FechaPedido DATE,
+    Estado VARCHAR(20)
+);
+    </pre>
+
+    <h3>Eliminar pedidos antiguos</h3>
+    <pre>
+DELETE FROM Pedidos
+WHERE FechaPedido &lt; DATE '2023-01-01' AND Estado = 'CERRADO';
+    </pre>
+
+    <h2 id="ejercicios">Ejercicios propuestos</h2>
+    <div class="ejercicios">
+      <ul>
+        <li>
+          <b>Ejercicio 1 (INSERT):</b> Crea una tabla <code>CLIENTES</code> con
+          los campos <i>ClienteID</i> (INT, PK), <i>Nombre</i> (VARCHAR 80) y
+          <i>Email</i> (VARCHAR 150). Inserta tres registros usando
+          <code
+            >INSERT INTO CLIENTES (ClienteID, Nombre, Email) VALUES (...);</code
+          >. Cambia los valores entre paréntesis para cada registro.
+        </li>
+        <li>
+          <b>Ejercicio 2 (UPDATE):</b> Crea la tabla <code>PRODUCTOS</code> con
+          los campos <i>ProductoID</i> (INT, PK), <i>Nombre</i> (VARCHAR 100) y
+          <i>Stock</i> (INT). Inserta dos productos y luego incrementa el stock
+          de uno de ellos con
+          <code
+            >UPDATE PRODUCTOS SET Stock = Stock + 5 WHERE ProductoID = 1;</code
+          >
+          (cambia el ID según corresponda).
+        </li>
+        <li>
+          <b>Ejercicio 3 (DELETE):</b> Crea la tabla <code>PEDIDOS</code> con
+          campos <i>PedidoID</i> (INT, PK), <i>ClienteID</i> (INT) y
+          <i>Estado</i> (VARCHAR 20). Inserta tres pedidos con distintos estados
+          y elimina los registros cuyo estado sea
+          <code>'CANCELADO'</code> usando
+          <code>DELETE FROM PEDIDOS WHERE Estado = 'CANCELADO';</code>.
+        </li>
+        <li>
+          <b>Ejercicio 4 (SELECT):</b> Crea una tabla <code>LIBROS</code> con
+          campos <i>LibroID</i> (INT, PK), <i>Titulo</i> (VARCHAR 120) y
+          <i>Autor</i> (VARCHAR 120). Inserta al menos tres libros y realiza una
+          consulta que muestre los títulos de un autor concreto con
+          <code>SELECT Titulo FROM LIBROS WHERE Autor = 'Nombre Autor';</code>.
+        </li>
+      </ul>
+    </div>
+
+    <h2 id="faq">Preguntas frecuentes (FAQ)</h2>
+    <div class="faq">
+      <ul>
+        <li>
+          <b>¿DML necesita transacciones?</b> <br />
+          Depende del motor de base de datos, pero es recomendable trabajar con
+          transacciones para garantizar consistencia.
+        </li>
+        <li>
+          <b>¿Qué pasa si olvido el WHERE en un UPDATE o DELETE?</b> <br />
+          Se afectarán todos los registros de la tabla. Por eso es buena
+          práctica validar con un <code>SELECT</code> previo.
+        </li>
+        <li>
+          <b>¿SELECT es DML o DQL?</b> <br />
+          Depende de la bibliografía, pero en la práctica se estudia junto a DML
+          porque se usa para manipular y visualizar los registros.
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
